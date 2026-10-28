@@ -13,7 +13,7 @@
       --text: #ffffff;
       --muted: #94a3b8;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
     body {
       background: radial-gradient(circle at top left, rgba(184,255,1,0.18), transparent 45%),
                   radial-gradient(circle at bottom right, rgba(255,0,85,0.18), transparent 45%),
@@ -54,8 +54,155 @@
     h1 { font-size: 30px; font-weight: 900; letter-spacing: 1px; color: #ffffff; margin-bottom: 4px; }
     .subtitle { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--acc); margin-bottom: 10px; }
     .desc { color: var(--muted); font-size: 14px; line-height: 1.4; margin-bottom: 16px; }
-    .features { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
-    .feat { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+
+    /* --- SCREENSHOT SLIDER --- */
+    .slider-header {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); margin-bottom: 8px;
+    }
+    .slider-wrapper {
+      position: relative;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+    }
+    .slider-track {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      width: 100%;
+      padding: 4px 2px;
+    }
+    .slider-track::-webkit-scrollbar { display: none; }
+    .slide-item {
+      flex: 0 0 calc(50% - 5px);
+      scroll-snap-align: start;
+      background: #080a10;
+      border: 1.5px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      aspect-ratio: 9 / 16;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .slide-item:hover, .slide-item:active {
+      border-color: var(--acc);
+      transform: scale(0.98);
+    }
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      padding: 18px 6px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .zoom-hint {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 11px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* Kleine weiße Pfeile links & rechts */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(15, 18, 28, 0.85);
+      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      padding: 0;
+      margin: 0;
+      line-height: 1;
+    }
+    .slider-arrow:hover { background: var(--acc); color: #000; border-color: var(--acc); }
+    .slider-arrow.left { left: -10px; }
+    .slider-arrow.right { right: -10px; }
+
+    /* --- VOLLBILD LIGHTBOX --- */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 6, 10, 0.95);
+      z-index: 9999;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 80vh;
+      border-radius: 18px;
+      border: 2px solid var(--acc);
+      box-shadow: 0 0 35px rgba(184,255,1,0.25);
+      object-fit: contain;
+    }
+    .lightbox-title {
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--acc);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 18px; right: 18px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid #fff;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.7);
+      border: 1.5px solid #fff;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lb-arrow.left { left: 12px; }
+    .lb-arrow.right { right: 12px; }
+
+    /* --- FORMULAR --- */
     form { display: flex; flex-direction: column; gap: 12px; text-align: left; }
     label.lbl { font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: -6px; display: block; }
     input[type="text"], input[type="email"], select {
@@ -63,13 +210,60 @@
       border: 1px solid #2d3548; background: #07080d; color: #fff; font-size: 15px; outline: none;
     }
     input:focus, select:focus { border-color: var(--acc); }
-    .vip-box { background: rgba(184, 255, 1, 0.08); border: 1px solid rgba(184, 255, 1, 0.35); border-radius: 12px; padding: 10px 12px; }
+
+    /* --- VIP TESTER BOX & EXTRA KÄSTCHEN --- */
+    .vip-box {
+      background: rgba(184, 255, 1, 0.08);
+      border: 1.5px solid rgba(184, 255, 1, 0.4);
+      border-radius: 14px;
+      padding: 12px;
+      transition: all 0.25s ease;
+    }
     .chk { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #cbd5e1; cursor: pointer; }
-    .chk input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--acc); }
-    button {
+    .chk input { margin-top: 2px; width: 18px; height: 18px; accent-color: var(--acc); flex-shrink: 0; }
+    
+    .vip-extra-info {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(184,255,1,0.14), rgba(255,0,85,0.14));
+      border: 1px solid var(--acc);
+      color: #f8fafc;
+      font-size: 12.5px;
+      line-height: 1.45;
+      box-shadow: 0 0 18px rgba(184,255,1,0.15);
+    }
+    .vip-extra-info.show { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .vip-badge-title {
+      display: inline-block;
+      background: var(--acc);
+      color: #05060a;
+      font-weight: 900;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .coin-highlight { color: var(--acc); font-weight: 800; }
+    .vip-disclaimer {
+      display: block;
+      margin-top: 6px;
+      font-size: 11px;
+      color: #cbd5e1;
+      opacity: 0.85;
+      font-style: italic;
+    }
+
+    .submit-btn {
       background: var(--acc); color: #05060a; border: none; padding: 15px;
       border-radius: 12px; font-size: 16px; font-weight: 900; text-transform: uppercase;
-      cursor: pointer; box-shadow: 0 0 20px rgba(184,255,1,0.35); margin-top: 4px;
+      cursor: pointer; box-shadow: 0 0 20px rgba(184,255,1,0.35); margin-top: 4px; width: 100%;
     }
     #status { margin-top: 14px; padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.15); border: 1px solid var(--acc); color: var(--acc); }
@@ -94,13 +288,42 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <div class="features">
-      <div class="feat">🎬 Short Video Feed</div>
-      <div class="feat">🎙️ 8er Multi-Live</div>
-      <div class="feat">💎 Coins & Diamonds</div>
-      <div class="feat">👑 Exklusiver VIP Club</div>
+    <!-- VORSCHAUBILDER SLIDER -->
+    <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
+    <div class="slider-wrapper">
+      <button type="button" class="slider-arrow left" onclick="scrollSlider(-1)">‹</button>
+      
+      <div class="slider-track" id="sliderTrack">
+        <!-- Bild 1 -->
+        <div class="slide-item" onclick="openLightbox(0)">
+          <span class="zoom-hint">🔍</span>
+          <img id="img-0" src="screen1.jpg" alt="Short Video Feed" onerror="this.src='https://placehold.co/360x640/121521/b8ff01?text=Short+Video+Feed'">
+          <div class="slide-caption">🎬 Short Video Feed</div>
+        </div>
+        <!-- Bild 2 -->
+        <div class="slide-item" onclick="openLightbox(1)">
+          <span class="zoom-hint">🔍</span>
+          <img id="img-1" src="screen2.jpg" alt="8er Multi-Live" onerror="this.src='https://placehold.co/360x640/121521/ff0055?text=8er+Multi-Live'">
+          <div class="slide-caption">🎙️ 8er Multi-Live</div>
+        </div>
+        <!-- Bild 3 -->
+        <div class="slide-item" onclick="openLightbox(2)">
+          <span class="zoom-hint">🔍</span>
+          <img id="img-2" src="screen3.jpg" alt="Coins & Diamonds" onerror="this.src='https://placehold.co/360x640/121521/00f0ff?text=Coins+%26+Diamonds'">
+          <div class="slide-caption">💎 Coins & Diamonds</div>
+        </div>
+        <!-- Bild 4 -->
+        <div class="slide-item" onclick="openLightbox(3)">
+          <span class="zoom-hint">🔍</span>
+          <img id="img-3" src="screen4.jpg" alt="Exklusiver VIP Club" onerror="this.src='https://placehold.co/360x640/121521/b8ff01?text=VIP+Club'">
+          <div class="slide-caption">👑 Exklusiver VIP Club</div>
+        </div>
+      </div>
+
+      <button type="button" class="slider-arrow right" onclick="scrollSlider(1)">›</button>
     </div>
 
+    <!-- FORMULAR -->
     <form id="waitlist-form">
       <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
       <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
@@ -126,11 +349,23 @@
         <option value="Anderes Land">🌍 Anderes Land</option>
       </select>
 
+      <!-- VIP TESTER CHECKBOX MIT AUFKLAPP-KÄSTCHEN -->
       <div class="vip-box">
         <label class="chk">
-          <input type="checkbox" name="beta_tester" value="Ja" checked>
-          <span>🔥 <strong>VIP Beta-Zugang:</strong> Ich möchte die App schon vorab testen!</span>
+          <input type="checkbox" id="vipCheck" name="beta_tester" value="Ja" onchange="toggleVipInfo()">
+          <span>🔥 <strong>Ja, ich will VIP-Tester werden!</strong> (Jetzt anklicken für exklusive Infos)</span>
         </label>
+
+        <!-- Extra Kästchen, das beim Anklicken aufgeht -->
+        <div class="vip-extra-info" id="vipExtraBox">
+          <span class="vip-badge-title">👑 VIP Premium-Tester Chance</span>
+          <p>
+            Mit deiner Bewerbung hast du die Chance, als exklusiver <strong>VIP Premium-Tester</strong> ausgewählt zu werden! Als aktiver Tester kannst du dir schon vor dem offiziellen Start <span class="coin-highlight">bis zu 1.500 Coins verdienen</span>.
+          </p>
+          <span class="vip-disclaimer">
+            ⚡ Hinweis: Die VIP-Plätze sind streng limitiert. Eine Auswahl ist nicht garantiert – aber mit deinem Haken bist du automatisch im Lostopf!
+          </span>
+        </div>
       </div>
 
       <label class="chk">
@@ -138,11 +373,20 @@
         <span>Ich stimme zu, dass mein Name, Land und meine E-Mail für den App-Start gespeichert werden.</span>
       </label>
 
-      <button type="submit" id="submit-btn">⚡ Jetzt VIP-Platz sichern</button>
+      <button type="submit" class="submit-btn" id="submit-btn">⚡ Jetzt VIP-Platz sichern</button>
     </form>
 
     <div id="status"></div>
     <div class="footer">© 2026 VYBZON • Short, Video & Live Club</div>
+  </div>
+
+  <!-- VOLLBILD-ANSICHT (LIGHTBOX) -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button type="button" class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+    <button type="button" class="lb-arrow left" onclick="changeLightboxSlide(-1, event)">‹</button>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="Vollbild Vorschau">
+    <div id="lightboxTitle" class="lightbox-title"></div>
+    <button type="button" class="lb-arrow right" onclick="changeLightboxSlide(1, event)">›</button>
   </div>
 
   <script>
@@ -152,6 +396,58 @@
       document.documentElement.style.setProperty('--acc', color);
     }
 
+    // Slider per Pfeil links/rechts scrollen
+    function scrollSlider(direction) {
+      const track = document.getElementById('sliderTrack');
+      const scrollAmount = track.clientWidth * 0.55;
+      track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+
+    // VIP Extra-Kästchen ein-/ausblenden
+    function toggleVipInfo() {
+      const chk = document.getElementById('vipCheck');
+      const box = document.getElementById('vipExtraBox');
+      if (chk.checked) {
+        box.classList.add('show');
+      } else {
+        box.classList.remove('show');
+      }
+    }
+
+    // Vollbild-Lightbox Steuerung
+    const captions = [
+      '🎬 Short Video Feed',
+      '🎙️ 8er Multi-Live',
+      '💎 Coins & Diamonds',
+      '👑 Exklusiver VIP Club'
+    ];
+    let currentSlide = 0;
+
+    function openLightbox(index) {
+      currentSlide = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function updateLightbox() {
+      const imgEl = document.getElementById('img-' + currentSlide);
+      document.getElementById('lightboxImg').src = imgEl.src;
+      document.getElementById('lightboxTitle').textContent = captions[currentSlide];
+    }
+
+    function changeLightboxSlide(step, event) {
+      event.stopPropagation();
+      currentSlide = (currentSlide + step + 4) % 4;
+      updateLightbox();
+    }
+
+    function closeLightbox(event) {
+      if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('open');
+      }
+    }
+
+    // Formular absenden
     const form = document.getElementById('waitlist-form');
     const status = document.getElementById('status');
     const btn = document.getElementById('submit-btn');
@@ -173,6 +469,7 @@
           status.className = 'success';
           status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Du bist auf der Liste.';
           form.reset();
+          toggleVipInfo();
         } else {
           status.className = 'error';
           status.textContent = 'Fehler beim Speichern.';
