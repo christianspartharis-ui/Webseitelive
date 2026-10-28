@@ -6,17 +6,18 @@
   <title>VYBZON – Vorregistrierung</title>
   <style>
     :root {
-      --bg: #07080d;
-      --card: #121521;
+      --bg: #050609;
+      --card: rgba(16, 19, 31, 0.82);
       --acc: #b8ff01;
+      --acc-gradient: linear-gradient(135deg, #b8ff01, #76ff03);
       --hot: #ff0055;
       --text: #ffffff;
       --muted: #94a3b8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
     body {
-      background: radial-gradient(circle at top left, rgba(184,255,1,0.18), transparent 45%),
-                  radial-gradient(circle at bottom right, rgba(255,0,85,0.18), transparent 45%),
+      background: radial-gradient(circle at 10% 10%, rgba(184,255,1,0.14), transparent 40%),
+                  radial-gradient(circle at 90% 90%, rgba(255,0,85,0.14), transparent 40%),
                   var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -27,48 +28,83 @@
     }
     .card {
       background: var(--card);
-      max-width: 440px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      max-width: 520px;
       width: 100%;
-      padding: 26px 20px;
-      border-radius: 24px;
-      border: 1.5px solid rgba(184, 255, 1, 0.35);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 25px rgba(184,255,1,0.15);
+      padding: 34px 24px;
+      border-radius: 32px;
+      border: 1.5px solid rgba(184, 255, 1, 0.3);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(184,255,1,0.12);
       text-align: center;
     }
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
     .live-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255, 0, 85, 0.18); border: 1px solid var(--hot);
-      color: #ff4d88; padding: 5px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255, 0, 85, 0.15); border: 1.5px solid rgba(255, 0, 85, 0.5);
+      color: #ff4d88; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800;
+      letter-spacing: 0.5px;
     }
-    .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 8px var(--hot); }
-    .moods { display: flex; gap: 6px; }
-    .mood-dot { width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.4); }
+    .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.08); }
+    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; }
+    .mood-dot:hover { transform: scale(1.15); }
+    
     .logo-box {
-      width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 20px;
-      background: #0b0d14; border: 2px solid var(--acc);
-      box-shadow: 0 0 20px rgba(184,255,1,0.3);
+      width: 86px; height: 86px; margin: 0 auto 14px; border-radius: 24px;
+      background: linear-gradient(135deg, #0b0d14, #181d2d); border: 2px solid var(--acc);
+      box-shadow: 0 0 25px rgba(184,255,1,0.3);
       display: flex; align-items: center; justify-content: center;
-      font-size: 30px; font-weight: 900; color: var(--acc);
+      font-size: 36px; font-weight: 900; color: var(--acc);
     }
-    h1 { font-size: 30px; font-weight: 900; letter-spacing: 1px; color: #ffffff; margin-bottom: 4px; }
-    .subtitle { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--acc); margin-bottom: 10px; }
-    .desc { color: var(--muted); font-size: 14px; line-height: 1.4; margin-bottom: 16px; }
+    h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
+    .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
+    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 22px; }
+
+    /* --- NAVIGATIONSLEISTE --- */
+    .nav-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 6px;
+      margin-bottom: 20px;
+      gap: 6px;
+    }
+    .nav-tab {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 11px 8px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .nav-tab.active {
+      background: var(--acc-gradient);
+      color: #05060a;
+      box-shadow: 0 0 18px rgba(184,255,1,0.35);
+    }
 
     /* --- SCREENSHOT SLIDER --- */
     .slider-header {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--muted); margin-bottom: 8px;
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px;
     }
     .slider-wrapper {
       position: relative;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
     }
     .slider-track {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       overflow-x: auto;
       scroll-behavior: smooth;
       scroll-snap-type: x mandatory;
@@ -78,20 +114,21 @@
     }
     .slider-track::-webkit-scrollbar { display: none; }
     .slide-item {
-      flex: 0 0 calc(50% - 5px);
+      flex: 0 0 calc(50% - 6px);
       scroll-snap-align: start;
       background: #080a10;
-      border: 1.5px solid rgba(255,255,255,0.18);
-      border-radius: 16px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
-      aspect-ratio: 4 / 5;
-      transition: border-color 0.2s, transform 0.2s;
+      aspect-ratio: 9 / 16;
+      transition: all 0.25s ease;
     }
     .slide-item:hover, .slide-item:active {
       border-color: var(--acc);
       transform: scale(0.98);
+      box-shadow: 0 0 20px rgba(184,255,1,0.2);
     }
     .slide-item img {
       width: 100%;
@@ -102,56 +139,56 @@
     .slide-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.92));
-      padding: 20px 6px 8px;
-      font-size: 11px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.95));
+      padding: 24px 8px 10px;
+      font-size: 12px;
       font-weight: 700;
       color: #fff;
     }
     .zoom-hint {
       position: absolute;
-      top: 8px; right: 8px;
-      background: rgba(0,0,0,0.65);
-      border: 1px solid rgba(255,255,255,0.25);
+      top: 10px; right: 10px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.3);
       color: #fff;
-      font-size: 11px;
-      width: 24px; height: 24px;
+      font-size: 12px;
+      width: 28px; height: 28px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
-    /* Kleine weiße Pfeile links & rechts */
     .slider-arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 32px;
-      height: 32px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: rgba(15, 18, 28, 0.9);
-      border: 1.5px solid #ffffff;
+      background: rgba(15, 18, 28, 0.95);
+      border: 2px solid #ffffff;
       color: #ffffff;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 5;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
       padding: 0;
       margin: 0;
       line-height: 1;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
     .slider-arrow:hover { background: var(--acc); color: #000; border-color: var(--acc); }
-    .slider-arrow.left { left: -10px; }
-    .slider-arrow.right { right: -10px; }
+    .slider-arrow.left { left: -14px; }
+    .slider-arrow.right { right: -14px; }
 
     /* --- VOLLBILD LIGHTBOX --- */
     .lightbox {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(5, 6, 10, 0.95);
+      background: rgba(5, 6, 10, 0.97);
       z-index: 9999;
       flex-direction: column;
       justify-content: center;
@@ -160,28 +197,28 @@
     }
     .lightbox.open { display: flex; }
     .lightbox-img {
-      max-width: 92vw;
-      max-height: 80vh;
-      border-radius: 18px;
+      max-width: 94vw;
+      max-height: 82vh;
+      border-radius: 22px;
       border: 2px solid var(--acc);
-      box-shadow: 0 0 35px rgba(184,255,1,0.25);
+      box-shadow: 0 0 45px rgba(184,255,1,0.35);
       object-fit: contain;
     }
     .lightbox-title {
-      margin-top: 12px;
-      font-size: 15px;
+      margin-top: 14px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--acc);
     }
     .lightbox-close {
       position: absolute;
-      top: 18px; right: 18px;
-      width: 40px; height: 40px;
+      top: 20px; right: 20px;
+      width: 44px; height: 44px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.12);
-      border: 1.5px solid #fff;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid #fff;
       color: #fff;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -190,49 +227,50 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 42px; height: 42px;
+      width: 46px; height: 46px;
       border-radius: 50%;
-      background: rgba(0,0,0,0.7);
-      border: 1.5px solid #fff;
+      background: rgba(0,0,0,0.8);
+      border: 2px solid #fff;
       color: #fff;
-      font-size: 24px;
+      font-size: 26px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
     }
-    .lb-arrow.left { left: 12px; }
-    .lb-arrow.right { right: 12px; }
+    .lb-arrow.left { left: 14px; }
+    .lb-arrow.right { right: 14px; }
 
     /* --- FORMULAR --- */
-    form { display: flex; flex-direction: column; gap: 12px; text-align: left; }
-    label.lbl { font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: -6px; display: block; }
+    form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
+    label.lbl { font-size: 13px; font-weight: 700; color: #cbd5e1; margin-bottom: -4px; display: block; }
     input[type="text"], input[type="email"], select {
-      width: 100%; padding: 13px 14px; border-radius: 12px;
-      border: 1px solid #2d3548; background: #07080d; color: #fff; font-size: 15px; outline: none;
+      width: 100%; padding: 16px 18px; border-radius: 16px;
+      border: 1.5px solid rgba(255,255,255,0.12); background: rgba(7, 8, 13, 0.9); color: #fff; font-size: 16px; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    input:focus, select:focus { border-color: var(--acc); }
+    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.2); }
 
-    /* --- VIP TESTER BOX & EXTRA KÄSTCHEN --- */
+    /* --- VIP TESTER BOX --- */
     .vip-box {
-      background: rgba(184, 255, 1, 0.08);
-      border: 1.5px solid rgba(184, 255, 1, 0.4);
-      border-radius: 14px;
-      padding: 12px;
+      background: linear-gradient(135deg, rgba(184, 255, 1, 0.06), rgba(255, 0, 85, 0.06));
+      border: 2px solid rgba(184, 255, 1, 0.35);
+      border-radius: 18px;
+      padding: 16px;
       transition: all 0.25s ease;
     }
-    .chk { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #cbd5e1; cursor: pointer; }
-    .chk input { margin-top: 2px; width: 18px; height: 18px; accent-color: var(--acc); flex-shrink: 0; }
+    .chk { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #cbd5e1; cursor: pointer; line-height: 1.4; }
+    .chk input { margin-top: 2px; width: 20px; height: 20px; accent-color: var(--acc); flex-shrink: 0; }
     
     .vip-extra-info {
       display: none;
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(184,255,1,0.14), rgba(255,0,85,0.14));
-      border: 1px solid var(--acc);
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(184,255,1,0.15), rgba(255,0,85,0.15));
+      border: 1.5px solid var(--acc);
       color: #f8fafc;
-      font-size: 12.5px;
-      line-height: 1.45;
-      box-shadow: 0 0 18px rgba(184,255,1,0.15);
+      font-size: 13.5px;
+      line-height: 1.5;
+      box-shadow: 0 0 20px rgba(184,255,1,0.18);
     }
     .vip-extra-info.show { display: block; animation: fadeIn 0.25s ease; }
     @keyframes fadeIn {
@@ -244,31 +282,34 @@
       background: var(--acc);
       color: #05060a;
       font-weight: 900;
-      font-size: 11px;
-      padding: 3px 8px;
+      font-size: 12px;
+      padding: 4px 10px;
       border-radius: 6px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       text-transform: uppercase;
     }
     .coin-highlight { color: var(--acc); font-weight: 800; }
     .vip-disclaimer {
       display: block;
-      margin-top: 6px;
-      font-size: 11px;
+      margin-top: 8px;
+      font-size: 11.5px;
       color: #cbd5e1;
-      opacity: 0.85;
+      opacity: 0.9;
       font-style: italic;
     }
 
     .submit-btn {
-      background: var(--acc); color: #05060a; border: none; padding: 15px;
-      border-radius: 12px; font-size: 16px; font-weight: 900; text-transform: uppercase;
-      cursor: pointer; box-shadow: 0 0 20px rgba(184,255,1,0.35); margin-top: 4px; width: 100%;
+      background: var(--acc-gradient); color: #05060a; border: none; padding: 18px;
+      border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
+      cursor: pointer; box-shadow: 0 0 30px rgba(184,255,1,0.45); margin-top: 6px; width: 100%;
+      letter-spacing: 0.8px; transition: transform 0.2s, box-shadow 0.2s;
     }
-    #status { margin-top: 14px; padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 700; display: none; text-align: center; }
-    .success { background: rgba(184,255,1,0.15); border: 1px solid var(--acc); color: var(--acc); }
-    .error { background: rgba(255,0,85,0.15); border: 1px solid var(--hot); color: #ff4d88; }
-    .footer { margin-top: 16px; font-size: 11px; color: #64748b; }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(184,255,1,0.6); }
+    
+    #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
+    .success { background: rgba(184,255,1,0.18); border: 1.5px solid var(--acc); color: var(--acc); }
+    .error { background: rgba(255,0,85,0.18); border: 1.5px solid var(--hot); color: #ff4d88; }
+    .footer { margin-top: 22px; font-size: 12px; color: #64748b; }
   </style>
 </head>
 <body>
@@ -288,34 +329,37 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- DEINE 4 ECHTEN SCREENSHOTS IM SLIDER -->
+    <!-- NAVIGATIONSLEISTE: HOME, AKTUELLES, IN PLANUNG -->
+    <div class="nav-tabs">
+      <button type="button" class="nav-tab active" onclick="switchTab('home', this)">🏠 Home</button>
+      <button type="button" class="nav-tab" onclick="switchTab('aktuelles', this)">🔥 Aktuelles</button>
+      <button type="button" class="nav-tab" onclick="switchTab('planung', this)">🚀 In Planung</button>
+    </div>
+
+    <!-- APP-VORSCHAU SLIDER -->
     <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
     <div class="slider-wrapper">
       <button type="button" class="slider-arrow left" onclick="scrollSlider(-1)">‹</button>
       
       <div class="slider-track" id="sliderTrack">
-        <!-- Bild 1: Short Video Feed -->
         <div class="slide-item" onclick="openLightbox(0)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-0" src="1000055638.jpg" alt="Short Video Feed">
+          <img id="img-0" src="Screenshot_20261028_135459_Chrome.jpg" alt="Short Video Feed">
           <div class="slide-caption">🎬 Short Video Feed</div>
         </div>
-        <!-- Bild 2: Zeus Live-Stage -->
         <div class="slide-item" onclick="openLightbox(1)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-1" src="1000055640.jpg" alt="Zeus Live-Event">
+          <img id="img-1" src="Screenshot_20261028_135531_Chrome.jpg" alt="Zeus Live-Event">
           <div class="slide-caption">⚡ Live-Stage & Zeus</div>
         </div>
-        <!-- Bild 3: Gold-Drache im Live -->
         <div class="slide-item" onclick="openLightbox(2)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-2" src="1000055642.jpg" alt="Gold-Drache im Multi-Live">
+          <img id="img-2" src="Screenshot_20261028_135548_Chrome.jpg" alt="Gold-Drache im Multi-Live">
           <div class="slide-caption">🐉 Gold-Drache & Live</div>
         </div>
-        <!-- Bild 4: Menü, Diamanten & Coins -->
         <div class="slide-item" onclick="openLightbox(3)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-3" src="1000055644.jpg" alt="Menü, Coins & Diamanten">
+          <img id="img-3" src="Screenshot_20261028_135624_Chrome.jpg" alt="Menü, Coins & Diamanten">
           <div class="slide-caption">💎 Coins & Club-Menü</div>
         </div>
       </div>
@@ -349,14 +393,13 @@
         <option value="Anderes Land">🌍 Anderes Land</option>
       </select>
 
-      <!-- VIP TESTER CHECKBOX MIT AUFKLAPP-KÄSTCHEN -->
+      <!-- VIP TESTER BOX -->
       <div class="vip-box">
         <label class="chk">
           <input type="checkbox" id="vipCheck" name="beta_tester" value="Ja" onchange="toggleVipInfo()">
-          <span>🔥 <strong>Ja, ich will VIP-Tester werden!</strong> (Jetzt anklicken für exklusive Infos)</span>
+          <span>🔥 <strong>Ja, ich will VIP-Tester werden!</strong> (Hier tippen für exklusive Infos)</span>
         </label>
 
-        <!-- Extra Kästchen, das beim Anklicken aufgeht -->
         <div class="vip-extra-info" id="vipExtraBox">
           <span class="vip-badge-title">👑 VIP Premium-Tester Chance</span>
           <p>
@@ -380,7 +423,7 @@
     <div class="footer">© 2026 VYBZON • Short, Video & Live Club</div>
   </div>
 
-  <!-- VOLLBILD-ANSICHT (LIGHTBOX) -->
+  <!-- VOLLBILD LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button type="button" class="lightbox-close" onclick="closeLightbox(event)">✕</button>
     <button type="button" class="lb-arrow left" onclick="changeLightboxSlide(-1, event)">‹</button>
@@ -392,18 +435,50 @@
   <script>
     const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
 
+    function switchTab(tabName, btnEl) {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      btnEl.classList.add('active');
+
+      if (tabName === 'aktuelles') {
+        alert('🔥 AKTUELLES: Die App befindet sich in der finalen Testphase & Google Play Vorbereitung!');
+      } else if (tabName === 'planung') {
+        alert('🚀 IN PLANUNG: Weitere exklusive Live-Effekte, Community-Events und globale Server-Expansionen!');
+      }
+    }
+
+    async function autoLoadGitHubImages() {
+      try {
+        const res = await fetch('https://api.github.com/repos/christianspartharis-ui/Webseitelive/contents/');
+        if (!res.ok) return;
+        const files = await res.json();
+        const prefixes = [
+          'Screenshot_20261028_135459',
+          'Screenshot_20261028_135531',
+          'Screenshot_20261028_135548',
+          'Screenshot_20261028_135624'
+        ];
+        prefixes.forEach((prefix, idx) => {
+          const match = files.find(f => f.name.startsWith(prefix));
+          if (match) {
+            document.getElementById('img-' + idx).src = match.name;
+          }
+        });
+      } catch (e) {
+        console.log('Bilderkennung:', e);
+      }
+    }
+    autoLoadGitHubImages();
+
     function setMood(color) {
       document.documentElement.style.setProperty('--acc', color);
     }
 
-    // Slider per Pfeil links/rechts scrollen
     function scrollSlider(direction) {
       const track = document.getElementById('sliderTrack');
       const scrollAmount = track.clientWidth * 0.55;
       track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     }
 
-    // VIP Extra-Kästchen ein-/ausblenden
     function toggleVipInfo() {
       const chk = document.getElementById('vipCheck');
       const box = document.getElementById('vipExtraBox');
@@ -414,7 +489,6 @@
       }
     }
 
-    // Vollbild-Lightbox Steuerung
     const captions = [
       '🎬 Short Video Feed',
       '⚡ Live-Stage & Zeus',
@@ -447,7 +521,6 @@
       }
     }
 
-    // Formular absenden
     const form = document.getElementById('waitlist-form');
     const status = document.getElementById('status');
     const btn = document.getElementById('submit-btn');
