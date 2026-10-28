@@ -2,7 +2,11 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <!-- Wichtige Sicherheits-Tags gegen Chrome-Blockaden im Ausland -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <title>VYBZON – Vorregistrierung</title>
   <style>
     :root {
@@ -60,36 +64,39 @@
     }
     h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
     .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
-    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
+    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 16px; }
 
-    /* --- LIKE BUTTON (FUN-STYLE) --- */
+    /* --- KLEINER FUNKEN-LIKE-BUTTON (LINKS, ZÄHLER AUF 0) --- */
     .fun-like-container {
-      margin-bottom: 20px;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 18px;
     }
     .fun-like-btn {
-      background: rgba(255, 0, 85, 0.12);
-      border: 1.5px solid var(--hot);
+      background: rgba(184, 255, 1, 0.08);
+      border: 1.2px solid var(--acc);
       color: #fff;
-      padding: 10px 22px;
+      padding: 7px 14px;
       border-radius: 99px;
-      font-size: 14px;
-      font-weight: 800;
+      font-size: 12.5px;
+      font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 0 15px rgba(255,0,85,0.2);
+      gap: 6px;
+      box-shadow: 0 0 10px rgba(184,255,1,0.15);
       transition: all 0.2s ease;
     }
-    .fun-like-btn:hover { background: rgba(255, 0, 85, 0.25); transform: scale(1.05); }
+    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.2); transform: scale(1.03); }
     .fun-like-btn.liked {
-      background: var(--hot);
-      box-shadow: 0 0 25px var(--hot);
-      transform: scale(1.1);
+      background: var(--acc);
+      color: #05060a;
+      box-shadow: 0 0 18px var(--acc);
+      font-weight: 800;
     }
-    .heart-icon { font-size: 16px; transition: transform 0.2s; }
-    .fun-like-btn.liked .heart-icon { animation: heartPop 0.3s ease; }
-    @keyframes heartPop { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
+    .spark-icon { font-size: 14px; transition: transform 0.2s; }
+    .fun-like-btn.liked .spark-icon { animation: sparkPop 0.3s ease; }
+    @keyframes sparkPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
 
     /* --- NAVIGATIONSLEISTE --- */
     .nav-tabs {
@@ -119,7 +126,7 @@
       box-shadow: 0 0 18px rgba(184,255,1,0.35);
     }
 
-    /* --- SEITEN UMSCHALTER (HOME vs AKTUELLES vs PLANUNG) --- */
+    /* --- SEITEN UMSCHALTER --- */
     .page-section { display: none; }
     .page-section.active-page { display: block; animation: fadeInPage 0.3s ease; }
     @keyframes fadeInPage { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -408,12 +415,12 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- FUN-STYLE LIKE BUTTON -->
+    <!-- KLEINER FUNKEN-LIKE-BUTTON (LINKS, ZÄHLER AUF 0) -->
     <div class="fun-like-container">
       <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
-        <span class="heart-icon" id="heartIcon">🤍</span> 
-        <span>VYBZON feiern</span> 
-        (<span id="likeCount">142</span>)
+        <span class="spark-icon" id="sparkIcon">⚡</span> 
+        <span>Funken geben</span> 
+        (<span id="likeCount">0</span>)
       </button>
     </div>
 
@@ -424,7 +431,7 @@
       <button type="button" class="nav-tab" onclick="switchTab('planung', this)">🚀 In Planung</button>
     </div>
 
-    <!-- ===== SEITE 1: HOME (Warteliste & Slider) ===== -->
+    <!-- ===== SEITE 1: HOME ===== -->
     <div id="page-home" class="page-section active-page">
       <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
       <div class="slider-wrapper">
@@ -511,7 +518,7 @@
       <div id="status"></div>
     </div>
 
-    <!-- ===== SEITE 2: AKTUELLES (Was man mit der App machen kann) ===== -->
+    <!-- ===== SEITE 2: AKTUELLES ===== -->
     <div id="page-aktuelles" class="page-section">
       <div class="info-page-box">
         <h2>🔥 Was man mit VYBZON alles machen kann</h2>
@@ -574,23 +581,20 @@
   <script>
     const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
 
-    // Like-Button Logik
+    // Funken-Like Logik (Zähler bei 0, links positioniert)
     let hasLiked = false;
     function toggleLike() {
       const btn = document.getElementById('funLikeBtn');
-      const icon = document.getElementById('heartIcon');
       const countEl = document.getElementById('likeCount');
       let count = parseInt(countEl.textContent);
 
       if (!hasLiked) {
         hasLiked = true;
         btn.classList.add('liked');
-        icon.textContent = '❤️';
         countEl.textContent = count + 1;
       } else {
         hasLiked = false;
         btn.classList.remove('liked');
-        icon.textContent = '🤍';
         countEl.textContent = count - 1;
       }
     }
