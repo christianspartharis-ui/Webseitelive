@@ -2,195 +2,297 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Vorregistrierung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>VYBZON – Short, Video & Live Club | Vorregistrierung</title>
   <style>
     :root {
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #f8fafc;
+      --bg: #07080d;
+      --card: rgba(18, 20, 30, 0.78);
+      --acc: #b8ff01;
+      --acc-glow: rgba(184, 255, 1, 0.35);
+      --hot: #ff0055;
+      --text: #ffffff;
       --muted: #94a3b8;
-      --border: #334155;
+      --border: rgba(255, 255, 255, 0.1);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 16px;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* Neon Hintergrund-Glows */
+    .bg-glow-1, .bg-glow-2 {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(95px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      transition: background 0.4s ease;
+    }
+    .bg-glow-1 { top: -80px; left: -80px; background: var(--acc); }
+    .bg-glow-2 { bottom: -80px; right: -80px; background: var(--hot); }
+
+    /* Haupt-Container im Glassmorphism-Look */
     .card {
+      position: relative;
+      z-index: 1;
       background: var(--card);
-      max-width: 440px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      max-width: 460px;
       width: 100%;
-      padding: 32px 24px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      padding: 28px 22px;
+      border-radius: 26px;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65), 0 0 25px var(--acc-glow);
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.08);
+      transition: box-shadow 0.4s ease;
     }
-    .app-icon {
-      width: 76px;
-      height: 76px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--primary), #a855f7);
-      margin: 0 auto 16px;
+
+    /* Mood / Theme Umschalter oben */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 0, 85, 0.15);
+      border: 1px solid rgba(255, 0, 85, 0.4);
+      color: #ff4d88;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: #ff0055;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ff0055;
+      animation: pulse 1.4s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.5; }
+    }
+
+    .mood-switcher {
+      display: flex;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+    .mood-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .mood-dot.active {
+      transform: scale(1.2);
+      border-color: #fff;
+    }
+
+    /* Logo & Header */
+    .logo-box {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 14px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+      border: 1.5px solid var(--acc);
+      box-shadow: 0 0 24px var(--acc-glow);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--acc);
+      letter-spacing: -1px;
     }
-    .badge {
-      display: inline-block;
-      background: rgba(99, 102, 241, 0.15);
-      color: #818cf8;
-      padding: 6px 12px;
-      border-radius: 999px;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      background: linear-gradient(90deg, #ffffff, var(--acc));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--acc);
       margin-bottom: 12px;
     }
-    h1 { font-size: 26px; margin-bottom: 8px; }
-    p { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 24px; }
-    form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
-    label.field-label { font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: -8px; }
-    input[type="text"], input[type="email"], select {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 12px;
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    /* Feature Badges */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .feat-item {
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
-      background: var(--bg);
+      padding: 9px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* Formular */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label.field-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #cbd5e1;
+      padding-left: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(7, 8, 13, 0.75);
       color: var(--text);
       font-size: 15px;
       outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
     }
-    input:focus, select:focus { border-color: var(--primary); }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8ff01' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--acc);
+      box-shadow: 0 0 12px var(--acc-glow);
+    }
+
+    /* VIP / Beta Box */
+    .vip-box {
+      background: linear-gradient(135deg, rgba(184, 255, 1, 0.08), rgba(255, 0, 85, 0.08));
+      border: 1px solid rgba(184, 255, 1, 0.3);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-top: 2px;
+    }
+
     .checkbox-group {
       display: flex;
       align-items: flex-start;
       gap: 10px;
       font-size: 13px;
-      color: var(--muted);
+      color: #cbd5e1;
       cursor: pointer;
+      line-height: 1.4;
     }
-    .checkbox-group input { margin-top: 3px; accent-color: var(--primary); }
+    .checkbox-group input {
+      margin-top: 2px;
+      width: 17px;
+      height: 17px;
+      accent-color: var(--acc);
+      flex-shrink: 0;
+    }
+
+    /* Neon Submit Button */
     button {
-      background: var(--primary);
-      color: white;
+      background: var(--acc);
+      color: #05060a;
       border: none;
-      padding: 14px;
-      border-radius: 12px;
+      padding: 15px;
+      border-radius: 14px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
       cursor: pointer;
+      box-shadow: 0 0 22px var(--acc-glow);
+      transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
       margin-top: 6px;
     }
-    button:hover { background: var(--primary-hover); }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
-    #status { margin-top: 16px; font-size: 14px; font-weight: 500; display: none; text-align: center; }
-    .success { color: #4ade80; }
-    .error { color: #f87171; }
-  </style>
-</head>
-<body>
+    button:hover {
+      box-shadow: 0 0 32px var(--acc);
+      transform: translateY(-1px);
+    }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  <div class="card">
-    <div class="app-icon">🚀</div>
-    <span class="badge">BALD IM GOOGLE PLAY STORE</span>
-    <h1>Deine App</h1>
-    <p>Trag dich jetzt in die Warteliste ein und erfahre als Erstes, sobald die App in deinem Land verfügbar ist!</p>
+    #status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 7
 
-    <form id="waitlist-form">
-      <label class="field-label" for="vorname">Dein Vorname</label>
-      <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
-
-      <label class="field-label" for="email">Deine E-Mail-Adresse</label>
-      <input type="email" id="email" name="email" placeholder="Am besten deine Google-Play E-Mail" required>
-
-      <label class="field-label" for="land">Dein Land</label>
-      <select id="land" name="land" required>
-        <option value="" disabled selected>Bitte Land auswählen...</option>
-        <option value="Deutschland">🇩🇪 Deutschland</option>
-        <option value="Österreich">🇦🇹 Österreich</option>
-        <option value="Schweiz">🇨🇭 Schweiz</option>
-        <option value="Luxemburg">🇱🇺 Luxemburg</option>
-        <option value="Niederlande">🇳🇱 Niederlande</option>
-        <option value="Frankreich">🇫🇷 Frankreich</option>
-        <option value="Spanien">🇪🇸 Spanien</option>
-        <option value="Italien">🇮🇹 Italien</option>
-        <option value="Polen">🇵🇱 Polen</option>
-        <option value="Türkei">🇹🇷 Türkei</option>
-        <option value="UK">🇬🇧 Großbritannien (UK)</option>
-        <option value="USA">🇺🇸 USA</option>
-        <option value="Kanada">🇨🇦 Kanada</option>
-        <option value="Japan">🇯🇵 Japan</option>
-        <option value="Anderes Land">🌍 Anderes Land (International)</option>
-      </select>
-
-      <label class="checkbox-group">
-        <input type="checkbox" name="beta_tester" value="Ja">
-        <span>Ich möchte schon vorab als exklusiver Beta-Tester dabei sein.</span>
-      </label>
-
-      <label class="checkbox-group">
-        <input type="checkbox" required>
-        <span>Ich stimme zu, dass mein Vorname, Land und meine E-Mail für die Benachrichtigung zum App-Start gespeichert werden.</span>
-      </label>
-
-      <button type="submit" id="submit-btn">Jetzt vorregistrieren</button>
-    </form>
-
-    <div id="status"></div>
-  </div>
-
-  <script>
-    // HIER DEINE GOOGLE APPS SCRIPT WEB-APP-URL EINTRAGEN:
-    const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
-
-    const form = document.getElementById('waitlist-form');
-    const status = document.getElementById('status');
-    const btn = document.getElementById('submit-btn');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      btn.disabled = true;
-      btn.textContent = 'Wird in die Liste eingetragen...';
-      status.style.display = 'none';
-
-      const formData = new FormData(form);
-      const vorname = formData.get('vorname');
-
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          body: formData
-        });
-        const data = await response.json();
-
-        status.style.display = 'block';
-        if (data.result === 'success') {
-          status.className = 'success';
-          status.textContent = `🎉 Danke, ${vorname}! Du stehst jetzt auf der Vorregistrierungs-Liste.`;
-          form.reset();
-        } else {
-          status.className = 'error';
-          status.textContent = 'Fehler beim Speichern. Bitte versuche es erneut.';
-        }
-      } catch (err) {
-        status.style.display = 'block';
-        status.className = 'error';
-        status.textContent = 'Verbindungsfehler. Bitte prüfe die eingetragene Script-URL.';
-      }
-
-      btn.disabled = false;
-      btn.textContent = 'Jetzt vorregistrieren';
-    });
-  </script>
-</body>
-</html>
