@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #050609;
-      --card: rgba(16, 19, 31, 0.82);
+      --card: rgba(16, 19, 31, 0.85);
       --acc: #b8ff01;
       --acc-gradient: linear-gradient(135deg, #b8ff01, #76ff03);
       --hot: #ff0055;
@@ -43,7 +43,6 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255, 0, 85, 0.15); border: 1.5px solid rgba(255, 0, 85, 0.5);
       color: #ff4d88; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800;
-      letter-spacing: 0.5px;
     }
     .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
@@ -61,7 +60,36 @@
     }
     h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
     .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
-    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 22px; }
+    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
+
+    /* --- LIKE BUTTON (FUN-STYLE) --- */
+    .fun-like-container {
+      margin-bottom: 20px;
+    }
+    .fun-like-btn {
+      background: rgba(255, 0, 85, 0.12);
+      border: 1.5px solid var(--hot);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 99px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 15px rgba(255,0,85,0.2);
+      transition: all 0.2s ease;
+    }
+    .fun-like-btn:hover { background: rgba(255, 0, 85, 0.25); transform: scale(1.05); }
+    .fun-like-btn.liked {
+      background: var(--hot);
+      box-shadow: 0 0 25px var(--hot);
+      transform: scale(1.1);
+    }
+    .heart-icon { font-size: 16px; transition: transform 0.2s; }
+    .fun-like-btn.liked .heart-icon { animation: heartPop 0.3s ease; }
+    @keyframes heartPop { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
 
     /* --- NAVIGATIONSLEISTE --- */
     .nav-tabs {
@@ -70,7 +98,7 @@
       border: 1.5px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
       padding: 6px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       gap: 6px;
     }
     .nav-tab {
@@ -90,6 +118,57 @@
       color: #05060a;
       box-shadow: 0 0 18px rgba(184,255,1,0.35);
     }
+
+    /* --- SEITEN UMSCHALTER (HOME vs AKTUELLES vs PLANUNG) --- */
+    .page-section { display: none; }
+    .page-section.active-page { display: block; animation: fadeInPage 0.3s ease; }
+    @keyframes fadeInPage { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- AKTUELLEN-SEITE INHALT --- */
+    .info-page-box {
+      text-align: left;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .info-page-box h2 {
+      font-size: 20px;
+      color: var(--acc);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .info-feat-item {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: #cbd5e1;
+    }
+    .info-feat-item strong { color: #fff; display: block; margin-bottom: 2px; font-size: 14px; }
+    .back-home-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .back-home-btn:hover { background: rgba(255,255,255,0.2); }
 
     /* --- SCREENSHOT SLIDER --- */
     .slider-header {
@@ -329,97 +408,157 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- NAVIGATIONSLEISTE: HOME, AKTUELLES, IN PLANUNG -->
+    <!-- FUN-STYLE LIKE BUTTON -->
+    <div class="fun-like-container">
+      <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
+        <span class="heart-icon" id="heartIcon">🤍</span> 
+        <span>VYBZON feiern</span> 
+        (<span id="likeCount">142</span>)
+      </button>
+    </div>
+
+    <!-- NAVIGATIONSLEISTE (HOME, AKTUELLES, IN PLANUNG) -->
     <div class="nav-tabs">
       <button type="button" class="nav-tab active" onclick="switchTab('home', this)">🏠 Home</button>
       <button type="button" class="nav-tab" onclick="switchTab('aktuelles', this)">🔥 Aktuelles</button>
       <button type="button" class="nav-tab" onclick="switchTab('planung', this)">🚀 In Planung</button>
     </div>
 
-    <!-- APP-VORSCHAU SLIDER -->
-    <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
-    <div class="slider-wrapper">
-      <button type="button" class="slider-arrow left" onclick="scrollSlider(-1)">‹</button>
-      
-      <div class="slider-track" id="sliderTrack">
-        <div class="slide-item" onclick="openLightbox(0)">
-          <span class="zoom-hint">🔍</span>
-          <img id="img-0" src="Screenshot_20261028_135459_Chrome.jpg" alt="Short Video Feed">
-          <div class="slide-caption">🎬 Short Video Feed</div>
+    <!-- ===== SEITE 1: HOME (Warteliste & Slider) ===== -->
+    <div id="page-home" class="page-section active-page">
+      <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
+      <div class="slider-wrapper">
+        <button type="button" class="slider-arrow left" onclick="scrollSlider(-1)">‹</button>
+        
+        <div class="slider-track" id="sliderTrack">
+          <div class="slide-item" onclick="openLightbox(0)">
+            <span class="zoom-hint">🔍</span>
+            <img id="img-0" src="Screenshot_20261028_135459_Chrome.jpg" alt="Short Video Feed">
+            <div class="slide-caption">🎬 Short Video Feed</div>
+          </div>
+          <div class="slide-item" onclick="openLightbox(1)">
+            <span class="zoom-hint">🔍</span>
+            <img id="img-1" src="Screenshot_20261028_135531_Chrome.jpg" alt="Zeus Live-Event">
+            <div class="slide-caption">⚡ Live-Stage & Zeus</div>
+          </div>
+          <div class="slide-item" onclick="openLightbox(2)">
+            <span class="zoom-hint">🔍</span>
+            <img id="img-2" src="Screenshot_20261028_135548_Chrome.jpg" alt="Gold-Drache im Multi-Live">
+            <div class="slide-caption">🐉 Gold-Drache & Live</div>
+          </div>
+          <div class="slide-item" onclick="openLightbox(3)">
+            <span class="zoom-hint">🔍</span>
+            <img id="img-3" src="Screenshot_20261028_135624_Chrome.jpg" alt="Menü, Coins & Diamanten">
+            <div class="slide-caption">💎 Coins & Club-Menü</div>
+          </div>
         </div>
-        <div class="slide-item" onclick="openLightbox(1)">
-          <span class="zoom-hint">🔍</span>
-          <img id="img-1" src="Screenshot_20261028_135531_Chrome.jpg" alt="Zeus Live-Event">
-          <div class="slide-caption">⚡ Live-Stage & Zeus</div>
-        </div>
-        <div class="slide-item" onclick="openLightbox(2)">
-          <span class="zoom-hint">🔍</span>
-          <img id="img-2" src="Screenshot_20261028_135548_Chrome.jpg" alt="Gold-Drache im Multi-Live">
-          <div class="slide-caption">🐉 Gold-Drache & Live</div>
-        </div>
-        <div class="slide-item" onclick="openLightbox(3)">
-          <span class="zoom-hint">🔍</span>
-          <img id="img-3" src="Screenshot_20261028_135624_Chrome.jpg" alt="Menü, Coins & Diamanten">
-          <div class="slide-caption">💎 Coins & Club-Menü</div>
-        </div>
+
+        <button type="button" class="slider-arrow right" onclick="scrollSlider(1)">›</button>
       </div>
 
-      <button type="button" class="slider-arrow right" onclick="scrollSlider(1)">›</button>
-    </div>
+      <!-- FORMULAR -->
+      <form id="waitlist-form">
+        <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
+        <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
 
-    <!-- FORMULAR -->
-    <form id="waitlist-form">
-      <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
-      <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
+        <label class="lbl" for="email">Deine Google-Play E-Mail</label>
+        <input type="email" id="email" name="email" placeholder="deine.mail@gmail.com" required>
 
-      <label class="lbl" for="email">Deine Google-Play E-Mail</label>
-      <input type="email" id="email" name="email" placeholder="deine.mail@gmail.com" required>
+        <label class="lbl" for="land">Dein Land</label>
+        <select id="land" name="land" required>
+          <option value="" disabled selected>Bitte Land auswählen...</option>
+          <option value="Deutschland">🇩🇪 Deutschland</option>
+          <option value="Österreich">🇦🇹 Österreich</option>
+          <option value="Schweiz">🇨🇭 Schweiz</option>
+          <option value="Luxemburg">🇱🇺 Luxemburg</option>
+          <option value="Niederlande">🇳🇱 Niederlande</option>
+          <option value="Frankreich">🇫🇷 Frankreich</option>
+          <option value="Spanien">🇪🇸 Spanien</option>
+          <option value="Italien">🇮🇹 Italien</option>
+          <option value="Griechenland">🇬🇷 Griechenland</option>
+          <option value="Türkei">🇹🇷 Türkei</option>
+          <option value="UK">🇬🇧 Großbritannien (UK)</option>
+          <option value="USA">🇺🇸 USA</option>
+          <option value="Anderes Land">🌍 Anderes Land</option>
+        </select>
 
-      <label class="lbl" for="land">Dein Land</label>
-      <select id="land" name="land" required>
-        <option value="" disabled selected>Bitte Land auswählen...</option>
-        <option value="Deutschland">🇩🇪 Deutschland</option>
-        <option value="Österreich">🇦🇹 Österreich</option>
-        <option value="Schweiz">🇨🇭 Schweiz</option>
-        <option value="Luxemburg">🇱🇺 Luxemburg</option>
-        <option value="Niederlande">🇳🇱 Niederlande</option>
-        <option value="Frankreich">🇫🇷 Frankreich</option>
-        <option value="Spanien">🇪🇸 Spanien</option>
-        <option value="Italien">🇮🇹 Italien</option>
-        <option value="Griechenland">🇬🇷 Griechenland</option>
-        <option value="Türkei">🇹🇷 Türkei</option>
-        <option value="UK">🇬🇧 Großbritannien (UK)</option>
-        <option value="USA">🇺🇸 USA</option>
-        <option value="Anderes Land">🌍 Anderes Land</option>
-      </select>
+        <!-- VIP TESTER BOX -->
+        <div class="vip-box">
+          <label class="chk">
+            <input type="checkbox" id="vipCheck" name="beta_tester" value="Ja" onchange="toggleVipInfo()">
+            <span>🔥 <strong>Ja, ich will VIP-Tester werden!</strong> (Hier tippen für exklusive Infos)</span>
+          </label>
 
-      <!-- VIP TESTER BOX -->
-      <div class="vip-box">
+          <div class="vip-extra-info" id="vipExtraBox">
+            <span class="vip-badge-title">👑 VIP Premium-Tester Chance</span>
+            <p>
+              Mit deiner Bewerbung hast du die Chance, als exklusiver <strong>VIP Premium-Tester</strong> ausgewählt zu werden! Als aktiver Tester kannst du dir schon vor dem offiziellen Start <span class="coin-highlight">bis zu 1.500 Coins verdienen</span>.
+            </p>
+            <span class="vip-disclaimer">
+              ⚡ Hinweis: Die VIP-Plätze sind streng limitiert. Eine Auswahl ist nicht garantiert – aber mit deinem Haken bist du automatisch im Lostopf!
+            </span>
+          </div>
+        </div>
+
         <label class="chk">
-          <input type="checkbox" id="vipCheck" name="beta_tester" value="Ja" onchange="toggleVipInfo()">
-          <span>🔥 <strong>Ja, ich will VIP-Tester werden!</strong> (Hier tippen für exklusive Infos)</span>
+          <input type="checkbox" required>
+          <span>Ich stimme zu, dass mein Name, Land und meine E-Mail für den App-Start gespeichert werden.</span>
         </label>
 
-        <div class="vip-extra-info" id="vipExtraBox">
-          <span class="vip-badge-title">👑 VIP Premium-Tester Chance</span>
-          <p>
-            Mit deiner Bewerbung hast du die Chance, als exklusiver <strong>VIP Premium-Tester</strong> ausgewählt zu werden! Als aktiver Tester kannst du dir schon vor dem offiziellen Start <span class="coin-highlight">bis zu 1.500 Coins verdienen</span>.
-          </p>
-          <span class="vip-disclaimer">
-            ⚡ Hinweis: Die VIP-Plätze sind streng limitiert. Eine Auswahl ist nicht garantiert – aber mit deinem Haken bist du automatisch im Lostopf!
-          </span>
+        <button type="submit" class="submit-btn" id="submit-btn">⚡ Jetzt VIP-Platz sichern</button>
+      </form>
+
+      <div id="status"></div>
+    </div>
+
+    <!-- ===== SEITE 2: AKTUELLES (Was man mit der App machen kann) ===== -->
+    <div id="page-aktuelles" class="page-section">
+      <div class="info-page-box">
+        <h2>🔥 Was man mit VYBZON alles machen kann</h2>
+        <div class="info-feature-list">
+          <div class="info-feat-item">
+            <strong>🎬 Short Video Feed</strong>
+            Entdecke, teile und like packende Short-Videos im modernen Fullscreen-Modus von Creatorn weltweit.
+          </div>
+          <div class="info-feat-item">
+            <strong>⚡ Live-Stage & Zeus-Effekte</strong>
+            Erlebe epische Live-Streams mit spektakulären Animationen wie dem goldenen Zeus und interaktiven Effekten im Stream.
+          </div>
+          <div class="info-feat-item">
+            <strong>🐉 Gold-Drache Multi-Live</strong>
+            Gehe mit bis zu 8 Gästen gleichzeitig in den Multi-Live-Modus und lass legendäre Drachen-Geschenke aufsteigen!
+          </div>
+          <div class="info-feat-item">
+            <strong>💎 Coins, Diamanten & Wallet</strong>
+            Verwalte deine digitalen Coins und Diamanten direkt im Club-Menü, lade dein Guthaben auf oder versende Geschenke.
+          </div>
+          <div class="info-feat-item">
+            <strong>👑 Exklusiver VIP Club</strong>
+            Schalte VIP-Tiers frei, erhalte Sonderstatus und genieße exklusive Club-Vorteile als aktives Mitglied.
+          </div>
         </div>
+        <button type="button" class="back-home-btn" onclick="switchTabToHome()">🏠 Zurück zu Home</button>
       </div>
+    </div>
 
-      <label class="chk">
-        <input type="checkbox" required>
-        <span>Ich stimme zu, dass mein Name, Land und meine E-Mail für den App-Start gespeichert werden.</span>
-      </label>
+    <!-- ===== SEITE 3: IN PLANUNG ===== -->
+    <div id="page-planung" class="page-section">
+      <div class="info-page-box">
+        <h2>🚀 In Planung & Roadmap</h2>
+        <div class="info-feature-list">
+          <div class="info-feat-item">
+            <strong>🌍 Globale Server-Expansion</strong>
+            Ausbau weiterer Rechenzentren für ultraschnelle Live-Streams ohne Verzögerung weltweit.
+          </div>
+          <div class="info-feat-item">
+            <strong>🎁 Erweiterte Community-Events</strong>
+            Wöchentliche Creator-Battles mit riesigen Coin-Gewinnspielen für die Community.
+          </div>
+        </div>
+        <button type="button" class="back-home-btn" onclick="switchTabToHome()">🏠 Zurück zu Home</button>
+      </div>
+    </div>
 
-      <button type="submit" class="submit-btn" id="submit-btn">⚡ Jetzt VIP-Platz sichern</button>
-    </form>
-
-    <div id="status"></div>
     <div class="footer">© 2026 VYBZON • Short, Video & Live Club</div>
   </div>
 
@@ -435,15 +574,46 @@
   <script>
     const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
 
+    // Like-Button Logik
+    let hasLiked = false;
+    function toggleLike() {
+      const btn = document.getElementById('funLikeBtn');
+      const icon = document.getElementById('heartIcon');
+      const countEl = document.getElementById('likeCount');
+      let count = parseInt(countEl.textContent);
+
+      if (!hasLiked) {
+        hasLiked = true;
+        btn.classList.add('liked');
+        icon.textContent = '❤️';
+        countEl.textContent = count + 1;
+      } else {
+        hasLiked = false;
+        btn.classList.remove('liked');
+        icon.textContent = '🤍';
+        countEl.textContent = count - 1;
+      }
+    }
+
+    // Seiten / Tabs Umschalter
     function switchTab(tabName, btnEl) {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       btnEl.classList.add('active');
 
-      if (tabName === 'aktuelles') {
-        alert('🔥 AKTUELLES: Die App befindet sich in der finalen Testphase & Google Play Vorbereitung!');
+      document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active-page'));
+
+      if (tabName === 'home') {
+        document.getElementById('page-home').classList.add('active-page');
+      } else if (tabName === 'aktuelles') {
+        document.getElementById('page-aktuelles').classList.add('active-page');
       } else if (tabName === 'planung') {
-        alert('🚀 IN PLANUNG: Weitere exklusive Live-Effekte, Community-Events und globale Server-Expansionen!');
+        document.getElementById('page-planung').classList.add('active-page');
       }
+    }
+
+    function switchTabToHome() {
+      const homeBtn = document.querySelector('.nav-tab');
+      switchTab('home', homeBtn);
     }
 
     async function autoLoadGitHubImages() {
