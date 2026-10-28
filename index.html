@@ -81,12 +81,12 @@
       flex: 0 0 calc(50% - 5px);
       scroll-snap-align: start;
       background: #080a10;
-      border: 1.5px solid rgba(255,255,255,0.14);
+      border: 1.5px solid rgba(255,255,255,0.18);
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
-      aspect-ratio: 9 / 16;
+      aspect-ratio: 4 / 5;
       transition: border-color 0.2s, transform 0.2s;
     }
     .slide-item:hover, .slide-item:active {
@@ -102,8 +102,8 @@
     .slide-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.9));
-      padding: 18px 6px 8px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.92));
+      padding: 20px 6px 8px;
       font-size: 11px;
       font-weight: 700;
       color: #fff;
@@ -127,8 +127,8 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: rgba(15, 18, 28, 0.85);
-      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      background: rgba(15, 18, 28, 0.9);
+      border: 1.5px solid #ffffff;
       color: #ffffff;
       font-size: 20px;
       font-weight: bold;
@@ -288,35 +288,35 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- VORSCHAUBILDER SLIDER -->
+    <!-- DEINE 4 ECHTEN SCREENSHOTS IM SLIDER -->
     <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
     <div class="slider-wrapper">
       <button type="button" class="slider-arrow left" onclick="scrollSlider(-1)">‹</button>
       
       <div class="slider-track" id="sliderTrack">
-        <!-- Bild 1 -->
+        <!-- Bild 1: Short Video Feed -->
         <div class="slide-item" onclick="openLightbox(0)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-0" src="screen1.jpg" alt="Short Video Feed" onerror="this.src='https://placehold.co/360x640/121521/b8ff01?text=Short+Video+Feed'">
+          <img id="img-0" src="1000055638.jpg" alt="Short Video Feed">
           <div class="slide-caption">🎬 Short Video Feed</div>
         </div>
-        <!-- Bild 2 -->
+        <!-- Bild 2: Zeus Live-Stage -->
         <div class="slide-item" onclick="openLightbox(1)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-1" src="screen2.jpg" alt="8er Multi-Live" onerror="this.src='https://placehold.co/360x640/121521/ff0055?text=8er+Multi-Live'">
-          <div class="slide-caption">🎙️ 8er Multi-Live</div>
+          <img id="img-1" src="1000055640.jpg" alt="Zeus Live-Event">
+          <div class="slide-caption">⚡ Live-Stage & Zeus</div>
         </div>
-        <!-- Bild 3 -->
+        <!-- Bild 3: Gold-Drache im Live -->
         <div class="slide-item" onclick="openLightbox(2)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-2" src="screen3.jpg" alt="Coins & Diamonds" onerror="this.src='https://placehold.co/360x640/121521/00f0ff?text=Coins+%26+Diamonds'">
-          <div class="slide-caption">💎 Coins & Diamonds</div>
+          <img id="img-2" src="1000055642.jpg" alt="Gold-Drache im Multi-Live">
+          <div class="slide-caption">🐉 Gold-Drache & Live</div>
         </div>
-        <!-- Bild 4 -->
+        <!-- Bild 4: Menü, Diamanten & Coins -->
         <div class="slide-item" onclick="openLightbox(3)">
           <span class="zoom-hint">🔍</span>
-          <img id="img-3" src="screen4.jpg" alt="Exklusiver VIP Club" onerror="this.src='https://placehold.co/360x640/121521/b8ff01?text=VIP+Club'">
-          <div class="slide-caption">👑 Exklusiver VIP Club</div>
+          <img id="img-3" src="1000055644.jpg" alt="Menü, Coins & Diamanten">
+          <div class="slide-caption">💎 Coins & Club-Menü</div>
         </div>
       </div>
 
@@ -417,9 +417,9 @@
     // Vollbild-Lightbox Steuerung
     const captions = [
       '🎬 Short Video Feed',
-      '🎙️ 8er Multi-Live',
-      '💎 Coins & Diamonds',
-      '👑 Exklusiver VIP Club'
+      '⚡ Live-Stage & Zeus',
+      '🐉 Gold-Drache & Live',
+      '💎 Coins & Club-Menü'
     ];
     let currentSlide = 0;
 
