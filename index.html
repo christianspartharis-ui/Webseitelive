@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Vorregistrierung</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background: var(--card);
+      max-width: 440px;
+      width: 100%;
+      padding: 32px 24px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .app-icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary), #a855f7);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    p { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 24px; }
+    form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
+    label.field-label { font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: -8px; }
+    input[type="text"], input[type="email"], select {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+    }
+    input:focus, select:focus { border-color: var(--primary); }
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .checkbox-group input { margin-top: 3px; accent-color: var(--primary); }
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    button:hover { background: var(--primary-hover); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #status { margin-top: 16px; font-size: 14px; font-weight: 500; display: none; text-align: center; }
+    .success { color: #4ade80; }
+    .error { color: #f87171; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="app-icon">🚀</div>
+    <span class="badge">BALD IM GOOGLE PLAY STORE</span>
+    <h1>Deine App</h1>
+    <p>Trag dich jetzt in die Warteliste ein und erfahre als Erstes, sobald die App in deinem Land verfügbar ist!</p>
+
+    <form id="waitlist-form">
+      <label class="field-label" for="vorname">Dein Vorname</label>
+      <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
+
+      <label class="field-label" for="email">Deine E-Mail-Adresse</label>
+      <input type="email" id="email" name="email" placeholder="Am besten deine Google-Play E-Mail" required>
+
+      <label class="field-label" for="land">Dein Land</label>
+      <select id="land" name="land" required>
+        <option value="" disabled selected>Bitte Land auswählen...</option>
+        <option value="Deutschland">🇩🇪 Deutschland</option>
+        <option value="Österreich">🇦🇹 Österreich</option>
+        <option value="Schweiz">🇨🇭 Schweiz</option>
+        <option value="Luxemburg">🇱🇺 Luxemburg</option>
+        <option value="Niederlande">🇳🇱 Niederlande</option>
+        <option value="Frankreich">🇫🇷 Frankreich</option>
+        <option value="Spanien">🇪🇸 Spanien</option>
+        <option value="Italien">🇮🇹 Italien</option>
+        <option value="Polen">🇵🇱 Polen</option>
+        <option value="Türkei">🇹🇷 Türkei</option>
+        <option value="UK">🇬🇧 Großbritannien (UK)</option>
+        <option value="USA">🇺🇸 USA</option>
+        <option value="Kanada">🇨🇦 Kanada</option>
+        <option value="Japan">🇯🇵 Japan</option>
+        <option value="Anderes Land">🌍 Anderes Land (International)</option>
+      </select>
+
+      <label class="checkbox-group">
+        <input type="checkbox" name="beta_tester" value="Ja">
+        <span>Ich möchte schon vorab als exklusiver Beta-Tester dabei sein.</span>
+      </label>
+
+      <label class="checkbox-group">
+        <input type="checkbox" required>
+        <span>Ich stimme zu, dass mein Vorname, Land und meine E-Mail für die Benachrichtigung zum App-Start gespeichert werden.</span>
+      </label>
+
+      <button type="submit" id="submit-btn">Jetzt vorregistrieren</button>
+    </form>
+
+    <div id="status"></div>
+  </div>
+
+  <script>
+    // HIER DEINE GOOGLE APPS SCRIPT WEB-APP-URL EINTRAGEN:
+    const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
+
+    const form = document.getElementById('waitlist-form');
+    const status = document.getElementById('status');
+    const btn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Wird in die Liste eingetragen...';
+      status.style.display = 'none';
+
+      const formData = new FormData(form);
+      const vorname = formData.get('vorname');
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+
+        status.style.display = 'block';
+        if (data.result === 'success') {
+          status.className = 'success';
+          status.textContent = `🎉 Danke, ${vorname}! Du stehst jetzt auf der Vorregistrierungs-Liste.`;
+          form.reset();
+        } else {
+          status.className = 'error';
+          status.textContent = 'Fehler beim Speichern. Bitte versuche es erneut.';
+        }
+      } catch (err) {
+        status.style.display = 'block';
+        status.className = 'error';
+        status.textContent = 'Verbindungsfehler. Bitte prüfe die eingetragene Script-URL.';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Jetzt vorregistrieren';
+    });
+  </script>
+</body>
+</html>
