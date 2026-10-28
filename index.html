@@ -2,12 +2,11 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <!-- Wichtige Sicherheits-Tags gegen Chrome-Blockaden im Ausland -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  <title>VYBZON – Vorregistrierung</title>
+  <title>VYBZON – Short, Video & Live Club</title>
   <style>
     :root {
       --bg: #050609;
@@ -64,16 +63,22 @@
     }
     h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
     .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
-    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 16px; }
+    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
 
-    /* --- KLEINER FUNKEN-LIKE-BUTTON (LINKS, ZÄHLER AUF 0) --- */
+    /* --- FUNKEN-LIKE-BUTTON + NEUER STREAMER-TEASER --- */
     .fun-like-container {
       display: flex;
-      justify-content: flex-start;
-      margin-bottom: 18px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 22px;
+      background: rgba(184, 255, 1, 0.04);
+      border: 1px dashed rgba(184, 255, 1, 0.3);
+      padding: 12px 14px;
+      border-radius: 16px;
     }
     .fun-like-btn {
-      background: rgba(184, 255, 1, 0.08);
+      background: rgba(184, 255, 1, 0.1);
       border: 1.2px solid var(--acc);
       color: #fff;
       padding: 7px 14px;
@@ -87,7 +92,7 @@
       box-shadow: 0 0 10px rgba(184,255,1,0.15);
       transition: all 0.2s ease;
     }
-    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.2); transform: scale(1.03); }
+    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.22); transform: scale(1.03); }
     .fun-like-btn.liked {
       background: var(--acc);
       color: #05060a;
@@ -97,6 +102,14 @@
     .spark-icon { font-size: 14px; transition: transform 0.2s; }
     .fun-like-btn.liked .spark-icon { animation: sparkPop 0.3s ease; }
     @keyframes sparkPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+
+    .streamer-teaser-text {
+      font-size: 12px;
+      color: var(--acc);
+      font-weight: 700;
+      text-align: left;
+      line-height: 1.4;
+    }
 
     /* --- NAVIGATIONSLEISTE --- */
     .nav-tabs {
@@ -131,7 +144,7 @@
     .page-section.active-page { display: block; animation: fadeInPage 0.3s ease; }
     @keyframes fadeInPage { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- AKTUELLEN-SEITE INHALT --- */
+    /* --- ÜBERARBEITETE CREATOR- & STREAMER-SEITE (AKTUELLES) --- */
     .info-page-box {
       text-align: left;
       background: rgba(255,255,255,0.03);
@@ -141,13 +154,32 @@
       margin-bottom: 20px;
     }
     .info-page-box h2 {
-      font-size: 20px;
+      font-size: 19px;
       color: var(--acc);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+    .creator-hero-banner {
+      background: linear-gradient(135deg, rgba(184,255,1,0.12), rgba(255,0,85,0.12));
+      border: 1.5px solid var(--acc);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .creator-hero-banner h3 {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .creator-hero-banner p {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
     .info-feature-list {
       display: flex;
       flex-direction: column;
@@ -155,15 +187,16 @@
       margin-bottom: 18px;
     }
     .info-feat-item {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 12px 14px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 14px;
       border-radius: 14px;
       font-size: 13.5px;
-      line-height: 1.45;
+      line-height: 1.5;
       color: #cbd5e1;
     }
-    .info-feat-item strong { color: #fff; display: block; margin-bottom: 2px; font-size: 14px; }
+    .info-feat-item strong { color: var(--acc); display: block; margin-bottom: 4px; font-size: 14.5px; }
+    
     .back-home-btn {
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.2);
@@ -415,13 +448,16 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- KLEINER FUNKEN-LIKE-BUTTON (LINKS, ZÄHLER AUF 0) -->
+    <!-- FUNKEN-LIKE-BUTTON + STREAMER TEASER UNTER DRUNTER -->
     <div class="fun-like-container">
       <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
         <span class="spark-icon" id="sparkIcon">⚡</span> 
         <span>Funken geben</span> 
         (<span id="likeCount">0</span>)
       </button>
+      <div class="streamer-teaser-text">
+        🔥 <strong>Creator-Hotspot:</strong> Maximale Payouts & volle Kontrolle für Streamer! (Tippe auf „Aktuelles“ für Details)
+      </div>
     </div>
 
     <!-- NAVIGATIONSLEISTE (HOME, AKTUELLES, IN PLANUNG) -->
@@ -518,33 +554,47 @@
       <div id="status"></div>
     </div>
 
-    <!-- ===== SEITE 2: AKTUELLES ===== -->
+    <!-- ===== SEITE 2: AKTUELLES (FÜR CREATOR & STREAMER OPTIMIERT) ===== -->
     <div id="page-aktuelles" class="page-section">
       <div class="info-page-box">
-        <h2>🔥 Was man mit VYBZON alles machen kann</h2>
+        <h2>🔥 Das ultimative Creator-Paradies</h2>
+        
+        <div class="creator-hero-banner">
+          <h3>🚀 Entwickelt von Streamern, für Streamer!</h3>
+          <p>Schluss mit unfairen Schnitten und Plattformen, die deine harte Arbeit ausnutzen. Bei VYBZON stehst DU im Mittelpunkt – mit branchenweit einmaligen Features für maximalen Verdienst!</p>
+        </div>
+
         <div class="info-feature-list">
           <div class="info-feat-item">
-            <strong>🎬 Short Video Feed</strong>
-            Entdecke, teile und like packende Short-Videos im modernen Fullscreen-Modus von Creatorn weltweit.
+            <strong>🎁 Tägliche Gratis-Coins für deine Community</strong>
+            Deine Zuschauer können sich jeden Tag völlig kostenlos Coins abholen und diese direkt in deinem Stream als Funken und Geschenke dalassen. Volle Interaktion ohne Barrieren!
           </div>
+
           <div class="info-feat-item">
-            <strong>⚡ Live-Stage & Zeus-Effekte</strong>
-            Erlebe epische Live-Streams mit spektakulären Animationen wie dem goldenen Zeus und interaktiven Effekten im Stream.
+            <strong>🎛️ Volle Host-Kontrolle im Multi-Live</strong>
+            Du hast als Host das Sagen! Bestimme selbst in den Einstellungen, wie viel Prozent der Geschenke, die deine Gäste im Stream erhalten, automatisch an dich als Haupt-Host ausgeschüttet werden.
           </div>
+
           <div class="info-feat-item">
-            <strong>🐉 Gold-Drache Multi-Live</strong>
-            Gehe mit bis zu 8 Gästen gleichzeitig in den Multi-Live-Modus und lass legendäre Drachen-Geschenke aufsteigen!
+            <strong>🛡️ Mod-Power & Belohnung (Bis zu 5 %)</strong>
+            Stärke dein Team! Du kannst flexibel einstellen, dass deine treuen Moderatoren bis zu 5 % am generierten Stream-Umsatz beteiligt werden. Motivierte Mods halten deinen Chat sauber und die Stimmung am Kochen!
           </div>
+
           <div class="info-feat-item">
-            <strong>💎 Coins, Diamanten & Wallet</strong>
-            Verwalte deine digitalen Coins und Diamanten direkt im Club-Menü, lade dein Guthaben auf oder versende Geschenke.
+            <strong>💎 Mega-Fairer Payout & Top-Umrechnung</strong>
+            Wir wissen, was Streamer leisten. Deshalb bieten wir dir eine der transparentesten und fairsten Umrechnungen auf dem Markt: 
+            <br><br>
+            • <strong>Was du bekommst:</strong> Den absolut maximalen Erlös aus deinen Diamanten & Geschenken mit ultraschneller Auszahlung.<br>
+            • <strong>Was wir einbeziehen:</strong> Nur einen minimalen, fairen Plattform-Beitrag für Server-Hosting, High-End Live-Stream-Performance (wie Zeus & Gold-Drache) und globale Sicherheit. 
           </div>
+
           <div class="info-feat-item">
-            <strong>👑 Exklusiver VIP Club</strong>
-            Schalte VIP-Tiers frei, erhalte Sonderstatus und genieße exklusive Club-Vorteile als aktives Mitglied.
+            <strong>🎬 Shorts, Multi-Live & Epische Effekte</strong>
+            Nutze den Short-Video-Feed für virales Wachstum, streame mit bis zu 8 Gästen im 8er Multi-Live und lass gigantische Animationen wie den goldenen Zeus über den Bildschirm feuern[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span)!
           </div>
         </div>
-        <button type="button" class="back-home-btn" onclick="switchTabToHome()">🏠 Zurück zu Home</button>
+
+        <button type="button" class="back-home-btn" onclick="switchTabToHome()">🏠 Zurück zur Warteliste</button>
       </div>
     </div>
 
@@ -581,7 +631,7 @@
   <script>
     const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
 
-    // Funken-Like Logik (Zähler bei 0, links positioniert)
+    // Funken-Like Logik
     let hasLiked = false;
     function toggleLike() {
       const btn = document.getElementById('funLikeBtn');
