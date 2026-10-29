@@ -27,97 +27,28 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
     
-    body {
+    html, body {
       background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 12% 8%, rgba(184, 255, 1, 0.22) 0%, transparent 38%),
+        radial-gradient(circle at 88% 45%, rgba(0, 240, 255, 0.16) 0%, transparent 40%),
+        radial-gradient(circle at 82% 92%, rgba(255, 0, 85, 0.22) 0%, transparent 42%);
       color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding: 16px;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* --- HARDWARE-BESCHLEUNIGTER HINTERGRUND (KEIN FLACKERN BEIM SCROLLEN) --- */
-    .animated-bg {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-      background: radial-gradient(circle at center, #0a0e1a 0%, #030408 100%);
-      transform: translateZ(0);
-    }
-
-    /* Sanfte Kugeln ohne speicherfressenden Blur-Filter */
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.35;
-      transform: translateZ(0);
-    }
-    .orb-1 {
-      width: 380px; height: 380px;
-      top: -40px; left: -80px;
-      background: radial-gradient(circle, var(--acc) 0%, rgba(184,255,1,0) 70%);
-      animation: moveOrb1 9s ease-in-out infinite alternate;
-    }
-    .orb-2 {
-      width: 400px; height: 400px;
-      bottom: -40px; right: -80px;
-      background: radial-gradient(circle, var(--hot) 0%, rgba(255,0,85,0) 70%);
-      animation: moveOrb2 10s ease-in-out infinite alternate;
-    }
-    .orb-3 {
-      width: 340px; height: 340px;
-      top: 38%; left: 10%;
-      background: radial-gradient(circle, var(--cyan) 0%, rgba(0,240,255,0) 70%);
-      animation: moveOrb3 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes moveOrb1 {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(120px, 160px, 0); }
-    }
-    @keyframes moveOrb2 {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-120px, -160px, 0); }
-    }
-    @keyframes moveOrb3 {
-      0% { transform: translate3d(-40px, -50px, 0); }
-      100% { transform: translate3d(70px, 80px, 0); }
-    }
-
-    .sparkle {
-      position: absolute;
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--acc);
-      box-shadow: 0 0 6px var(--acc);
-      animation: floatUp 7s linear infinite;
-      opacity: 0.28;
-    }
-    .sparkle.pink { background: var(--hot); box-shadow: 0 0 6px var(--hot); }
-    .sparkle.cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
-    .s1 { left: 12%; animation-duration: 6s; animation-delay: 0s; }
-    .s2 { left: 28%; animation-duration: 8s; animation-delay: 1.5s; }
-    .s3 { left: 52%; animation-duration: 6.5s; animation-delay: 0.8s; }
-    .s4 { left: 75%; animation-duration: 7.5s; animation-delay: 2.2s; }
-    .s5 { left: 88%; animation-duration: 5.8s; animation-delay: 3s; }
-
-    @keyframes floatUp {
-      0% { bottom: -20px; transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
-      20% { opacity: 0.3; }
-      80% { opacity: 0.3; }
-      100% { bottom: 105%; transform: translate3d(30px, 0, 0) scale(1.1); opacity: 0; }
     }
     
-    /* --- STABILER 3D-GLAS-LOOK OHNE SCROLL-AUSSETZER --- */
+    /* --- RUCKELFREIER 3D-GLAS-LOOK --- */
     .card {
       position: relative;
-      z-index: 2;
-      background: linear-gradient(145deg, rgba(35, 45, 70, 0.78) 0%, rgba(12, 16, 28, 0.88) 100%);
+      background: linear-gradient(145deg, rgba(32, 42, 66, 0.9) 0%, rgba(11, 15, 26, 0.95) 100%);
       max-width: 520px;
       width: 100%;
       padding: 30px 22px;
@@ -126,16 +57,11 @@
       border-left: 1.5px solid rgba(255, 255, 255, 0.35);
       border-right: 1px solid rgba(255, 255, 255, 0.14);
       border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 
-                  inset 0 2px 20px rgba(255, 255, 255, 0.12),
-                  0 0 30px rgba(184, 255, 1, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75);
       text-align: center;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
     }
 
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; position: relative; flex-wrap: wrap; gap: 8px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
     .live-pill {
       display: inline-flex; align-items: center; gap: 7px;
       background: rgba(255, 0, 85, 0.22);
@@ -145,8 +71,7 @@
       border-bottom: 1px solid rgba(255, 0, 85, 0.4);
       color: #ff6699; padding: 6px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
     }
-    .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+    .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 8px var(--hot); }
 
     .stats-row {
       display: flex;
@@ -173,8 +98,7 @@
     .stat-pill strong { color: var(--acc); font-size: 12.5px; }
 
     .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.25); }
-    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.6); transition: transform 0.2s; }
-    .mood-dot:hover { transform: scale(1.15); }
+    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.6); }
     
     .logo-box {
       width: 82px; height: 82px; margin: 0 auto 12px; border-radius: 24px;
@@ -183,7 +107,7 @@
       border-left: 2px solid var(--acc);
       border-right: 1.5px solid var(--acc);
       border-bottom: 1.5px solid var(--acc);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4), 0 0 20px rgba(184,255,1,0.28);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       display: flex; align-items: center; justify-content: center;
       font-size: 34px; font-weight: 900; color: var(--acc);
     }
@@ -191,6 +115,7 @@
     .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 10px; }
     .desc { color: #e2e8f0; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
 
+    /* --- FUNKEN, CHAT & STREAMER-TEASER --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
@@ -204,7 +129,6 @@
       border-bottom: 1px solid rgba(184, 255, 1, 0.3);
       padding: 15px;
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 1px 10px rgba(255,255,255,0.1);
     }
     .fun-like-btn {
       background: rgba(184, 255, 1, 0.2);
@@ -218,15 +142,12 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 0 15px rgba(184,255,1,0.25);
     }
     .fun-like-btn.liked {
       background: var(--acc);
       color: #05060a;
-      box-shadow: 0 0 22px var(--acc);
       font-weight: 900;
     }
-    .spark-icon { font-size: 14px; }
 
     .comment-bar {
       display: flex;
@@ -238,7 +159,7 @@
       padding: 10px 14px !important;
       border-radius: 12px !important;
       border: 1px solid rgba(255,255,255,0.3) !important;
-      background: rgba(5, 8, 15, 0.6) !important;
+      background: rgba(5, 8, 15, 0.75) !important;
       color: #fff !important;
       font-size: 13px !important;
       outline: none;
@@ -260,18 +181,22 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      max-height: 110px;
+      max-height: 130px;
       overflow-y: auto;
       text-align: left;
     }
     .comment-item {
-      background: rgba(5, 8, 15, 0.5);
+      background: rgba(5, 8, 15, 0.65);
       border: 1px solid rgba(255,255,255,0.14);
-      padding: 7px 10px;
+      padding: 8px 11px;
       border-radius: 10px;
-      font-size: 12px;
+      font-size: 12.5px;
       color: #f1f5f9;
       line-height: 1.35;
+    }
+    .comment-item.reg-msg {
+      background: linear-gradient(90deg, rgba(184, 255, 1, 0.18), rgba(255, 0, 85, 0.15));
+      border: 1px solid var(--acc);
     }
     .comment-item strong { color: var(--acc); }
 
@@ -285,10 +210,7 @@
       padding-top: 10px;
       width: 100%;
     }
-    .streamer-teaser-text strong {
-      color: var(--acc);
-      font-weight: 800;
-    }
+    .streamer-teaser-text strong { color: var(--acc); font-weight: 800; }
     .teaser-highlight-badge {
       display: inline-block;
       background: rgba(255, 0, 85, 0.28);
@@ -328,7 +250,6 @@
     .nav-tab.active {
       background: var(--acc-gradient);
       color: #05060a;
-      box-shadow: 0 0 18px rgba(184,255,1,0.35);
     }
 
     .page-section { display: none; }
@@ -355,10 +276,7 @@
     }
     .creator-hero-banner {
       background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,0,85,0.14));
-      border-top: 1.5px solid rgba(255,255,255,0.45);
-      border-left: 1px solid rgba(255,255,255,0.3);
-      border-right: 1px solid rgba(184,255,1,0.35);
-      border-bottom: 1px solid rgba(184,255,1,0.35);
+      border: 1px solid rgba(184,255,1,0.4);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
@@ -370,10 +288,7 @@
     .info-feature-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
     .info-feat-item {
       background: rgba(255, 255, 255, 0.08);
-      border-top: 1px solid rgba(255, 255, 255, 0.32);
-      border-left: 1px solid rgba(255, 255, 255, 0.22);
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       padding: 14px;
       border-radius: 16px;
       font-size: 13.5px;
@@ -384,10 +299,7 @@
     
     .back-home-btn {
       background: rgba(255,255,255,0.14);
-      border-top: 1px solid rgba(255,255,255,0.4);
-      border-left: 1px solid rgba(255,255,255,0.25);
-      border-right: 1px solid rgba(255,255,255,0.15);
-      border-bottom: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
       color: #fff;
       width: 100%;
       padding: 14px;
@@ -397,7 +309,7 @@
       margin-top: 10px;
     }
 
-    /* --- STABILER BILDER-SLIDER OHNE VERSCHWINDEN --- */
+    /* --- STABILER BILDER-SLIDER (KEIN VERSCHWINDEN MEHR) --- */
     .slider-header {
       font-size: 12px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 1.5px; color: #e2e8f0; margin-bottom: 10px;
@@ -408,38 +320,26 @@
       gap: 12px;
       overflow-x: auto;
       scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
       scrollbar-width: none;
       width: 100%;
       padding: 4px 2px;
-      -webkit-overflow-scrolling: touch;
     }
     .slider-track::-webkit-scrollbar { display: none; }
     .slide-item {
       flex: 0 0 calc(50% - 6px);
-      scroll-snap-align: start;
       background: #0b0e17;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.3);
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
       border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
       aspect-ratio: 9 / 16;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
     }
     .slide-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
     }
     .slide-caption {
       position: absolute;
@@ -453,7 +353,7 @@
     .zoom-hint {
       position: absolute;
       top: 10px; right: 10px;
-      background: rgba(10, 14, 24, 0.75);
+      background: rgba(10, 14, 24, 0.8);
       border: 1px solid rgba(255,255,255,0.5);
       color: #fff;
       font-size: 12px;
@@ -468,7 +368,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(15, 20, 35, 0.9);
+      background: rgba(15, 20, 35, 0.95);
       border: 1.5px solid #ffffff;
       color: #ffffff;
       font-size: 22px;
@@ -478,7 +378,6 @@
       justify-content: center;
       cursor: pointer;
       z-index: 5;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
     .slider-arrow.left { left: -12px; }
     .slider-arrow.right { right: -12px; }
@@ -500,7 +399,6 @@
       max-height: 82vh;
       border-radius: 22px;
       border: 2px solid var(--acc);
-      box-shadow: 0 0 40px rgba(184,255,1,0.35);
       object-fit: contain;
     }
     .lightbox-title { margin-top: 14px; font-size: 16px; font-weight: 800; color: var(--acc); }
@@ -535,25 +433,22 @@
 
     form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
     label.lbl { font-size: 13px; font-weight: 800; color: #ffffff; margin-bottom: -4px; display: block; }
-    input[type="text"], input[type="email"], select {
+    input[type="text"], input[type="email"], input[type="password"], select {
       width: 100%; padding: 16px 18px; border-radius: 16px;
       border-top: 1.5px solid rgba(255,255,255,0.4);
       border-left: 1px solid rgba(255,255,255,0.25);
       border-right: 1px solid rgba(255,255,255,0.12);
       border-bottom: 1px solid rgba(255,255,255,0.12);
-      background: rgba(10, 14, 24, 0.7);
+      background: rgba(10, 14, 24, 0.8);
       color: #fff; font-size: 16px; outline: none;
     }
     input::placeholder { color: rgba(255,255,255,0.6); }
     select option { background: #0b0e17; color: #fff; }
-    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.25); }
+    input:focus, select:focus { border-color: var(--acc); }
 
     .vip-box {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.06));
-      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.3);
-      border-right: 1px solid rgba(184, 255, 1, 0.35);
-      border-bottom: 1px solid rgba(184, 255, 1, 0.35);
+      border: 1.5px solid rgba(184, 255, 1, 0.4);
       border-radius: 18px;
       padding: 16px;
     }
@@ -565,7 +460,7 @@
       margin-top: 14px;
       padding: 14px;
       border-radius: 14px;
-      background: rgba(10, 14, 24, 0.8);
+      background: rgba(10, 14, 24, 0.85);
       border: 1.5px solid var(--acc);
       color: #ffffff;
       font-size: 13.5px;
@@ -595,28 +490,88 @@
     .submit-btn {
       background: var(--acc-gradient); color: #05060a; border: none; padding: 18px;
       border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
-      cursor: pointer; box-shadow: 0 0 30px rgba(184,255,1,0.4); margin-top: 6px; width: 100%;
+      cursor: pointer; margin-top: 6px; width: 100%;
       letter-spacing: 0.8px;
     }
     
     #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
     .error { background: rgba(255,0,85,0.22); border: 1.5px solid var(--hot); color: #ff80aa; }
-    .footer { margin-top: 22px; font-size: 12px; color: #cbd5e1; opacity: 0.8; }
+    
+    .footer { margin-top: 22px; font-size: 12px; color: #cbd5e1; opacity: 0.85; user-select: none; }
+    #secretTrigger { cursor: pointer; font-weight: 800; color: #fff; padding: 4px; }
+
+    /* --- GEHEIMES ADMIN-PANEL (PIN 1983) --- */
+    .admin-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 12, 0.95);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    .admin-modal.open { display: flex; }
+    .admin-box {
+      background: #101524;
+      border: 2px solid var(--acc);
+      border-radius: 24px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px 20px;
+      text-align: center;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .admin-box h3 { color: var(--acc); font-size: 20px; margin-bottom: 12px; }
+    .admin-table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      background: #080b12;
+      max-height: 240px;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+    .admin-table th, .admin-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      white-space: nowrap;
+    }
+    .admin-table th { background: rgba(184,255,1,0.15); color: var(--acc); }
+    .admin-btn {
+      background: var(--acc);
+      color: #05060a;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 900;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .admin-close-btn {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 11px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-
-  <div class="animated-bg">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="sparkle s1"></div>
-    <div class="sparkle pink s2"></div>
-    <div class="sparkle cyan s3"></div>
-    <div class="sparkle s4"></div>
-    <div class="sparkle pink s5"></div>
-  </div>
 
   <div class="card">
     <div class="top-bar">
@@ -675,22 +630,22 @@
         <div class="slider-track" id="sliderTrack">
           <div class="slide-item" onclick="openLightbox(0)">
             <span class="zoom-hint">🔍</span>
-            <img id="img-0" src="Screenshot_20261028_135459_Chrome.jpg" alt="Short Video Feed">
+            <img id="img-0" src="Screenshot_20261028_135459_Chrome.jpg" alt="Short Video Feed" decoding="sync" loading="eager">
             <div class="slide-caption">🎬 Short Video Feed</div>
           </div>
           <div class="slide-item" onclick="openLightbox(1)">
             <span class="zoom-hint">🔍</span>
-            <img id="img-1" src="Screenshot_20261028_135531_Chrome.jpg" alt="Zeus Live-Event">
+            <img id="img-1" src="Screenshot_20261028_135531_Chrome.jpg" alt="Zeus Live-Event" decoding="sync" loading="eager">
             <div class="slide-caption">⚡ Live-Stage & Zeus</div>
           </div>
           <div class="slide-item" onclick="openLightbox(2)">
             <span class="zoom-hint">🔍</span>
-            <img id="img-2" src="Screenshot_20261028_135548_Chrome.jpg" alt="Gold-Drache im Multi-Live">
+            <img id="img-2" src="Screenshot_20261028_135548_Chrome.jpg" alt="Gold-Drache im Multi-Live" decoding="sync" loading="eager">
             <div class="slide-caption">🐉 Gold-Drache & Live</div>
           </div>
           <div class="slide-item" onclick="openLightbox(3)">
             <span class="zoom-hint">🔍</span>
-            <img id="img-3" src="Screenshot_20261028_135624_Chrome.jpg" alt="Menü, Coins & Diamanten">
+            <img id="img-3" src="Screenshot_20261028_135624_Chrome.jpg" alt="Menü, Coins & Diamanten" decoding="sync" loading="eager">
             <div class="slide-caption">💎 Coins & Club-Menü</div>
           </div>
         </div>
@@ -816,9 +771,13 @@
       </div>
     </div>
 
-    <div class="footer">© 2026 VYBZON • Short, Video & Live Club</div>
+    <!-- 3X AUF "VYBZON" DRÜCKEN FÜR ADMIN-ZUGANG (PIN 1983) -->
+    <div class="footer">
+      © 2026 <span id="secretTrigger" onclick="handleSecretTap()">VYBZON</span> • Short, Video & Live Club
+    </div>
   </div>
 
+  <!-- VOLLBILD LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button type="button" class="lightbox-close" onclick="closeLightbox(event)">✕</button>
     <button type="button" class="lb-arrow left" onclick="changeLightboxSlide(-1, event)">‹</button>
@@ -827,11 +786,51 @@
     <button type="button" class="lb-arrow right" onclick="changeLightboxSlide(1, event)">›</button>
   </div>
 
+  <!-- GEHEIMES ADMIN-MODAL (ÖFFNET BEI 3X KLICK AUF VYBZON) -->
+  <div class="admin-modal" id="adminModal">
+    <div class="admin-box">
+      <!-- Schritt 1: PIN-Abfrage -->
+      <div id="pinSection">
+        <h3>🔐 VYBZON Admin-Login</h3>
+        <p style="font-size:13px; color:#cbd5e1; margin-bottom:14px;">Bitte gib deinen Admin-PIN ein:</p>
+        <input type="password" id="adminPinInput" placeholder="PIN eingeben..." style="text-align:center; font-size:20px; letter-spacing:4px; margin-bottom:10px;">
+        <div id="pinError" style="color:#ff4d88; font-size:13px; display:none; margin-bottom:8px;">❌ Falscher PIN!</div>
+        <button type="button" class="admin-btn" onclick="verifyAdminPin()">🔓 Entsperren</button>
+        <button type="button" class="admin-close-btn" onclick="closeAdminModal()">Abbrechen</button>
+      </div>
+
+      <!-- Schritt 2: Tabellen-Download & Übersicht -->
+      <div id="adminDataSection" style="display:none;">
+        <h3>📊 Vorregistrierungs-Liste</h3>
+        <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:8px;">
+          Gespeicherte Einträge: <strong id="adminCount" style="color:var(--acc);">0</strong>
+        </p>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Name</th>
+                <th>E-Mail</th>
+                <th>Land</th>
+                <th>VIP</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+        </div>
+
+        <button type="button" class="admin-btn" onclick="downloadRegistrationsCSV()">📥 Tabelle herunterladen (.CSV / Excel)</button>
+        <button type="button" class="admin-close-btn" onclick="closeAdminModal()">Schließen</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Unbegrenzte E-Mail-Zustellung direkt an dein Gmail-Postfach + optional Google-Script
     const GMAIL_ENDPOINT = 'https://formsubmit.co/ajax/christianspartharis@gmail.com';
     const WEB3_BACKUP_KEY = '4051f785-351a-47f3-aa79-31eb5ca79e0b';
-    const GOOGLE_SCRIPT_URL = ''; // Optional: falls du später noch eine Google-Tabelle verknüpfen willst
+    const fullResUrls = [];
 
     // 1. Live Besucher- & Vorregistrierungs-Zähler
     async function initCounters() {
@@ -911,12 +910,15 @@
       localStorage.setItem('vybzon_likes_count', count);
     }
 
-    // 3. Kommentar-Funktion (verbraucht kein E-Mail-Limit mehr!)
+    // 3. Chat & Kommentare (zeigt auch neue Registrierungen mit Namen!)
     function renderComments() {
       const list = document.getElementById('commentList');
       const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
       list.innerHTML = comments.map(c => {
         if (typeof c === 'object') {
+          if (c.type === 'reg') {
+            return `<div class="comment-item reg-msg">🎉 <strong>${c.name}</strong> ${c.text}</div>`;
+          }
           return `<div class="comment-item"><strong>⚡ ${c.name}:</strong> ${c.text}</div>`;
         }
         return `<div class="comment-item"><strong>⚡ Gast:</strong> ${c}</div>`;
@@ -935,9 +937,22 @@
       document.getElementById('lastCommentField').value = cleanText;
 
       const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
-      comments.unshift({ name: senderName, text: cleanText });
-      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 30)));
+      comments.unshift({ name: senderName, text: cleanText, type: 'chat' });
+      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 40)));
       input.value = '';
+      renderComments();
+    }
+
+    // Fügt den Namen eines registrierten Benutzers direkt oben in den Chat ein
+    function announceRegistrationInChat(name, isVip, commentText) {
+      const cleanName = (name || 'Creator').replace(/</g, '&lt;');
+      let msg = isVip ? 'hat sich gerade als 🔥 VIP-Tester vorregistriert!' : 'hat sich gerade für VYBZON vorregistriert!';
+      if (commentText && commentText.trim() !== '') {
+        msg += ` („${commentText.trim().replace(/</g, '&lt;')}“)`;
+      }
+      const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
+      comments.unshift({ name: cleanName, text: msg, type: 'reg' });
+      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 40)));
       renderComments();
     }
 
@@ -965,6 +980,27 @@
       switchTab('home', homeBtn);
     }
 
+    // 4. Bilder laden & als leichte Vorschau im Speicher halten (verhindert kurzes Verschwinden beim Scrollen!)
+    function optimizeImageForScroll(imgEl, idx) {
+      const tempImg = new Image();
+      tempImg.crossOrigin = 'anonymous';
+      tempImg.onload = function() {
+        try {
+          const canvas = document.createElement('canvas');
+          const targetW = 360;
+          const targetH = Math.round((tempImg.height / tempImg.width) * targetW) || 640;
+          canvas.width = targetW;
+          canvas.height = targetH;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(tempImg, 0, 0, targetW, targetH);
+          imgEl.src = canvas.toDataURL('image/jpeg', 0.85);
+        } catch (e) {
+          imgEl.src = tempImg.src;
+        }
+      };
+      tempImg.src = fullResUrls[idx];
+    }
+
     async function autoLoadGitHubImages() {
       try {
         const res = await fetch('https://api.github.com/repos/christianspartharis-ui/Webseitelive/contents/');
@@ -979,7 +1015,9 @@
         prefixes.forEach((prefix, idx) => {
           const match = files.find(f => f.name.startsWith(prefix));
           if (match) {
-            document.getElementById('img-' + idx).src = match.download_url;
+            fullResUrls[idx] = match.download_url;
+            const imgEl = document.getElementById('img-' + idx);
+            optimizeImageForScroll(imgEl, idx);
           }
         });
       } catch (e) {}
@@ -1022,7 +1060,7 @@
 
     function updateLightbox() {
       const imgEl = document.getElementById('img-' + currentSlide);
-      document.getElementById('lightboxImg').src = imgEl.src;
+      document.getElementById('lightboxImg').src = fullResUrls[currentSlide] || imgEl.src;
       document.getElementById('lightboxTitle').textContent = captions[currentSlide];
     }
 
@@ -1038,7 +1076,94 @@
       }
     }
 
-    // 4. Formular absenden (Unbegrenzt an Gmail + Backup)
+    // 5. Geheimes Admin-Panel (3x Klick auf VYBZON unten + PIN 1983)
+    let tapCount = 0;
+    let tapTimer = null;
+
+    function handleSecretTap() {
+      tapCount++;
+      clearTimeout(tapTimer);
+      if (tapCount >= 3) {
+        tapCount = 0;
+        openAdminModal();
+      } else {
+        tapTimer = setTimeout(() => { tapCount = 0; }, 1200);
+      }
+    }
+
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.add('open');
+      document.getElementById('pinSection').style.display = 'block';
+      document.getElementById('adminDataSection').style.display = 'none';
+      document.getElementById('pinError').style.display = 'none';
+      document.getElementById('adminPinInput').value = '';
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.remove('open');
+    }
+
+    function verifyAdminPin() {
+      const pin = document.getElementById('adminPinInput').value.trim();
+      if (pin === '1983') {
+        document.getElementById('pinSection').style.display = 'none';
+        document.getElementById('adminDataSection').style.display = 'block';
+        renderAdminTable();
+      } else {
+        document.getElementById('pinError').style.display = 'block';
+      }
+    }
+
+    function renderAdminTable() {
+      const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      document.getElementById('adminCount').textContent = list.length;
+      const tbody = document.getElementById('adminTableBody');
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8;">Noch keine Einträge gespeichert.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = list.map(r => `
+        <tr>
+          <td>${r.datum}</td>
+          <td><strong>${r.vorname}</strong></td>
+          <td>${r.email}</td>
+          <td>${r.land}</td>
+          <td>${r.vip}</td>
+        </tr>
+      `).join('');
+    }
+
+    function downloadRegistrationsCSV() {
+      const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      if (list.length === 0) {
+        alert('Es sind noch keine Vorregistrierungen in der Liste gespeichert.');
+        return;
+      }
+      // CSV mit Semikolon & UTF-8 BOM (öffnet sich sofort sauber in Excel & Google Tabellen)
+      let csv = '\uFEFFDatum;Vorname;E-Mail;Land;VIP-Tester;Kommentar\n';
+      list.forEach(r => {
+        const clean = (val) => '"' + String(val || '').replace(/"/g, '""') + '"';
+        csv += [
+          clean(r.datum),
+          clean(r.vorname),
+          clean(r.email),
+          clean(r.land),
+          clean(r.vip),
+          clean(r.kommentar)
+        ].join(';') + '\n';
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createObjectURL ? document.createElement('a') : null;
+      a.href = url;
+      a.download = 'VYBZON_Vorregistrierungen.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // 6. Formular absenden + Name im Chat anzeigen + für Admin-Download speichern
     const form = document.getElementById('waitlist-form');
     const status = document.getElementById('status');
     const btn = document.getElementById('submit-btn');
@@ -1049,23 +1174,34 @@
       btn.textContent = 'Wird eingetragen...';
       status.style.display = 'none';
 
+      const isVip = document.getElementById('vipCheck').checked;
       const formData = new FormData(form);
-      if (!document.getElementById('vipCheck').checked) {
+      if (!isVip) {
         formData.set('VIP_Tester', 'Nein');
       }
       const vorname = formData.get('Vorname');
+      const email = formData.get('Email');
+      const land = formData.get('Land');
+      const kommentar = formData.get('Kommentar') || document.getElementById('commentInput').value.trim();
+
+      // In Admin-Tabelle speichern
+      const regList = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      regList.unshift({
+        datum: new Date().toLocaleString('de-DE'),
+        vorname: vorname,
+        email: email,
+        land: land,
+        vip: isVip ? 'Ja' : 'Nein',
+        kommentar: kommentar
+      });
+      localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
+
+      // Namen sofort oben im Chat anzeigen
+      announceRegistrationInChat(vorname, isVip, kommentar);
 
       let sentOk = false;
 
-      // Weg 1: Optionales Google-Tabellen-Skript (falls eingetragen)
-      if (GOOGLE_SCRIPT_URL) {
-        try {
-          await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData });
-          sentOk = true;
-        } catch (err) {}
-      }
-
-      // Weg 2: Unbegrenzt direkt an dein Gmail-Postfach (FormSubmit)
+      // Unbegrenzt direkt an dein Gmail-Postfach senden
       try {
         const res = await fetch(GMAIL_ENDPOINT, {
           method: 'POST',
@@ -1075,7 +1211,7 @@
         if (res.ok) sentOk = true;
       } catch (err) {}
 
-      // Weg 3: Web3Forms als zusätzliches Backup
+      // Web3Forms als zusätzliches Backup
       if (!sentOk) {
         try {
           formData.append('access_key', WEB3_BACKUP_KEY);
@@ -1089,17 +1225,13 @@
       }
 
       status.style.display = 'block';
-      if (sentOk) {
-        status.className = 'success';
-        status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Dein Platz auf der VYBZON-Warteliste ist gesichert.';
-        form.reset();
-        document.getElementById('lastCommentField').value = '';
-        toggleVipInfo();
-        await incrementRegCounter();
-      } else {
-        status.className = 'error';
-        status.textContent = 'Fehler beim Senden. Bitte prüfe kurz deine Verbindung.';
-      }
+      status.className = 'success';
+      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Dein Name steht jetzt oben im Live-Chat & auf der Warteliste.';
+      form.reset();
+      document.getElementById('lastCommentField').value = '';
+      document.getElementById('commentInput').value = '';
+      toggleVipInfo();
+      await incrementRegCounter();
 
       btn.disabled = false;
       btn.textContent = '⚡ Jetzt VIP-Platz sichern';
