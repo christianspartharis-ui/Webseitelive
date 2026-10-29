@@ -9,6 +9,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
+  <!-- Macht die Seite im Browser direkt als App installierbar -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#04060c">
+  <link rel="manifest" href='data:application/manifest+json,{"name":"VYBZON Club","short_name":"VYBZON","start_url":".","display":"standalone","background_color":"#04060c","theme_color":"#b8ff01"}'>
+
   <title>VYBZON – Short, Video & Live Club</title>
   <style>
     :root {
@@ -44,7 +50,6 @@
       background: radial-gradient(circle at center, #0a0e1a 0%, #030408 100%);
     }
 
-    /* Große wandernde Neon-Kugeln (deutlich dezenter) */
     .orb {
       position: absolute;
       border-radius: 50%;
@@ -84,7 +89,6 @@
       100% { transform: translate(90px, 110px) scale(1.15); }
     }
 
-    /* Kleine schwebende Punkte im Hintergrund (gedimmt & weicher) */
     .sparkle {
       position: absolute;
       width: 5px; height: 5px;
@@ -118,7 +122,7 @@
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       max-width: 520px;
       width: 100%;
-      padding: 34px 24px;
+      padding: 30px 22px;
       border-radius: 32px;
       border-top: 1.5px solid rgba(255, 255, 255, 0.5);
       border-left: 1.5px solid rgba(255, 255, 255, 0.35);
@@ -141,26 +145,46 @@
       pointer-events: none;
     }
 
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; position: relative; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; position: relative; flex-wrap: wrap; gap: 8px; }
     .live-pill {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 7px;
       background: rgba(255, 0, 85, 0.22);
       border-top: 1px solid rgba(255, 255, 255, 0.45);
       border-left: 1px solid rgba(255, 255, 255, 0.3);
       border-right: 1px solid rgba(255, 0, 85, 0.4);
       border-bottom: 1px solid rgba(255, 0, 85, 0.4);
-      color: #ff6699; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800;
+      color: #ff6699; padding: 6px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
       backdrop-filter: blur(10px);
     }
     .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+    /* --- BESUCHER-ZÄHLER PILL --- */
+    .visitor-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.45);
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid rgba(184, 255, 1, 0.35);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.35);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 11.5px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      margin-bottom: 16px;
+    }
+    .visitor-pill strong { color: var(--acc); }
 
     .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.25); }
     .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.6); transition: transform 0.2s; }
     .mood-dot:hover { transform: scale(1.15); }
     
     .logo-box {
-      width: 86px; height: 86px; margin: 0 auto 14px; border-radius: 24px;
+      width: 82px; height: 82px; margin: 0 auto 12px; border-radius: 24px;
       background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.04));
       border-top: 2px solid rgba(255,255,255,0.65);
       border-left: 2px solid var(--acc);
@@ -168,18 +192,19 @@
       border-bottom: 1.5px solid var(--acc);
       box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 25px rgba(184,255,1,0.3), inset 0 2px 12px rgba(255,255,255,0.2);
       display: flex; align-items: center; justify-content: center;
-      font-size: 36px; font-weight: 900; color: var(--acc);
+      font-size: 34px; font-weight: 900; color: var(--acc);
       backdrop-filter: blur(12px);
     }
-    h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
-    .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
-    .desc { color: #e2e8f0; font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
+    h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+    .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 10px; }
+    .desc { color: #e2e8f0; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
 
+    /* --- FUNKEN, KOMMENTAR-ZEILE & STREAMER-TEASER --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 22px;
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.05));
       border-top: 1.5px solid rgba(255, 255, 255, 0.45);
@@ -216,12 +241,63 @@
     .fun-like-btn.liked .spark-icon { animation: sparkPop 0.3s ease; }
     @keyframes sparkPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
 
+    /* Kommentar-Zeile unter Funken */
+    .comment-bar {
+      display: flex;
+      width: 100%;
+      gap: 8px;
+    }
+    .comment-input {
+      flex: 1;
+      padding: 10px 14px !important;
+      border-radius: 12px !important;
+      border: 1px solid rgba(255,255,255,0.3) !important;
+      background: rgba(0,0,0,0.35) !important;
+      color: #fff !important;
+      font-size: 13px !important;
+      outline: none;
+    }
+    .comment-input:focus { border-color: var(--acc) !important; }
+    .comment-send-btn {
+      background: var(--acc);
+      color: #05060a;
+      border: none;
+      padding: 0 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .comment-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 110px;
+      overflow-y: auto;
+      text-align: left;
+    }
+    .comment-item {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      color: #f1f5f9;
+      line-height: 1.35;
+    }
+    .comment-item strong { color: var(--acc); }
+
     .streamer-teaser-text {
       font-size: 13px;
       color: #ffffff;
       font-weight: 600;
       text-align: left;
       line-height: 1.5;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 10px;
+      width: 100%;
     }
     .streamer-teaser-text strong {
       color: var(--acc);
@@ -573,17 +649,31 @@
       </div>
     </div>
 
+    <!-- LIVE BESUCHER-ZÄHLER -->
+    <div class="visitor-pill">
+      👁️ Bereits <strong id="visitorCount">1</strong> Besucher auf der Seite
+    </div>
+
     <div class="logo-box">VZ</div>
     <h1>VYBZON</h1>
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
+    <!-- FUNKEN + KOMMENTAR-ZEILE + STREAMER-TEXT -->
     <div class="fun-like-container">
       <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
         <span class="spark-icon" id="sparkIcon">⚡</span> 
         <span>Funken geben</span> 
         (<span id="likeCount">0</span>)
       </button>
+
+      <!-- Neue Kommentar-Zeile direkt unter Funken -->
+      <div class="comment-bar">
+        <input type="text" id="commentInput" class="comment-input" placeholder="Schreib einen Kommentar zur App..." maxlength="120">
+        <button type="button" class="comment-send-btn" onclick="addComment()">💬 Senden</button>
+      </div>
+      <div class="comment-list" id="commentList"></div>
+
       <div class="streamer-teaser-text">
         <span class="teaser-highlight-badge">💎 Streamer & Creator Jackpot</span><br>
         Warum auf anderen Plattformen die Hälfte deiner Einnahmen verschenken? Bei <strong>VYBZON verdienst du deutlich mehr als überall sonst</strong>: Kassiere den maximalen Anteil deiner Geschenke, bestimme selbst deinen Host-Bonus im 8er Multi-Live, beteilige deine Mods mit <strong>bis zu 5 %</strong> und profitiere von <strong>täglichen Gratis-Coins</strong> für deine Zuschauer! 👉 <em>Tippe jetzt auf <strong>„🔥 Aktuelles“</strong> für alle Zahlen & Vorteile!</em>
@@ -754,7 +844,32 @@
   <script>
     const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
 
-    let hasLiked = false;
+    // 1. Live Besucher-Zähler (Global über CounterAPI + lokaler Speicher als Backup)
+    async function updateVisitorCounter() {
+      const countEl = document.getElementById('visitorCount');
+      try {
+        const res = await fetch('https://api.counterapi.dev/v1/vybzon_webseitelive/visits/up');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.count) {
+            countEl.textContent = data.count;
+            localStorage.setItem('vybzon_visits', data.count);
+            return;
+          }
+        }
+      } catch (e) {}
+      let localVisits = parseInt(localStorage.getItem('vybzon_visits') || '0') + 1;
+      localStorage.setItem('vybzon_visits', localVisits);
+      countEl.textContent = localVisits;
+    }
+    updateVisitorCounter();
+
+    // 2. Funken-Like Logik
+    let hasLiked = localStorage.getItem('vybzon_liked') === 'true';
+    let savedLikes = parseInt(localStorage.getItem('vybzon_likes_count') || '0');
+    document.getElementById('likeCount').textContent = savedLikes;
+    if (hasLiked) document.getElementById('funLikeBtn').classList.add('liked');
+
     function toggleLike() {
       const btn = document.getElementById('funLikeBtn');
       const countEl = document.getElementById('likeCount');
@@ -763,13 +878,37 @@
       if (!hasLiked) {
         hasLiked = true;
         btn.classList.add('liked');
-        countEl.textContent = count + 1;
+        count = count + 1;
       } else {
         hasLiked = false;
         btn.classList.remove('liked');
-        countEl.textContent = count - 1;
+        count = Math.max(0, count - 1);
       }
+      countEl.textContent = count;
+      localStorage.setItem('vybzon_liked', hasLiked);
+      localStorage.setItem('vybzon_likes_count', count);
     }
+
+    // 3. Kommentar-Funktion unter Funken
+    function renderComments() {
+      const list = document.getElementById('commentList');
+      const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
+      list.innerHTML = comments.map(c => `<div class="comment-item"><strong>⚡ Gast:</strong> ${c}</div>`).join('');
+    }
+    function addComment() {
+      const input = document.getElementById('commentInput');
+      const text = input.value.trim();
+      if (!text) return;
+      const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
+      comments.unshift(text.replace(/</g, '&lt;'));
+      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 20)));
+      input.value = '';
+      renderComments();
+    }
+    document.getElementById('commentInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); addComment(); }
+    });
+    renderComments();
 
     function switchTab(tabName, btnEl) {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
