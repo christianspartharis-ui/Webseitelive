@@ -33,13 +33,13 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       padding: 16px;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* --- SANFT GEDIMMTER BEWEGTER HINTERGRUND --- */
+    /* --- HARDWARE-BESCHLEUNIGTER HINTERGRUND (KEIN FLACKERN BEIM SCROLLEN) --- */
     .animated-bg {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -47,45 +47,46 @@
       overflow: hidden;
       pointer-events: none;
       background: radial-gradient(circle at center, #0a0e1a 0%, #030408 100%);
+      transform: translateZ(0);
     }
 
+    /* Sanfte Kugeln ohne speicherfressenden Blur-Filter */
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(65px);
       opacity: 0.35;
-      will-change: transform;
+      transform: translateZ(0);
     }
     .orb-1 {
-      width: 280px; height: 280px;
-      top: 2%; left: -40px;
-      background: radial-gradient(circle, var(--acc), transparent 70%);
-      animation: moveOrb1 8s ease-in-out infinite alternate;
+      width: 380px; height: 380px;
+      top: -40px; left: -80px;
+      background: radial-gradient(circle, var(--acc) 0%, rgba(184,255,1,0) 70%);
+      animation: moveOrb1 9s ease-in-out infinite alternate;
     }
     .orb-2 {
-      width: 300px; height: 300px;
-      bottom: 5%; right: -50px;
-      background: radial-gradient(circle, var(--hot), transparent 70%);
-      animation: moveOrb2 9s ease-in-out infinite alternate;
+      width: 400px; height: 400px;
+      bottom: -40px; right: -80px;
+      background: radial-gradient(circle, var(--hot) 0%, rgba(255,0,85,0) 70%);
+      animation: moveOrb2 10s ease-in-out infinite alternate;
     }
     .orb-3 {
-      width: 240px; height: 240px;
-      top: 42%; left: 20%;
-      background: radial-gradient(circle, var(--cyan), transparent 70%);
-      animation: moveOrb3 7s ease-in-out infinite alternate;
+      width: 340px; height: 340px;
+      top: 38%; left: 10%;
+      background: radial-gradient(circle, var(--cyan) 0%, rgba(0,240,255,0) 70%);
+      animation: moveOrb3 8s ease-in-out infinite alternate;
     }
 
     @keyframes moveOrb1 {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(160px, 220px) scale(1.2); }
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(120px, 160px, 0); }
     }
     @keyframes moveOrb2 {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(-150px, -240px) scale(1.25); }
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-120px, -160px, 0); }
     }
     @keyframes moveOrb3 {
-      0% { transform: translate(-60px, -80px) scale(0.9); }
-      100% { transform: translate(90px, 110px) scale(1.15); }
+      0% { transform: translate3d(-40px, -50px, 0); }
+      100% { transform: translate3d(70px, 80px, 0); }
     }
 
     .sparkle {
@@ -95,7 +96,7 @@
       background: var(--acc);
       box-shadow: 0 0 6px var(--acc);
       animation: floatUp 7s linear infinite;
-      opacity: 0.3;
+      opacity: 0.28;
     }
     .sparkle.pink { background: var(--hot); box-shadow: 0 0 6px var(--hot); }
     .sparkle.cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
@@ -106,42 +107,32 @@
     .s5 { left: 88%; animation-duration: 5.8s; animation-delay: 3s; }
 
     @keyframes floatUp {
-      0% { bottom: -20px; transform: translateX(0) scale(0.6); opacity: 0; }
-      20% { opacity: 0.35; }
-      80% { opacity: 0.35; }
-      100% { bottom: 105%; transform: translateX(35px) scale(1.1); opacity: 0; }
+      0% { bottom: -20px; transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+      20% { opacity: 0.3; }
+      80% { opacity: 0.3; }
+      100% { bottom: 105%; transform: translate3d(30px, 0, 0) scale(1.1); opacity: 0; }
     }
     
-    /* --- 3D-GLASSMORPHISM LOOK --- */
+    /* --- STABILER 3D-GLAS-LOOK OHNE SCROLL-AUSSETZER --- */
     .card {
       position: relative;
       z-index: 2;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(15, 20, 35, 0.45) 100%);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: linear-gradient(145deg, rgba(35, 45, 70, 0.78) 0%, rgba(12, 16, 28, 0.88) 100%);
       max-width: 520px;
       width: 100%;
       padding: 30px 22px;
       border-radius: 32px;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
       border-left: 1.5px solid rgba(255, 255, 255, 0.35);
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), 
-                  inset 0 2px 25px rgba(255, 255, 255, 0.1),
-                  0 0 35px rgba(184, 255, 1, 0.12);
+      border-right: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 
+                  inset 0 2px 20px rgba(255, 255, 255, 0.12),
+                  0 0 30px rgba(184, 255, 1, 0.12);
       text-align: center;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: -50%;
-      width: 200%; height: 220px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 100%);
-      transform: rotate(-12deg);
-      pointer-events: none;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; position: relative; flex-wrap: wrap; gap: 8px; }
@@ -153,12 +144,10 @@
       border-right: 1px solid rgba(255, 0, 85, 0.4);
       border-bottom: 1px solid rgba(255, 0, 85, 0.4);
       color: #ff6699; padding: 6px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
-      backdrop-filter: blur(10px);
     }
     .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
 
-    /* --- LIVE STATISTIK-LEISTE (BESUCHER & VORREGISTRIERUNGEN) --- */
     .stats-row {
       display: flex;
       justify-content: center;
@@ -180,7 +169,6 @@
       border-radius: 99px;
       font-size: 11.5px;
       font-weight: 800;
-      backdrop-filter: blur(10px);
     }
     .stat-pill strong { color: var(--acc); font-size: 12.5px; }
 
@@ -190,21 +178,19 @@
     
     .logo-box {
       width: 82px; height: 82px; margin: 0 auto 12px; border-radius: 24px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.04));
+      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05));
       border-top: 2px solid rgba(255,255,255,0.65);
       border-left: 2px solid var(--acc);
       border-right: 1.5px solid var(--acc);
       border-bottom: 1.5px solid var(--acc);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 25px rgba(184,255,1,0.3), inset 0 2px 12px rgba(255,255,255,0.2);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4), 0 0 20px rgba(184,255,1,0.28);
       display: flex; align-items: center; justify-content: center;
       font-size: 34px; font-weight: 900; color: var(--acc);
-      backdrop-filter: blur(12px);
     }
-    h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+    h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
     .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 10px; }
     .desc { color: #e2e8f0; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
 
-    /* --- FUNKEN, KOMMENTAR-ZEILE & STREAMER-TEASER --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
@@ -218,7 +204,7 @@
       border-bottom: 1px solid rgba(184, 255, 1, 0.3);
       padding: 15px;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 10px rgba(255,255,255,0.12);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 1px 10px rgba(255,255,255,0.1);
     }
     .fun-like-btn {
       background: rgba(184, 255, 1, 0.2);
@@ -233,18 +219,14 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 0 15px rgba(184,255,1,0.25);
-      transition: all 0.2s ease;
     }
-    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.32); transform: scale(1.03); }
     .fun-like-btn.liked {
       background: var(--acc);
       color: #05060a;
-      box-shadow: 0 0 25px var(--acc);
+      box-shadow: 0 0 22px var(--acc);
       font-weight: 900;
     }
-    .spark-icon { font-size: 14px; transition: transform 0.2s; }
-    .fun-like-btn.liked .spark-icon { animation: sparkPop 0.3s ease; }
-    @keyframes sparkPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+    .spark-icon { font-size: 14px; }
 
     .comment-bar {
       display: flex;
@@ -256,7 +238,7 @@
       padding: 10px 14px !important;
       border-radius: 12px !important;
       border: 1px solid rgba(255,255,255,0.3) !important;
-      background: rgba(0,0,0,0.35) !important;
+      background: rgba(5, 8, 15, 0.6) !important;
       color: #fff !important;
       font-size: 13px !important;
       outline: none;
@@ -272,9 +254,7 @@
       font-weight: 900;
       cursor: pointer;
       white-space: nowrap;
-      transition: opacity 0.2s;
     }
-    .comment-send-btn:disabled { opacity: 0.6; }
     .comment-list {
       width: 100%;
       display: flex;
@@ -285,8 +265,8 @@
       text-align: left;
     }
     .comment-item {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(5, 8, 15, 0.5);
+      border: 1px solid rgba(255,255,255,0.14);
       padding: 7px 10px;
       border-radius: 10px;
       font-size: 12px;
@@ -333,7 +313,6 @@
       padding: 6px;
       margin-bottom: 22px;
       gap: 6px;
-      box-shadow: inset 0 1px 8px rgba(255,255,255,0.08);
     }
     .nav-tab {
       flex: 1;
@@ -345,17 +324,15 @@
       font-weight: 800;
       border-radius: 12px;
       cursor: pointer;
-      transition: all 0.25s ease;
     }
     .nav-tab.active {
       background: var(--acc-gradient);
       color: #05060a;
-      box-shadow: 0 0 20px rgba(184,255,1,0.4);
+      box-shadow: 0 0 18px rgba(184,255,1,0.35);
     }
 
     .page-section { display: none; }
-    .page-section.active-page { display: block; animation: fadeInPage 0.3s ease; }
-    @keyframes fadeInPage { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .page-section.active-page { display: block; }
 
     .info-page-box {
       text-align: left;
@@ -420,6 +397,7 @@
       margin-top: 10px;
     }
 
+    /* --- STABILER BILDER-SLIDER OHNE VERSCHWINDEN --- */
     .slider-header {
       font-size: 12px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 1.5px; color: #e2e8f0; margin-bottom: 10px;
@@ -434,12 +412,13 @@
       scrollbar-width: none;
       width: 100%;
       padding: 4px 2px;
+      -webkit-overflow-scrolling: touch;
     }
     .slider-track::-webkit-scrollbar { display: none; }
     .slide-item {
       flex: 0 0 calc(50% - 6px);
       scroll-snap-align: start;
-      background: rgba(255, 255, 255, 0.1);
+      background: #0b0e17;
       border-top: 1.5px solid rgba(255, 255, 255, 0.45);
       border-left: 1.5px solid rgba(255, 255, 255, 0.3);
       border-right: 1px solid rgba(255, 255, 255, 0.15);
@@ -449,14 +428,19 @@
       cursor: pointer;
       position: relative;
       aspect-ratio: 9 / 16;
-      transition: all 0.25s ease;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
-    .slide-item:hover, .slide-item:active {
-      border-color: var(--acc);
-      transform: scale(0.98);
-      box-shadow: 0 0 25px rgba(184,255,1,0.3);
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
-    .slide-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .slide-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -469,14 +453,13 @@
     .zoom-hint {
       position: absolute;
       top: 10px; right: 10px;
-      background: rgba(255,255,255,0.2);
+      background: rgba(10, 14, 24, 0.75);
       border: 1px solid rgba(255,255,255,0.5);
       color: #fff;
       font-size: 12px;
       width: 28px; height: 28px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(6px);
     }
     .slider-arrow {
       position: absolute;
@@ -485,7 +468,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.22);
+      background: rgba(15, 20, 35, 0.9);
       border: 1.5px solid #ffffff;
       color: #ffffff;
       font-size: 22px;
@@ -495,10 +478,8 @@
       justify-content: center;
       cursor: pointer;
       z-index: 5;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
-    .slider-arrow:hover { background: var(--acc); color: #000; border-color: var(--acc); }
     .slider-arrow.left { left: -12px; }
     .slider-arrow.right { right: -12px; }
 
@@ -506,8 +487,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(4, 6, 12, 0.92);
-      backdrop-filter: blur(22px);
+      background: rgba(4, 6, 12, 0.96);
       z-index: 9999;
       flex-direction: column;
       justify-content: center;
@@ -520,7 +500,7 @@
       max-height: 82vh;
       border-radius: 22px;
       border: 2px solid var(--acc);
-      box-shadow: 0 0 55px rgba(184,255,1,0.45);
+      box-shadow: 0 0 40px rgba(184,255,1,0.35);
       object-fit: contain;
     }
     .lightbox-title { margin-top: 14px; font-size: 16px; font-weight: 800; color: var(--acc); }
@@ -561,13 +541,12 @@
       border-left: 1px solid rgba(255,255,255,0.25);
       border-right: 1px solid rgba(255,255,255,0.12);
       border-bottom: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(10, 14, 24, 0.7);
       color: #fff; font-size: 16px; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
     }
     input::placeholder { color: rgba(255,255,255,0.6); }
     select option { background: #0b0e17; color: #fff; }
-    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 18px rgba(184,255,1,0.3); }
+    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.25); }
 
     .vip-box {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.06));
@@ -586,18 +565,13 @@
       margin-top: 14px;
       padding: 14px;
       border-radius: 14px;
-      background: rgba(10, 14, 24, 0.55);
+      background: rgba(10, 14, 24, 0.8);
       border: 1.5px solid var(--acc);
       color: #ffffff;
       font-size: 13.5px;
       line-height: 1.5;
-      box-shadow: 0 0 22px rgba(184,255,1,0.2);
     }
-    .vip-extra-info.show { display: block; animation: fadeIn 0.25s ease; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .vip-extra-info.show { display: block; }
     .vip-badge-title {
       display: inline-block;
       background: var(--acc);
@@ -621,10 +595,9 @@
     .submit-btn {
       background: var(--acc-gradient); color: #05060a; border: none; padding: 18px;
       border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
-      cursor: pointer; box-shadow: 0 0 35px rgba(184,255,1,0.45); margin-top: 6px; width: 100%;
-      letter-spacing: 0.8px; transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer; box-shadow: 0 0 30px rgba(184,255,1,0.4); margin-top: 6px; width: 100%;
+      letter-spacing: 0.8px;
     }
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(184,255,1,0.65); }
     
     #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
@@ -655,7 +628,6 @@
       </div>
     </div>
 
-    <!-- LIVE BESUCHER- & VORREGISTRIERUNGS-ZÄHLER -->
     <div class="stats-row">
       <div class="stat-pill">
         👁️ <strong id="visitorCount">1</strong> Besucher
@@ -670,7 +642,6 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- FUNKEN + KOMMENTAR-ZEILE + STREAMER-TEXT -->
     <div class="fun-like-container">
       <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
         <span class="spark-icon" id="sparkIcon">⚡</span> 
@@ -728,20 +699,19 @@
       </div>
 
       <form id="waitlist-form">
-        <!-- DEIN EINGEBAUTER WEB3FORMS SCHLÜSSEL -->
-        <input type="hidden" name="access_key" value="4051f785-351a-47f3-aa79-31eb5ca79e0b">
-        <input type="hidden" name="subject" value="🚀 Neue VYBZON Vorregistrierung!">
-        <input type="hidden" name="from_name" value="VYBZON Warteliste">
-        <input type="hidden" name="kommentar" id="lastCommentField" value="">
+        <input type="hidden" name="_subject" value="🚀 Neue VYBZON Vorregistrierung!">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Kommentar" id="lastCommentField" value="">
 
         <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
-        <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
+        <input type="text" id="vorname" name="Vorname" placeholder="z. B. Max" required>
 
         <label class="lbl" for="email">Deine Google-Play E-Mail</label>
-        <input type="email" id="email" name="email" placeholder="deine.mail@gmail.com" required>
+        <input type="email" id="email" name="Email" placeholder="deine.mail@gmail.com" required>
 
         <label class="lbl" for="land">Dein Land</label>
-        <select id="land" name="land" required>
+        <select id="land" name="Land" required>
           <option value="" disabled selected>Bitte Land auswählen...</option>
           <option value="Deutschland">🇩🇪 Deutschland</option>
           <option value="Österreich">🇦🇹 Österreich</option>
@@ -760,7 +730,7 @@
 
         <div class="vip-box">
           <label class="chk">
-            <input type="checkbox" id="vipCheck" name="beta_tester" value="Ja" onchange="toggleVipInfo()">
+            <input type="checkbox" id="vipCheck" name="VIP_Tester" value="Ja" onchange="toggleVipInfo()">
             <span>🔥 <strong>Ja, ich will VIP-Tester werden!</strong> (Hier tippen für exklusive Infos)</span>
           </label>
 
@@ -858,14 +828,16 @@
   </div>
 
   <script>
-    const WEB3_ACCESS_KEY = '4051f785-351a-47f3-aa79-31eb5ca79e0b';
+    // Unbegrenzte E-Mail-Zustellung direkt an dein Gmail-Postfach + optional Google-Script
+    const GMAIL_ENDPOINT = 'https://formsubmit.co/ajax/christianspartharis@gmail.com';
+    const WEB3_BACKUP_KEY = '4051f785-351a-47f3-aa79-31eb5ca79e0b';
+    const GOOGLE_SCRIPT_URL = ''; // Optional: falls du später noch eine Google-Tabelle verknüpfen willst
 
-    // 1. Live Besucher-Zähler & Vorregistrierungs-Zähler
+    // 1. Live Besucher- & Vorregistrierungs-Zähler
     async function initCounters() {
       const visitEl = document.getElementById('visitorCount');
       const regEl = document.getElementById('regCount');
 
-      // Besucher hochzählen
       try {
         const resV = await fetch('https://api.counterapi.dev/v1/vybzon_webseitelive/visits/up');
         if (resV.ok) {
@@ -881,7 +853,6 @@
         visitEl.textContent = localV;
       }
 
-      // Vorregistrierungen abrufen
       try {
         const resR = await fetch('https://api.counterapi.dev/v1/vybzon_webseitelive/registrations');
         if (resR.ok) {
@@ -897,7 +868,6 @@
     }
     initCounters();
 
-    // Erhöht den Vorregistrierungs-Zähler bei erfolgreicher Anmeldung
     async function incrementRegCounter() {
       const regEl = document.getElementById('regCount');
       try {
@@ -941,7 +911,7 @@
       localStorage.setItem('vybzon_likes_count', count);
     }
 
-    // 3. Kommentar-Funktion (Speichert + schickt dir eine Info-Mail)
+    // 3. Kommentar-Funktion (verbraucht kein E-Mail-Limit mehr!)
     function renderComments() {
       const list = document.getElementById('commentList');
       const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
@@ -953,9 +923,8 @@
       }).join('');
     }
 
-    async function addComment() {
+    function addComment() {
       const input = document.getElementById('commentInput');
-      const btn = document.getElementById('commentBtn');
       const nameInput = document.getElementById('vorname');
       const text = input.value.trim();
       if (!text) return;
@@ -967,26 +936,9 @@
 
       const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
       comments.unshift({ name: senderName, text: cleanText });
-      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 25)));
+      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 30)));
       input.value = '';
       renderComments();
-
-      // Sendet den Kommentar auch direkt an dein Postfach
-      btn.disabled = true;
-      btn.textContent = '✓';
-      const fd = new FormData();
-      fd.append('access_key', WEB3_ACCESS_KEY);
-      fd.append('subject', '💬 Neuer Kommentar auf der VYBZON Webseite');
-      fd.append('from_name', 'VYBZON Kommentar');
-      fd.append('Name', senderName);
-      fd.append('Kommentar', cleanText);
-      try {
-        await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-      } catch (e) {}
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.textContent = '💬 Senden';
-      }, 1000);
     }
 
     document.getElementById('commentInput').addEventListener('keypress', (e) => {
@@ -1030,9 +982,7 @@
             document.getElementById('img-' + idx).src = match.download_url;
           }
         });
-      } catch (e) {
-        console.log('Bilderkennung:', e);
-      }
+      } catch (e) {}
     }
     autoLoadGitHubImages();
 
@@ -1088,7 +1038,7 @@
       }
     }
 
-    // 4. Formular absenden über deinen Web3Forms-Schlüssel
+    // 4. Formular absenden (Unbegrenzt an Gmail + Backup)
     const form = document.getElementById('waitlist-form');
     const status = document.getElementById('status');
     const btn = document.getElementById('submit-btn');
@@ -1101,34 +1051,56 @@
 
       const formData = new FormData(form);
       if (!document.getElementById('vipCheck').checked) {
-        formData.set('beta_tester', 'Nein');
+        formData.set('VIP_Tester', 'Nein');
       }
-      const vorname = formData.get('vorname');
+      const vorname = formData.get('Vorname');
 
+      let sentOk = false;
+
+      // Weg 1: Optionales Google-Tabellen-Skript (falls eingetragen)
+      if (GOOGLE_SCRIPT_URL) {
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData });
+          sentOk = true;
+        } catch (err) {}
+      }
+
+      // Weg 2: Unbegrenzt direkt an dein Gmail-Postfach (FormSubmit)
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
+        const res = await fetch(GMAIL_ENDPOINT, {
           method: 'POST',
+          headers: { 'Accept': 'application/json' },
           body: formData
         });
-        const data = await res.json();
-        status.style.display = 'block';
+        if (res.ok) sentOk = true;
+      } catch (err) {}
 
-        if (data.success) {
-          status.className = 'success';
-          status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Dein Platz auf der VYBZON-Warteliste ist gesichert.';
-          form.reset();
-          document.getElementById('lastCommentField').value = '';
-          toggleVipInfo();
-          await incrementRegCounter();
-        } else {
-          status.className = 'error';
-          status.textContent = 'Fehler beim Senden. Bitte versuche es noch einmal.';
-        }
-      } catch (err) {
-        status.style.display = 'block';
-        status.className = 'error';
-        status.textContent = 'Netzwerkfehler. Bitte prüfe deine Internetverbindung.';
+      // Weg 3: Web3Forms als zusätzliches Backup
+      if (!sentOk) {
+        try {
+          formData.append('access_key', WEB3_BACKUP_KEY);
+          const resBackup = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          });
+          const dataBackup = await resBackup.json();
+          if (dataBackup.success) sentOk = true;
+        } catch (err) {}
       }
+
+      status.style.display = 'block';
+      if (sentOk) {
+        status.className = 'success';
+        status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Dein Platz auf der VYBZON-Warteliste ist gesichert.';
+        form.reset();
+        document.getElementById('lastCommentField').value = '';
+        toggleVipInfo();
+        await incrementRegCounter();
+      } else {
+        status.className = 'error';
+        status.textContent = 'Fehler beim Senden. Bitte prüfe kurz deine Verbindung.';
+      }
+
       btn.disabled = false;
       btn.textContent = '⚡ Jetzt VIP-Platz sichern';
     });
