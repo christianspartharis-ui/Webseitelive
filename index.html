@@ -9,14 +9,13 @@
   <title>VYBZON – Short, Video & Live Club</title>
   <style>
     :root {
-      --bg: #020305;
-      --card-bg: rgba(12, 16, 28, 0.45);
-      --card-border: rgba(255, 255, 255, 0.18);
+      --bg: #04060c;
       --acc: #b8ff01;
       --acc-gradient: linear-gradient(135deg, #b8ff01, #76ff03);
       --hot: #ff0055;
+      --cyan: #00f0ff;
       --text: #ffffff;
-      --muted: #94a3b8;
+      --muted: #cbd5e1;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
     
@@ -32,153 +31,236 @@
       position: relative;
     }
 
-    /* --- BEWEGTER HINTERGRUND-EFFEKT --- */
+    /* --- 100% SICHTBARER BEWEGTER HINTERGRUND (Z-INDEX 0) --- */
     .animated-bg {
       position: fixed;
-      inset: 0;
-      z-index: -1;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
       overflow: hidden;
       pointer-events: none;
+      background: radial-gradient(circle at center, #0a0e1a 0%, #030408 100%);
     }
-    .blob {
+
+    /* Große wandernde Neon-Kugeln */
+    .orb {
       position: absolute;
-      width: 420px;
-      height: 420px;
       border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.5;
-      animation: floatBlob 12s ease-in-out infinite alternate;
+      filter: blur(45px);
+      opacity: 0.85;
+      will-change: transform;
     }
-    .blob-1 {
-      top: -100px;
-      left: -100px;
-      background: rgba(184, 255, 1, 0.35);
+    .orb-1 {
+      width: 280px; height: 280px;
+      top: 2%; left: -40px;
+      background: radial-gradient(circle, var(--acc), transparent 70%);
+      animation: moveOrb1 7s ease-in-out infinite alternate;
     }
-    .blob-2 {
-      bottom: -100px;
-      right: -100px;
-      background: rgba(255, 0, 85, 0.35);
-      animation-delay: -6s;
+    .orb-2 {
+      width: 300px; height: 300px;
+      bottom: 5%; right: -50px;
+      background: radial-gradient(circle, var(--hot), transparent 70%);
+      animation: moveOrb2 8s ease-in-out infinite alternate;
     }
-    @keyframes floatBlob {
+    .orb-3 {
+      width: 240px; height: 240px;
+      top: 42%; left: 20%;
+      background: radial-gradient(circle, var(--cyan), transparent 70%);
+      animation: moveOrb3 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes moveOrb1 {
       0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(60px, 40px) scale(1.15); }
-      100% { transform: translate(-40px, -50px) scale(0.9); }
+      100% { transform: translate(160px, 220px) scale(1.25); }
+    }
+    @keyframes moveOrb2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-150px, -240px) scale(1.3); }
+    }
+    @keyframes moveOrb3 {
+      0% { transform: translate(-60px, -80px) scale(0.9); }
+      100% { transform: translate(90px, 110px) scale(1.2); }
+    }
+
+    /* Schwebende Leucht-Funken im Hintergrund */
+    .sparkle {
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--acc);
+      box-shadow: 0 0 12px var(--acc), 0 0 24px var(--acc);
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+    .sparkle.pink { background: var(--hot); box-shadow: 0 0 12px var(--hot), 0 0 24px var(--hot); }
+    .sparkle.cyan { background: var(--cyan); box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan); }
+    .s1 { left: 12%; animation-duration: 5s; animation-delay: 0s; }
+    .s2 { left: 28%; animation-duration: 7s; animation-delay: 1.5s; }
+    .s3 { left: 52%; animation-duration: 5.5s; animation-delay: 0.8s; }
+    .s4 { left: 75%; animation-duration: 6.5s; animation-delay: 2.2s; }
+    .s5 { left: 88%; animation-duration: 4.8s; animation-delay: 3s; }
+
+    @keyframes floatUp {
+      0% { bottom: -20px; transform: translateX(0) scale(0.6); opacity: 0; }
+      20% { opacity: 0.9; }
+      80% { opacity: 0.9; }
+      100% { bottom: 105%; transform: translateX(35px) scale(1.3); opacity: 0; }
     }
     
-    /* --- VERSTÄRKTER GLASSMORPHISM LOOK --- */
+    /* --- ECHTER 3D-GLASSMORPHISM LOOK (Z-INDEX 2) --- */
     .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(35px);
-      -webkit-backdrop-filter: blur(35px);
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(15, 20, 35, 0.38) 100%);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
       max-width: 520px;
       width: 100%;
       padding: 34px 24px;
       border-radius: 32px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 35px 70px rgba(0,0,0,0.85), 
-                  inset 0 1px 0 rgba(255,255,255,0.25),
-                  0 0 50px rgba(184,255,1,0.12);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), 
+                  inset 0 2px 25px rgba(255, 255, 255, 0.12),
+                  0 0 35px rgba(184, 255, 1, 0.15);
       text-align: center;
-      position: relative;
-      z-index: 1;
+      overflow: hidden;
     }
 
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    /* Schräger Glas-Lichtreflex über der Karte */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -50%;
+      width: 200%; height: 220px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; position: relative; }
     .live-pill {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255, 0, 85, 0.18); border: 1px solid rgba(255, 0, 85, 0.45);
-      color: #ff4d88; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800;
-      backdrop-filter: blur(12px);
+      background: rgba(255, 0, 85, 0.22);
+      border-top: 1px solid rgba(255, 255, 255, 0.45);
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid rgba(255, 0, 85, 0.4);
+      border-bottom: 1px solid rgba(255, 0, 85, 0.4);
+      color: #ff6699; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800;
+      backdrop-filter: blur(10px);
     }
     .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
 
-    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(10px); }
-    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; }
+    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.25); }
+    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.6); transition: transform 0.2s; }
     .mood-dot:hover { transform: scale(1.15); }
     
     .logo-box {
       width: 86px; height: 86px; margin: 0 auto 14px; border-radius: 24px;
-      background: rgba(8, 10, 16, 0.6); border: 1.5px solid var(--acc);
-      box-shadow: 0 0 30px rgba(184,255,1,0.3);
+      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+      border-top: 2px solid rgba(255,255,255,0.7);
+      border-left: 2px solid var(--acc);
+      border-right: 1.5px solid var(--acc);
+      border-bottom: 1.5px solid var(--acc);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 25px rgba(184,255,1,0.35), inset 0 2px 12px rgba(255,255,255,0.25);
       display: flex; align-items: center; justify-content: center;
       font-size: 36px; font-weight: 900; color: var(--acc);
       backdrop-filter: blur(12px);
     }
-    h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
+    h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
     .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
-    .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
+    .desc { color: #e2e8f0; font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
 
-    /* --- FUNKEN-LIKE-BUTTON + NEUER SUPER-ATTRAKTIVER STREAMER-TEXT --- */
+    /* --- GLAS-BOX MIT FUNKEN & STREAMER-POWER-TEXT --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 22px;
-      background: rgba(184, 255, 1, 0.06);
-      border: 1px solid rgba(184, 255, 1, 0.3);
-      padding: 14px;
-      border-radius: 18px;
-      backdrop-filter: blur(15px);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(184, 255, 1, 0.06));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(184, 255, 1, 0.35);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.35);
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 10px rgba(255,255,255,0.15);
     }
     .fun-like-btn {
-      background: rgba(184, 255, 1, 0.15);
-      border: 1px solid var(--acc);
+      background: rgba(184, 255, 1, 0.2);
+      border: 1.5px solid var(--acc);
       color: #fff;
-      padding: 8px 16px;
+      padding: 7px 16px;
       border-radius: 99px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 0 15px rgba(184,255,1,0.25);
+      box-shadow: 0 0 15px rgba(184,255,1,0.3);
       transition: all 0.2s ease;
     }
-    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.28); transform: scale(1.03); }
+    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.32); transform: scale(1.03); }
     .fun-like-btn.liked {
       background: var(--acc);
       color: #05060a;
-      box-shadow: 0 0 22px var(--acc);
-      font-weight: 800;
+      box-shadow: 0 0 25px var(--acc);
+      font-weight: 900;
     }
     .spark-icon { font-size: 14px; transition: transform 0.2s; }
     .fun-like-btn.liked .spark-icon { animation: sparkPop 0.3s ease; }
     @keyframes sparkPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
 
     .streamer-teaser-text {
-      font-size: 12.5px;
-      color: #f1f5f9;
+      font-size: 13px;
+      color: #ffffff;
       font-weight: 600;
       text-align: left;
-      line-height: 1.45;
+      line-height: 1.5;
     }
     .streamer-teaser-text strong {
       color: var(--acc);
+      font-weight: 800;
+    }
+    .teaser-highlight-badge {
+      display: inline-block;
+      background: rgba(255, 0, 85, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
     }
 
-    /* --- GLASS NAVIGATIONSLEISTE --- */
+    /* --- GLAS-NAVIGATIONSLEISTE --- */
     .nav-tabs {
       display: flex;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.45);
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
       padding: 6px;
       margin-bottom: 22px;
       gap: 6px;
-      backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 8px rgba(255,255,255,0.1);
     }
     .nav-tab {
       flex: 1;
       background: transparent;
       border: none;
-      color: var(--muted);
+      color: #e2e8f0;
       padding: 11px 8px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -186,7 +268,7 @@
     .nav-tab.active {
       background: var(--acc-gradient);
       color: #05060a;
-      box-shadow: 0 0 20px rgba(184,255,1,0.4);
+      box-shadow: 0 0 20px rgba(184,255,1,0.45);
     }
 
     /* --- SEITEN UMSCHALTER --- */
@@ -194,15 +276,17 @@
     .page-section.active-page { display: block; animation: fadeInPage 0.3s ease; }
     @keyframes fadeInPage { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- GLASS INFO SEITE (AKTUELLES) --- */
+    /* --- GLAS INFO SEITE (AKTUELLES) --- */
     .info-page-box {
       text-align: left;
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      border-top: 1.5px solid rgba(255,255,255,0.4);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
       padding: 20px;
       margin-bottom: 20px;
-      backdrop-filter: blur(18px);
     }
     .info-page-box h2 {
       font-size: 19px;
@@ -213,13 +297,15 @@
       gap: 8px;
     }
     .creator-hero-banner {
-      background: linear-gradient(135deg, rgba(184,255,1,0.1), rgba(255,0,85,0.1));
-      border: 1px solid rgba(184,255,1,0.35);
+      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,0,85,0.15));
+      border-top: 1.5px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.35);
+      border-right: 1px solid rgba(184,255,1,0.35);
+      border-bottom: 1px solid rgba(184,255,1,0.35);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
       text-align: center;
-      backdrop-filter: blur(12px);
     }
     .creator-hero-banner h3 {
       font-size: 16px;
@@ -228,7 +314,7 @@
     }
     .creator-hero-banner p {
       font-size: 13px;
-      color: #cbd5e1;
+      color: #f1f5f9;
       line-height: 1.45;
     }
 
@@ -239,20 +325,25 @@
       margin-bottom: 18px;
     }
     .info-feat-item {
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255, 255, 255, 0.09);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding: 14px;
-      border-radius: 14px;
+      border-radius: 16px;
       font-size: 13.5px;
       line-height: 1.5;
-      color: #cbd5e1;
-      backdrop-filter: blur(8px);
+      color: #f1f5f9;
     }
     .info-feat-item strong { color: var(--acc); display: block; margin-bottom: 4px; font-size: 14.5px; }
     
     .back-home-btn {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.15);
+      border-top: 1px solid rgba(255,255,255,0.45);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
       color: #fff;
       width: 100%;
       padding: 14px;
@@ -260,14 +351,12 @@
       font-weight: 800;
       cursor: pointer;
       margin-top: 10px;
-      backdrop-filter: blur(12px);
     }
-    .back-home-btn:hover { background: rgba(255,255,255,0.15); }
 
     /* --- SCREENSHOT SLIDER --- */
     .slider-header {
-      font-size: 12px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px;
+      font-size: 12px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1.5px; color: #e2e8f0; margin-bottom: 10px;
     }
     .slider-wrapper {
       position: relative;
@@ -289,20 +378,22 @@
     .slide-item {
       flex: 0 0 calc(50% - 6px);
       scroll-snap-align: start;
-      background: rgba(6, 8, 14, 0.7);
-      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
       aspect-ratio: 9 / 16;
       transition: all 0.25s ease;
-      backdrop-filter: blur(10px);
     }
     .slide-item:hover, .slide-item:active {
       border-color: var(--acc);
       transform: scale(0.98);
-      box-shadow: 0 0 25px rgba(184,255,1,0.3);
+      box-shadow: 0 0 25px rgba(184,255,1,0.35);
     }
     .slide-item img {
       width: 100%;
@@ -313,17 +404,17 @@
     .slide-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.95));
+      background: linear-gradient(transparent, rgba(0,0,0,0.92));
       padding: 24px 8px 10px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       color: #fff;
     }
     .zoom-hint {
       position: absolute;
       top: 10px; right: 10px;
-      background: rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.5);
       color: #fff;
       font-size: 12px;
       width: 28px; height: 28px;
@@ -338,8 +429,8 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(15, 18, 28, 0.85);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255, 255, 255, 0.22);
+      border: 1.5px solid #ffffff;
       color: #ffffff;
       font-size: 22px;
       font-weight: bold;
@@ -348,24 +439,20 @@
       justify-content: center;
       cursor: pointer;
       z-index: 5;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
-      backdrop-filter: blur(12px);
-      padding: 0;
-      margin: 0;
-      line-height: 1;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
     }
     .slider-arrow:hover { background: var(--acc); color: #000; border-color: var(--acc); }
-    .slider-arrow.left { left: -14px; }
-    .slider-arrow.right { right: -14px; }
+    .slider-arrow.left { left: -12px; }
+    .slider-arrow.right { right: -12px; }
 
     /* --- VOLLBILD LIGHTBOX --- */
     .lightbox {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(2, 3, 5, 0.97);
-      backdrop-filter: blur(25px);
+      background: rgba(4, 6, 12, 0.92);
+      backdrop-filter: blur(22px);
       z-index: 9999;
       flex-direction: column;
       justify-content: center;
@@ -392,14 +479,13 @@
       top: 20px; right: 20px;
       width: 44px; height: 44px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid #fff;
       color: #fff;
       font-size: 22px;
       font-weight: bold;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(12px);
     }
     .lb-arrow {
       position: absolute;
@@ -407,38 +493,44 @@
       transform: translateY(-50%);
       width: 46px; height: 46px;
       border-radius: 50%;
-      background: rgba(0,0,0,0.75);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid #fff;
       color: #fff;
       font-size: 26px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(12px);
     }
     .lb-arrow.left { left: 14px; }
     .lb-arrow.right { right: 14px; }
 
-    /* --- FORMULAR --- */
+    /* --- GLAS-FORMULAR --- */
     form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
-    label.lbl { font-size: 13px; font-weight: 700; color: #cbd5e1; margin-bottom: -4px; display: block; }
+    label.lbl { font-size: 13px; font-weight: 800; color: #ffffff; margin-bottom: -4px; display: block; }
     input[type="text"], input[type="email"], select {
       width: 100%; padding: 16px 18px; border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.15); background: rgba(3, 4, 7, 0.5); color: #fff; font-size: 16px; outline: none;
+      border-top: 1.5px solid rgba(255,255,255,0.45);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff; font-size: 16px; outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
-      backdrop-filter: blur(12px);
     }
-    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 18px rgba(184,255,1,0.3); }
+    input::placeholder { color: rgba(255,255,255,0.6); }
+    select option { background: #0b0e17; color: #fff; }
+    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 18px rgba(184,255,1,0.35); }
 
-    /* --- VIP TESTER BOX --- */
+    /* --- GLAS VIP TESTER BOX --- */
     .vip-box {
-      background: linear-gradient(135deg, rgba(184, 255, 1, 0.06), rgba(255, 0, 85, 0.06));
-      border: 1px solid rgba(184, 255, 1, 0.35);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(184, 255, 1, 0.08));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(184, 255, 1, 0.4);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.4);
       border-radius: 18px;
       padding: 16px;
-      transition: all 0.25s ease;
-      backdrop-filter: blur(12px);
     }
-    .chk { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #cbd5e1; cursor: pointer; line-height: 1.4; }
+    .chk { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #f8fafc; cursor: pointer; line-height: 1.4; }
     .chk input { margin-top: 2px; width: 20px; height: 20px; accent-color: var(--acc); flex-shrink: 0; }
     
     .vip-extra-info {
@@ -446,13 +538,12 @@
       margin-top: 14px;
       padding: 14px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(184,255,1,0.15), rgba(255,0,85,0.15));
-      border: 1px solid var(--acc);
-      color: #f8fafc;
+      background: rgba(10, 14, 24, 0.55);
+      border: 1.5px solid var(--acc);
+      color: #ffffff;
       font-size: 13.5px;
       line-height: 1.5;
-      box-shadow: 0 0 22px rgba(184,255,1,0.2);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 0 22px rgba(184,255,1,0.25);
     }
     .vip-extra-info.show { display: block; animation: fadeIn 0.25s ease; }
     @keyframes fadeIn {
@@ -475,31 +566,36 @@
       display: block;
       margin-top: 8px;
       font-size: 11.5px;
-      color: #cbd5e1;
-      opacity: 0.9;
+      color: #e2e8f0;
       font-style: italic;
     }
 
     .submit-btn {
       background: var(--acc-gradient); color: #05060a; border: none; padding: 18px;
       border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
-      cursor: pointer; box-shadow: 0 0 35px rgba(184,255,1,0.45); margin-top: 6px; width: 100%;
+      cursor: pointer; box-shadow: 0 0 35px rgba(184,255,1,0.5); margin-top: 6px; width: 100%;
       letter-spacing: 0.8px; transition: transform 0.2s, box-shadow 0.2s;
     }
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(184,255,1,0.65); }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(184,255,1,0.7); }
     
-    #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; backdrop-filter: blur(12px); }
-    .success { background: rgba(184,255,1,0.18); border: 1px solid var(--acc); color: var(--acc); }
-    .error { background: rgba(255,0,85,0.18); border: 1px solid var(--hot); color: #ff4d88; }
-    .footer { margin-top: 22px; font-size: 12px; color: #64748b; }
+    #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
+    .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
+    .error { background: rgba(255,0,85,0.22); border: 1.5px solid var(--hot); color: #ff80aa; }
+    .footer { margin-top: 22px; font-size: 12px; color: #cbd5e1; opacity: 0.8; }
   </style>
 </head>
 <body>
 
-  <!-- BEWEGTER NEON-GLAS HINTERGRUND -->
+  <!-- BEWEGTER NEON-HINTERGRUND MIT SCHWEBENDEN KUGELN & FUNKEN -->
   <div class="animated-bg">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="sparkle s1"></div>
+    <div class="sparkle pink s2"></div>
+    <div class="sparkle cyan s3"></div>
+    <div class="sparkle s4"></div>
+    <div class="sparkle pink s5"></div>
   </div>
 
   <div class="card">
@@ -517,7 +613,7 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- FUNKEN-LIKE-BUTTON + NOCH ANSPRECHENDERER STREAMER-TEXT -->
+    <!-- FUNKEN-LIKE-BUTTON + MAXIMAL ANSPRECHENDER STREAMER-MAGNET-TEXT -->
     <div class="fun-like-container">
       <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
         <span class="spark-icon" id="sparkIcon">⚡</span> 
@@ -525,7 +621,8 @@
         (<span id="likeCount">0</span>)
       </button>
       <div class="streamer-teaser-text">
-        🔥 <strong>Creator-Alarm:</strong> Warum sich andere Plattformen jetzt warm anziehen müssen! Hier verdienst du <strong>garantiert mehr</strong>, behältst die volle Kontrolle und feierst epische Streams mit deiner Community. (Klick auf <strong>Aktuelles</strong> für alle Details!)
+        <span class="teaser-highlight-badge">💎 Streamer & Creator Jackpot</span><br>
+        Warum auf anderen Plattformen die Hälfte deiner Einnahmen verschenken? Bei <strong>VYBZON verdienst du deutlich mehr als überall sonst</strong>: Kassiere den maximalen Anteil deiner Geschenke, bestimme selbst deinen Host-Bonus im 8er Multi-Live, beteilige deine Mods mit <strong>bis zu 5 %</strong> und profitiere von <strong>täglichen Gratis-Coins</strong> für deine Zuschauer! 👉 <em>Tippe jetzt auf <strong>„🔥 Aktuelles“</strong> für alle Zahlen & Vorteile!</em>
       </div>
     </div>
 
@@ -654,12 +751,12 @@
             Unser Payout-Modell ist auf absoluten Streamer-Erfolg ausgelegt:
             <br><br>
             • <strong>Was du bekommst:</strong> Den absolut fettesten und fairsten Erlös aus deinen Diamanten und Geschenken. Keine Abzocke, sondern pures Einkommen.<br>
-            • <strong>Was wir einbeziehen:</strong> Nur einen winzigen, fairen Plattform-Beitrag für hochmoderne Server, ultraschnelle Live-Streams und weltweite Top-Performance (inklusive epischen Animationen wie dem goldenen Zeus[span_0](start_span)[span_0](end_span) und dem Gold-Drachen[span_1](start_span)[span_1](end_span)).
+            • <strong>Was wir einbeziehen:</strong> Nur einen winzigen, fairen Plattform-Beitrag für hochmoderne Server, ultraschnelle Live-Streams und weltweite Top-Performance (inklusive epischen Animationen wie dem goldenen Zeus und dem Gold-Drachen).
           </div>
 
           <div class="info-feat-item">
             <strong>🎬 Shorts, Multi-Live & Community-Power</strong>
-            Starte voll durch mit dem Short-Video-Feed, streame mit bis zu 8 Gästen gleichzeitig und rocke die Charts[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span)!
+            Starte voll durch mit dem Short-Video-Feed, streame mit bis zu 8 Gästen gleichzeitig und rocke die Charts!
           </div>
         </div>
 
