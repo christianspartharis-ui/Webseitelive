@@ -2,6 +2,9 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -31,7 +34,7 @@
       position: relative;
     }
 
-    /* --- 100% SICHTBARER BEWEGTER HINTERGRUND (Z-INDEX 0) --- */
+    /* --- SANFT GEDIMMTER BEWEGTER HINTERGRUND --- */
     .animated-bg {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -41,100 +44,99 @@
       background: radial-gradient(circle at center, #0a0e1a 0%, #030408 100%);
     }
 
-    /* Große wandernde Neon-Kugeln */
+    /* Große wandernde Neon-Kugeln (deutlich dezenter) */
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(45px);
-      opacity: 0.85;
+      filter: blur(65px);
+      opacity: 0.35;
       will-change: transform;
     }
     .orb-1 {
       width: 280px; height: 280px;
       top: 2%; left: -40px;
       background: radial-gradient(circle, var(--acc), transparent 70%);
-      animation: moveOrb1 7s ease-in-out infinite alternate;
+      animation: moveOrb1 8s ease-in-out infinite alternate;
     }
     .orb-2 {
       width: 300px; height: 300px;
       bottom: 5%; right: -50px;
       background: radial-gradient(circle, var(--hot), transparent 70%);
-      animation: moveOrb2 8s ease-in-out infinite alternate;
+      animation: moveOrb2 9s ease-in-out infinite alternate;
     }
     .orb-3 {
       width: 240px; height: 240px;
       top: 42%; left: 20%;
       background: radial-gradient(circle, var(--cyan), transparent 70%);
-      animation: moveOrb3 6s ease-in-out infinite alternate;
+      animation: moveOrb3 7s ease-in-out infinite alternate;
     }
 
     @keyframes moveOrb1 {
       0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(160px, 220px) scale(1.25); }
+      100% { transform: translate(160px, 220px) scale(1.2); }
     }
     @keyframes moveOrb2 {
       0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(-150px, -240px) scale(1.3); }
+      100% { transform: translate(-150px, -240px) scale(1.25); }
     }
     @keyframes moveOrb3 {
       0% { transform: translate(-60px, -80px) scale(0.9); }
-      100% { transform: translate(90px, 110px) scale(1.2); }
+      100% { transform: translate(90px, 110px) scale(1.15); }
     }
 
-    /* Schwebende Leucht-Funken im Hintergrund */
+    /* Kleine schwebende Punkte im Hintergrund (gedimmt & weicher) */
     .sparkle {
       position: absolute;
-      width: 6px; height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--acc);
-      box-shadow: 0 0 12px var(--acc), 0 0 24px var(--acc);
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
+      box-shadow: 0 0 6px var(--acc);
+      animation: floatUp 7s linear infinite;
+      opacity: 0.3;
     }
-    .sparkle.pink { background: var(--hot); box-shadow: 0 0 12px var(--hot), 0 0 24px var(--hot); }
-    .sparkle.cyan { background: var(--cyan); box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan); }
-    .s1 { left: 12%; animation-duration: 5s; animation-delay: 0s; }
-    .s2 { left: 28%; animation-duration: 7s; animation-delay: 1.5s; }
-    .s3 { left: 52%; animation-duration: 5.5s; animation-delay: 0.8s; }
-    .s4 { left: 75%; animation-duration: 6.5s; animation-delay: 2.2s; }
-    .s5 { left: 88%; animation-duration: 4.8s; animation-delay: 3s; }
+    .sparkle.pink { background: var(--hot); box-shadow: 0 0 6px var(--hot); }
+    .sparkle.cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+    .s1 { left: 12%; animation-duration: 6s; animation-delay: 0s; }
+    .s2 { left: 28%; animation-duration: 8s; animation-delay: 1.5s; }
+    .s3 { left: 52%; animation-duration: 6.5s; animation-delay: 0.8s; }
+    .s4 { left: 75%; animation-duration: 7.5s; animation-delay: 2.2s; }
+    .s5 { left: 88%; animation-duration: 5.8s; animation-delay: 3s; }
 
     @keyframes floatUp {
       0% { bottom: -20px; transform: translateX(0) scale(0.6); opacity: 0; }
-      20% { opacity: 0.9; }
-      80% { opacity: 0.9; }
-      100% { bottom: 105%; transform: translateX(35px) scale(1.3); opacity: 0; }
+      20% { opacity: 0.35; }
+      80% { opacity: 0.35; }
+      100% { bottom: 105%; transform: translateX(35px) scale(1.1); opacity: 0; }
     }
     
-    /* --- ECHTER 3D-GLASSMORPHISM LOOK (Z-INDEX 2) --- */
+    /* --- 3D-GLASSMORPHISM LOOK --- */
     .card {
       position: relative;
       z-index: 2;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(15, 20, 35, 0.38) 100%);
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(15, 20, 35, 0.45) 100%);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
       max-width: 520px;
       width: 100%;
       padding: 34px 24px;
       border-radius: 32px;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
       border-right: 1px solid rgba(255, 255, 255, 0.12);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), 
-                  inset 0 2px 25px rgba(255, 255, 255, 0.12),
-                  0 0 35px rgba(184, 255, 1, 0.15);
+                  inset 0 2px 25px rgba(255, 255, 255, 0.1),
+                  0 0 35px rgba(184, 255, 1, 0.12);
       text-align: center;
       overflow: hidden;
     }
 
-    /* Schräger Glas-Lichtreflex über der Karte */
     .card::before {
       content: "";
       position: absolute;
       top: 0; left: -50%;
       width: 200%; height: 220px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 100%);
       transform: rotate(-12deg);
       pointer-events: none;
     }
@@ -159,12 +161,12 @@
     
     .logo-box {
       width: 86px; height: 86px; margin: 0 auto 14px; border-radius: 24px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
-      border-top: 2px solid rgba(255,255,255,0.7);
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.04));
+      border-top: 2px solid rgba(255,255,255,0.65);
       border-left: 2px solid var(--acc);
       border-right: 1.5px solid var(--acc);
       border-bottom: 1.5px solid var(--acc);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 25px rgba(184,255,1,0.35), inset 0 2px 12px rgba(255,255,255,0.25);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 25px rgba(184,255,1,0.3), inset 0 2px 12px rgba(255,255,255,0.2);
       display: flex; align-items: center; justify-content: center;
       font-size: 36px; font-weight: 900; color: var(--acc);
       backdrop-filter: blur(12px);
@@ -173,21 +175,20 @@
     .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
     .desc { color: #e2e8f0; font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
 
-    /* --- GLAS-BOX MIT FUNKEN & STREAMER-POWER-TEXT --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 10px;
       margin-bottom: 22px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(184, 255, 1, 0.06));
-      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
-      border-right: 1px solid rgba(184, 255, 1, 0.35);
-      border-bottom: 1px solid rgba(184, 255, 1, 0.35);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.05));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid rgba(184, 255, 1, 0.3);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.3);
       padding: 15px;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 10px rgba(255,255,255,0.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 10px rgba(255,255,255,0.12);
     }
     .fun-like-btn {
       background: rgba(184, 255, 1, 0.2);
@@ -201,7 +202,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 0 15px rgba(184,255,1,0.3);
+      box-shadow: 0 0 15px rgba(184,255,1,0.25);
       transition: all 0.2s ease;
     }
     .fun-like-btn:hover { background: rgba(184, 255, 1, 0.32); transform: scale(1.03); }
@@ -239,19 +240,18 @@
       text-transform: uppercase;
     }
 
-    /* --- GLAS-NAVIGATIONSLEISTE --- */
     .nav-tabs {
       display: flex;
       background: rgba(255, 255, 255, 0.1);
-      border-top: 1px solid rgba(255, 255, 255, 0.45);
-      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
       border-right: 1px solid rgba(255, 255, 255, 0.12);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
       padding: 6px;
       margin-bottom: 22px;
       gap: 6px;
-      box-shadow: inset 0 1px 8px rgba(255,255,255,0.1);
+      box-shadow: inset 0 1px 8px rgba(255,255,255,0.08);
     }
     .nav-tab {
       flex: 1;
@@ -268,20 +268,18 @@
     .nav-tab.active {
       background: var(--acc-gradient);
       color: #05060a;
-      box-shadow: 0 0 20px rgba(184,255,1,0.45);
+      box-shadow: 0 0 20px rgba(184,255,1,0.4);
     }
 
-    /* --- SEITEN UMSCHALTER --- */
     .page-section { display: none; }
     .page-section.active-page { display: block; animation: fadeInPage 0.3s ease; }
     @keyframes fadeInPage { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- GLAS INFO SEITE (AKTUELLES) --- */
     .info-page-box {
       text-align: left;
       background: rgba(255,255,255,0.08);
-      border-top: 1.5px solid rgba(255,255,255,0.4);
-      border-left: 1px solid rgba(255,255,255,0.3);
+      border-top: 1.5px solid rgba(255,255,255,0.38);
+      border-left: 1px solid rgba(255,255,255,0.25);
       border-right: 1px solid rgba(255,255,255,0.1);
       border-bottom: 1px solid rgba(255,255,255,0.1);
       border-radius: 22px;
@@ -297,9 +295,9 @@
       gap: 8px;
     }
     .creator-hero-banner {
-      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,0,85,0.15));
-      border-top: 1.5px solid rgba(255,255,255,0.5);
-      border-left: 1px solid rgba(255,255,255,0.35);
+      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,0,85,0.14));
+      border-top: 1.5px solid rgba(255,255,255,0.45);
+      border-left: 1px solid rgba(255,255,255,0.3);
       border-right: 1px solid rgba(184,255,1,0.35);
       border-bottom: 1px solid rgba(184,255,1,0.35);
       border-radius: 16px;
@@ -307,27 +305,14 @@
       margin-bottom: 16px;
       text-align: center;
     }
-    .creator-hero-banner h3 {
-      font-size: 16px;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-    .creator-hero-banner p {
-      font-size: 13px;
-      color: #f1f5f9;
-      line-height: 1.45;
-    }
+    .creator-hero-banner h3 { font-size: 16px; color: #fff; margin-bottom: 6px; }
+    .creator-hero-banner p { font-size: 13px; color: #f1f5f9; line-height: 1.45; }
 
-    .info-feature-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
+    .info-feature-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
     .info-feat-item {
-      background: rgba(255, 255, 255, 0.09);
-      border-top: 1px solid rgba(255, 255, 255, 0.35);
-      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(255, 255, 255, 0.32);
+      border-left: 1px solid rgba(255, 255, 255, 0.22);
       border-right: 1px solid rgba(255, 255, 255, 0.08);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding: 14px;
@@ -339,9 +324,9 @@
     .info-feat-item strong { color: var(--acc); display: block; margin-bottom: 4px; font-size: 14.5px; }
     
     .back-home-btn {
-      background: rgba(255,255,255,0.15);
-      border-top: 1px solid rgba(255,255,255,0.45);
-      border-left: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.14);
+      border-top: 1px solid rgba(255,255,255,0.4);
+      border-left: 1px solid rgba(255,255,255,0.25);
       border-right: 1px solid rgba(255,255,255,0.15);
       border-bottom: 1px solid rgba(255,255,255,0.15);
       color: #fff;
@@ -353,17 +338,11 @@
       margin-top: 10px;
     }
 
-    /* --- SCREENSHOT SLIDER --- */
     .slider-header {
       font-size: 12px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 1.5px; color: #e2e8f0; margin-bottom: 10px;
     }
-    .slider-wrapper {
-      position: relative;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-    }
+    .slider-wrapper { position: relative; margin-bottom: 24px; display: flex; align-items: center; }
     .slider-track {
       display: flex;
       gap: 12px;
@@ -379,8 +358,8 @@
       flex: 0 0 calc(50% - 6px);
       scroll-snap-align: start;
       background: rgba(255, 255, 255, 0.1);
-      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.3);
       border-right: 1px solid rgba(255, 255, 255, 0.15);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 20px;
@@ -393,14 +372,9 @@
     .slide-item:hover, .slide-item:active {
       border-color: var(--acc);
       transform: scale(0.98);
-      box-shadow: 0 0 25px rgba(184,255,1,0.35);
+      box-shadow: 0 0 25px rgba(184,255,1,0.3);
     }
-    .slide-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .slide-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .slide-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -446,7 +420,6 @@
     .slider-arrow.left { left: -12px; }
     .slider-arrow.right { right: -12px; }
 
-    /* --- VOLLBILD LIGHTBOX --- */
     .lightbox {
       display: none;
       position: fixed;
@@ -468,12 +441,7 @@
       box-shadow: 0 0 55px rgba(184,255,1,0.45);
       object-fit: contain;
     }
-    .lightbox-title {
-      margin-top: 14px;
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--acc);
-    }
+    .lightbox-title { margin-top: 14px; font-size: 16px; font-weight: 800; color: var(--acc); }
     .lightbox-close {
       position: absolute;
       top: 20px; right: 20px;
@@ -503,30 +471,28 @@
     .lb-arrow.left { left: 14px; }
     .lb-arrow.right { right: 14px; }
 
-    /* --- GLAS-FORMULAR --- */
     form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
     label.lbl { font-size: 13px; font-weight: 800; color: #ffffff; margin-bottom: -4px; display: block; }
     input[type="text"], input[type="email"], select {
       width: 100%; padding: 16px 18px; border-radius: 16px;
-      border-top: 1.5px solid rgba(255,255,255,0.45);
-      border-left: 1px solid rgba(255,255,255,0.3);
+      border-top: 1.5px solid rgba(255,255,255,0.4);
+      border-left: 1px solid rgba(255,255,255,0.25);
       border-right: 1px solid rgba(255,255,255,0.12);
       border-bottom: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       color: #fff; font-size: 16px; outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     input::placeholder { color: rgba(255,255,255,0.6); }
     select option { background: #0b0e17; color: #fff; }
-    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 18px rgba(184,255,1,0.35); }
+    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 18px rgba(184,255,1,0.3); }
 
-    /* --- GLAS VIP TESTER BOX --- */
     .vip-box {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(184, 255, 1, 0.08));
-      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
-      border-right: 1px solid rgba(184, 255, 1, 0.4);
-      border-bottom: 1px solid rgba(184, 255, 1, 0.4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.06));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid rgba(184, 255, 1, 0.35);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.35);
       border-radius: 18px;
       padding: 16px;
     }
@@ -543,7 +509,7 @@
       color: #ffffff;
       font-size: 13.5px;
       line-height: 1.5;
-      box-shadow: 0 0 22px rgba(184,255,1,0.25);
+      box-shadow: 0 0 22px rgba(184,255,1,0.2);
     }
     .vip-extra-info.show { display: block; animation: fadeIn 0.25s ease; }
     @keyframes fadeIn {
@@ -573,10 +539,10 @@
     .submit-btn {
       background: var(--acc-gradient); color: #05060a; border: none; padding: 18px;
       border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
-      cursor: pointer; box-shadow: 0 0 35px rgba(184,255,1,0.5); margin-top: 6px; width: 100%;
+      cursor: pointer; box-shadow: 0 0 35px rgba(184,255,1,0.45); margin-top: 6px; width: 100%;
       letter-spacing: 0.8px; transition: transform 0.2s, box-shadow 0.2s;
     }
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(184,255,1,0.7); }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(184,255,1,0.65); }
     
     #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
@@ -586,7 +552,6 @@
 </head>
 <body>
 
-  <!-- BEWEGTER NEON-HINTERGRUND MIT SCHWEBENDEN KUGELN & FUNKEN -->
   <div class="animated-bg">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -613,7 +578,6 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- FUNKEN-LIKE-BUTTON + MAXIMAL ANSPRECHENDER STREAMER-MAGNET-TEXT -->
     <div class="fun-like-container">
       <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
         <span class="spark-icon" id="sparkIcon">⚡</span> 
@@ -626,14 +590,12 @@
       </div>
     </div>
 
-    <!-- NAVIGATIONSLEISTE (HOME, AKTUELLES, IN PLANUNG) -->
     <div class="nav-tabs">
       <button type="button" class="nav-tab active" onclick="switchTab('home', this)">🏠 Home</button>
       <button type="button" class="nav-tab" onclick="switchTab('aktuelles', this)">🔥 Aktuelles</button>
       <button type="button" class="nav-tab" onclick="switchTab('planung', this)">🚀 In Planung</button>
     </div>
 
-    <!-- ===== SEITE 1: HOME ===== -->
     <div id="page-home" class="page-section active-page">
       <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
       <div class="slider-wrapper">
@@ -665,7 +627,6 @@
         <button type="button" class="slider-arrow right" onclick="scrollSlider(1)">›</button>
       </div>
 
-      <!-- FORMULAR -->
       <form id="waitlist-form">
         <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
         <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
@@ -691,7 +652,6 @@
           <option value="Anderes Land">🌍 Anderes Land</option>
         </select>
 
-        <!-- VIP TESTER BOX -->
         <div class="vip-box">
           <label class="chk">
             <input type="checkbox" id="vipCheck" name="beta_tester" value="Ja" onchange="toggleVipInfo()">
@@ -720,7 +680,6 @@
       <div id="status"></div>
     </div>
 
-    <!-- ===== SEITE 2: AKTUELLES ===== -->
     <div id="page-aktuelles" class="page-section">
       <div class="info-page-box">
         <h2>🔥 Warum Streamer hier MASSIV mehr verdienen</h2>
@@ -764,7 +723,6 @@
       </div>
     </div>
 
-    <!-- ===== SEITE 3: IN PLANUNG ===== -->
     <div id="page-planung" class="page-section">
       <div class="info-page-box">
         <h2>🚀 In Planung & Roadmap</h2>
@@ -785,7 +743,6 @@
     <div class="footer">© 2026 VYBZON • Short, Video & Live Club</div>
   </div>
 
-  <!-- VOLLBILD LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button type="button" class="lightbox-close" onclick="closeLightbox(event)">✕</button>
     <button type="button" class="lb-arrow left" onclick="changeLightboxSlide(-1, event)">‹</button>
@@ -797,7 +754,6 @@
   <script>
     const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
 
-    // Funken-Like Logik
     let hasLiked = false;
     function toggleLike() {
       const btn = document.getElementById('funLikeBtn');
@@ -815,11 +771,9 @@
       }
     }
 
-    // Seiten / Tabs Umschalter
     function switchTab(tabName, btnEl) {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       btnEl.classList.add('active');
-
       document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active-page'));
 
       if (tabName === 'home') {
@@ -850,7 +804,7 @@
         prefixes.forEach((prefix, idx) => {
           const match = files.find(f => f.name.startsWith(prefix));
           if (match) {
-            document.getElementById('img-' + idx).src = match.name;
+            document.getElementById('img-' + idx).src = match.download_url;
           }
         });
       } catch (e) {
