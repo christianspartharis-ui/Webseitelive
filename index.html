@@ -9,7 +9,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  <!-- Macht die Seite im Browser direkt als App installierbar -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#04060c">
@@ -159,7 +158,6 @@
     .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
 
-    /* --- BESUCHER-ZÄHLER PILL --- */
     .visitor-pill {
       display: inline-flex;
       align-items: center;
@@ -241,7 +239,6 @@
     .fun-like-btn.liked .spark-icon { animation: sparkPop 0.3s ease; }
     @keyframes sparkPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
 
-    /* Kommentar-Zeile unter Funken */
     .comment-bar {
       display: flex;
       width: 100%;
@@ -268,7 +265,9 @@
       font-weight: 900;
       cursor: pointer;
       white-space: nowrap;
+      transition: opacity 0.2s;
     }
+    .comment-send-btn:disabled { opacity: 0.6; }
     .comment-list {
       width: 100%;
       display: flex;
@@ -667,10 +666,10 @@
         (<span id="likeCount">0</span>)
       </button>
 
-      <!-- Neue Kommentar-Zeile direkt unter Funken -->
+      <!-- Kommentar-Zeile mit direkter Google-Tabellen-Speicherung -->
       <div class="comment-bar">
         <input type="text" id="commentInput" class="comment-input" placeholder="Schreib einen Kommentar zur App..." maxlength="120">
-        <button type="button" class="comment-send-btn" onclick="addComment()">💬 Senden</button>
+        <button type="button" id="commentBtn" class="comment-send-btn" onclick="addComment()">💬 Senden</button>
       </div>
       <div class="comment-list" id="commentList"></div>
 
@@ -718,6 +717,9 @@
       </div>
 
       <form id="waitlist-form">
+        <input type="hidden" name="aktion" value="anmeldung">
+        <input type="hidden" name="kommentar" id="lastCommentField" value="">
+
         <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
         <input type="text" id="vorname" name="vorname" placeholder="z. B. Max" required>
 
@@ -844,7 +846,7 @@
   <script>
     const SCRIPT_URL = 'DEINE_WEB_APP_URL_HIER_EINFUEGEN';
 
-    // 1. Live Besucher-Zähler (Global über CounterAPI + lokaler Speicher als Backup)
+    // 1. Live Besucher-Zähler
     async function updateVisitorCounter() {
       const countEl = document.getElementById('visitorCount');
       try {
@@ -889,26 +891,74 @@
       localStorage.setItem('vybzon_likes_count', count);
     }
 
-    // 3. Kommentar-Funktion unter Funken
-    function renderComments() {
+    // 3. Kommentar-Funktion (Speichert lokal + direkt in Google-Tabelle)
+    function renderComments(customList) {
       const list = document.getElementById('commentList');
-      const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
-      list.innerHTML = comments.map(c => `<div class="comment-item"><strong>⚡ Gast:</strong> ${c}</div>`).join('');
+      const comments = customList || JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
+      list.innerHTML = comments.map(c => {
+        if (typeof c === 'object') {
+          return `<div class="comment-item"><strong>⚡ ${c.name}:</strong> ${c.text}</div>`;
+        }
+        return `<div class="comment-item"><strong>⚡ Gast:</strong> ${c}</div>`;
+      }).join('');
     }
-    function addComment() {
+
+    // Lädt vorhandene Kommentare aus der Google-Tabelle, sobald SCRIPT_URL eingetragen ist
+    async function loadSheetComments() {
+      if (!SCRIPT_URL || SCRIPT_URL.includes('DEINE_WEB_APP_URL')) return;
+      try {
+        const res = await fetch(SCRIPT_URL);
+        const data = await res.json();
+        if (data && data.comments && data.comments.length > 0) {
+          localStorage.setItem('vybzon_comments', JSON.stringify(data.comments));
+          renderComments(data.comments);
+        }
+      } catch (e) {}
+    }
+
+    async function addComment() {
       const input = document.getElementById('commentInput');
+      const btn = document.getElementById('commentBtn');
+      const nameInput = document.getElementById('vorname');
       const text = input.value.trim();
       if (!text) return;
+
+      const cleanText = text.replace(/</g, '&lt;');
+      const senderName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim().replace(/</g, '&lt;') : 'Gast';
+
+      // Auch im versteckten Formularfeld merken, falls danach die Anmeldung abgeschickt wird
+      document.getElementById('lastCommentField').value = cleanText;
+
+      // Sofort auf der Seite anzeigen
       const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
-      comments.unshift(text.replace(/</g, '&lt;'));
-      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 20)));
+      comments.unshift({ name: senderName, text: cleanText });
+      localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 25)));
       input.value = '';
       renderComments();
+
+      // Direkt an Google-Tabelle senden
+      if (SCRIPT_URL && !SCRIPT_URL.includes('DEINE_WEB_APP_URL')) {
+        btn.disabled = true;
+        btn.textContent = '✓';
+        const fd = new FormData();
+        fd.append('aktion', 'kommentar');
+        fd.append('vorname', senderName);
+        fd.append('kommentar', cleanText);
+        try {
+          await fetch(SCRIPT_URL, { method: 'POST', body: fd });
+        } catch (e) {}
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = '💬 Senden';
+        }, 1200);
+      }
     }
+
     document.getElementById('commentInput').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); addComment(); }
     });
     renderComments();
+    loadSheetComments();
 
     function switchTab(tabName, btnEl) {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -1025,6 +1075,7 @@
           status.className = 'success';
           status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Du bist auf der Liste.';
           form.reset();
+          document.getElementById('lastCommentField').value = '';
           toggleVipInfo();
         } else {
           status.className = 'error';
