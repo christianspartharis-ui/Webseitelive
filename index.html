@@ -9,8 +9,9 @@
   <title>VYBZON – Short, Video & Live Club</title>
   <style>
     :root {
-      --bg: #050609;
-      --card: rgba(16, 19, 31, 0.85);
+      --bg: #030407;
+      --card-bg: rgba(14, 18, 30, 0.62);
+      --card-border: rgba(255, 255, 255, 0.12);
       --acc: #b8ff01;
       --acc-gradient: linear-gradient(135deg, #b8ff01, #76ff03);
       --hot: #ff0055;
@@ -19,8 +20,8 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
     body {
-      background: radial-gradient(circle at 10% 10%, rgba(184,255,1,0.14), transparent 40%),
-                  radial-gradient(circle at 90% 90%, rgba(255,0,85,0.14), transparent 40%),
+      background: radial-gradient(circle at 15% 10%, rgba(184,255,1,0.18), transparent 45%),
+                  radial-gradient(circle at 85% 90%, rgba(255,0,85,0.18), transparent 45%),
                   var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -29,74 +30,82 @@
       align-items: center;
       padding: 16px;
     }
+    
+    /* --- ECHTER GLASSMORPHISM LOOK --- */
     .card {
-      background: var(--card);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
+      background: var(--card-bg);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       max-width: 520px;
       width: 100%;
       padding: 34px 24px;
       border-radius: 32px;
-      border: 1.5px solid rgba(184, 255, 1, 0.3);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(184,255,1,0.12);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.9), 
+                  inset 0 1px 0 rgba(255,255,255,0.15),
+                  0 0 40px rgba(184,255,1,0.1);
       text-align: center;
     }
+
     .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
     .live-pill {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255, 0, 85, 0.15); border: 1.5px solid rgba(255, 0, 85, 0.5);
+      background: rgba(255, 0, 85, 0.15); border: 1px solid rgba(255, 0, 85, 0.4);
       color: #ff4d88; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 800;
+      backdrop-filter: blur(10px);
     }
     .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
 
-    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.08); }
+    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.04); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.06); }
     .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; }
     .mood-dot:hover { transform: scale(1.15); }
     
     .logo-box {
       width: 86px; height: 86px; margin: 0 auto 14px; border-radius: 24px;
-      background: linear-gradient(135deg, #0b0d14, #181d2d); border: 2px solid var(--acc);
-      box-shadow: 0 0 25px rgba(184,255,1,0.3);
+      background: rgba(10, 12, 20, 0.8); border: 1.5px solid var(--acc);
+      box-shadow: 0 0 25px rgba(184,255,1,0.25);
       display: flex; align-items: center; justify-content: center;
       font-size: 36px; font-weight: 900; color: var(--acc);
+      backdrop-filter: blur(10px);
     }
     h1 { font-size: 36px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
     .subtitle { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 12px; }
     .desc { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
 
-    /* --- FUNKEN-LIKE-BUTTON + NEUER STREAMER-TEASER --- */
+    /* --- FUNKEN-LIKE-BUTTON + MEGA ATTRAKTIVER STREAMER-TEASER --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 6px;
+      gap: 8px;
       margin-bottom: 22px;
-      background: rgba(184, 255, 1, 0.04);
-      border: 1px dashed rgba(184, 255, 1, 0.3);
-      padding: 12px 14px;
-      border-radius: 16px;
+      background: rgba(184, 255, 1, 0.05);
+      border: 1px solid rgba(184, 255, 1, 0.25);
+      padding: 14px;
+      border-radius: 18px;
+      backdrop-filter: blur(12px);
     }
     .fun-like-btn {
-      background: rgba(184, 255, 1, 0.1);
-      border: 1.2px solid var(--acc);
+      background: rgba(184, 255, 1, 0.12);
+      border: 1px solid var(--acc);
       color: #fff;
-      padding: 7px 14px;
+      padding: 8px 16px;
       border-radius: 99px;
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 0 10px rgba(184,255,1,0.15);
+      box-shadow: 0 0 12px rgba(184,255,1,0.2);
       transition: all 0.2s ease;
     }
-    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.22); transform: scale(1.03); }
+    .fun-like-btn:hover { background: rgba(184, 255, 1, 0.25); transform: scale(1.03); }
     .fun-like-btn.liked {
       background: var(--acc);
       color: #05060a;
-      box-shadow: 0 0 18px var(--acc);
+      box-shadow: 0 0 20px var(--acc);
       font-weight: 800;
     }
     .spark-icon { font-size: 14px; transition: transform 0.2s; }
@@ -105,21 +114,25 @@
 
     .streamer-teaser-text {
       font-size: 12px;
-      color: var(--acc);
-      font-weight: 700;
+      color: #e2e8f0;
+      font-weight: 600;
       text-align: left;
-      line-height: 1.4;
+      line-height: 1.45;
+    }
+    .streamer-teaser-text strong {
+      color: var(--acc);
     }
 
-    /* --- NAVIGATIONSLEISTE --- */
+    /* --- GLASS NAVIGATIONSLEISTE --- */
     .nav-tabs {
       display: flex;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
       padding: 6px;
       margin-bottom: 22px;
       gap: 6px;
+      backdrop-filter: blur(15px);
     }
     .nav-tab {
       flex: 1;
@@ -136,7 +149,7 @@
     .nav-tab.active {
       background: var(--acc-gradient);
       color: #05060a;
-      box-shadow: 0 0 18px rgba(184,255,1,0.35);
+      box-shadow: 0 0 20px rgba(184,255,1,0.4);
     }
 
     /* --- SEITEN UMSCHALTER --- */
@@ -144,14 +157,15 @@
     .page-section.active-page { display: block; animation: fadeInPage 0.3s ease; }
     @keyframes fadeInPage { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- ÜBERARBEITETE CREATOR- & STREAMER-SEITE (AKTUELLES) --- */
+    /* --- GLASS INFO SEITE (AKTUELLES) --- */
     .info-page-box {
       text-align: left;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.02);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 20px;
       padding: 20px;
       margin-bottom: 20px;
+      backdrop-filter: blur(15px);
     }
     .info-page-box h2 {
       font-size: 19px;
@@ -162,12 +176,13 @@
       gap: 8px;
     }
     .creator-hero-banner {
-      background: linear-gradient(135deg, rgba(184,255,1,0.12), rgba(255,0,85,0.12));
-      border: 1.5px solid var(--acc);
+      background: linear-gradient(135deg, rgba(184,255,1,0.08), rgba(255,0,85,0.08));
+      border: 1px solid rgba(184,255,1,0.3);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
       text-align: center;
+      backdrop-filter: blur(10px);
     }
     .creator-hero-banner h3 {
       font-size: 16px;
@@ -187,8 +202,8 @@
       margin-bottom: 18px;
     }
     .info-feat-item {
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.06);
       padding: 14px;
       border-radius: 14px;
       font-size: 13.5px;
@@ -198,8 +213,8 @@
     .info-feat-item strong { color: var(--acc); display: block; margin-bottom: 4px; font-size: 14.5px; }
     
     .back-home-btn {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
       color: #fff;
       width: 100%;
       padding: 14px;
@@ -207,8 +222,9 @@
       font-weight: 800;
       cursor: pointer;
       margin-top: 10px;
+      backdrop-filter: blur(10px);
     }
-    .back-home-btn:hover { background: rgba(255,255,255,0.2); }
+    .back-home-btn:hover { background: rgba(255,255,255,0.15); }
 
     /* --- SCREENSHOT SLIDER --- */
     .slider-header {
@@ -235,19 +251,20 @@
     .slide-item {
       flex: 0 0 calc(50% - 6px);
       scroll-snap-align: start;
-      background: #080a10;
-      border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(8, 10, 16, 0.8);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
       aspect-ratio: 9 / 16;
       transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
     }
     .slide-item:hover, .slide-item:active {
       border-color: var(--acc);
       transform: scale(0.98);
-      box-shadow: 0 0 20px rgba(184,255,1,0.2);
+      box-shadow: 0 0 20px rgba(184,255,1,0.25);
     }
     .slide-item img {
       width: 100%;
@@ -267,13 +284,14 @@
     .zoom-hint {
       position: absolute;
       top: 10px; right: 10px;
-      background: rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,255,255,0.25);
       color: #fff;
       font-size: 12px;
       width: 28px; height: 28px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(5px);
     }
     .slider-arrow {
       position: absolute;
@@ -282,8 +300,8 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(15, 18, 28, 0.95);
-      border: 2px solid #ffffff;
+      background: rgba(15, 18, 28, 0.85);
+      border: 1px solid rgba(255,255,255,0.3);
       color: #ffffff;
       font-size: 22px;
       font-weight: bold;
@@ -293,6 +311,7 @@
       cursor: pointer;
       z-index: 5;
       box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
       padding: 0;
       margin: 0;
       line-height: 1;
@@ -307,7 +326,8 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(5, 6, 10, 0.97);
+      background: rgba(3, 4, 7, 0.96);
+      backdrop-filter: blur(20px);
       z-index: 9999;
       flex-direction: column;
       justify-content: center;
@@ -320,7 +340,7 @@
       max-height: 82vh;
       border-radius: 22px;
       border: 2px solid var(--acc);
-      box-shadow: 0 0 45px rgba(184,255,1,0.35);
+      box-shadow: 0 0 50px rgba(184,255,1,0.4);
       object-fit: contain;
     }
     .lightbox-title {
@@ -334,13 +354,14 @@
       top: 20px; right: 20px;
       width: 44px; height: 44px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      border: 2px solid #fff;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
       color: #fff;
       font-size: 22px;
       font-weight: bold;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
     }
     .lb-arrow {
       position: absolute;
@@ -348,12 +369,13 @@
       transform: translateY(-50%);
       width: 46px; height: 46px;
       border-radius: 50%;
-      background: rgba(0,0,0,0.8);
-      border: 2px solid #fff;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.3);
       color: #fff;
       font-size: 26px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
     }
     .lb-arrow.left { left: 14px; }
     .lb-arrow.right { right: 14px; }
@@ -363,18 +385,20 @@
     label.lbl { font-size: 13px; font-weight: 700; color: #cbd5e1; margin-bottom: -4px; display: block; }
     input[type="text"], input[type="email"], select {
       width: 100%; padding: 16px 18px; border-radius: 16px;
-      border: 1.5px solid rgba(255,255,255,0.12); background: rgba(7, 8, 13, 0.9); color: #fff; font-size: 16px; outline: none;
+      border: 1px solid rgba(255,255,255,0.12); background: rgba(5, 6, 9, 0.6); color: #fff; font-size: 16px; outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(10px);
     }
-    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.2); }
+    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.25); }
 
     /* --- VIP TESTER BOX --- */
     .vip-box {
-      background: linear-gradient(135deg, rgba(184, 255, 1, 0.06), rgba(255, 0, 85, 0.06));
-      border: 2px solid rgba(184, 255, 1, 0.35);
+      background: linear-gradient(135deg, rgba(184, 255, 1, 0.05), rgba(255, 0, 85, 0.05));
+      border: 1px solid rgba(184, 255, 1, 0.3);
       border-radius: 18px;
       padding: 16px;
       transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
     }
     .chk { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #cbd5e1; cursor: pointer; line-height: 1.4; }
     .chk input { margin-top: 2px; width: 20px; height: 20px; accent-color: var(--acc); flex-shrink: 0; }
@@ -384,12 +408,13 @@
       margin-top: 14px;
       padding: 14px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(184,255,1,0.15), rgba(255,0,85,0.15));
-      border: 1.5px solid var(--acc);
+      background: linear-gradient(135deg, rgba(184,255,1,0.12), rgba(255,0,85,0.12));
+      border: 1px solid var(--acc);
       color: #f8fafc;
       font-size: 13.5px;
       line-height: 1.5;
-      box-shadow: 0 0 20px rgba(184,255,1,0.18);
+      box-shadow: 0 0 20px rgba(184,255,1,0.15);
+      backdrop-filter: blur(10px);
     }
     .vip-extra-info.show { display: block; animation: fadeIn 0.25s ease; }
     @keyframes fadeIn {
@@ -420,14 +445,14 @@
     .submit-btn {
       background: var(--acc-gradient); color: #05060a; border: none; padding: 18px;
       border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
-      cursor: pointer; box-shadow: 0 0 30px rgba(184,255,1,0.45); margin-top: 6px; width: 100%;
+      cursor: pointer; box-shadow: 0 0 30px rgba(184,255,1,0.4); margin-top: 6px; width: 100%;
       letter-spacing: 0.8px; transition: transform 0.2s, box-shadow 0.2s;
     }
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(184,255,1,0.6); }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(184,255,1,0.6); }
     
-    #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
-    .success { background: rgba(184,255,1,0.18); border: 1.5px solid var(--acc); color: var(--acc); }
-    .error { background: rgba(255,0,85,0.18); border: 1.5px solid var(--hot); color: #ff4d88; }
+    #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; backdrop-filter: blur(10px); }
+    .success { background: rgba(184,255,1,0.15); border: 1px solid var(--acc); color: var(--acc); }
+    .error { background: rgba(255,0,85,0.15); border: 1px solid var(--hot); color: #ff4d88; }
     .footer { margin-top: 22px; font-size: 12px; color: #64748b; }
   </style>
 </head>
@@ -448,7 +473,7 @@
     <div class="subtitle">Short, Video & Live Club</div>
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
-    <!-- FUNKEN-LIKE-BUTTON + STREAMER TEASER UNTER DRUNTER -->
+    <!-- FUNKEN-LIKE-BUTTON + NEUER STREAMER-TEXT -->
     <div class="fun-like-container">
       <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
         <span class="spark-icon" id="sparkIcon">⚡</span> 
@@ -456,7 +481,7 @@
         (<span id="likeCount">0</span>)
       </button>
       <div class="streamer-teaser-text">
-        🔥 <strong>Creator-Hotspot:</strong> Maximale Payouts & volle Kontrolle für Streamer! (Tippe auf „Aktuelles“ für Details)
+        ⚡ <strong>Creator-Revolution:</strong> Verdiene hier nachweislich <strong>mehr als auf allen anderen Plattformen</strong>! Entdecke unter „Aktuelles“ die faire 90%+ Payout-Garantie, tägliche Gratis-Coins für deine Community und volle Host-Kontrolle.
       </div>
     </div>
 
@@ -554,43 +579,43 @@
       <div id="status"></div>
     </div>
 
-    <!-- ===== SEITE 2: AKTUELLES (FÜR CREATOR & STREAMER OPTIMIERT) ===== -->
+    <!-- ===== SEITE 2: AKTUELLES (FÜR STREAMER OPTIMIERT) ===== -->
     <div id="page-aktuelles" class="page-section">
       <div class="info-page-box">
-        <h2>🔥 Das ultimative Creator-Paradies</h2>
+        <h2>🔥 Warum Streamer hier MASSIV mehr verdienen</h2>
         
         <div class="creator-hero-banner">
-          <h3>🚀 Entwickelt von Streamern, für Streamer!</h3>
-          <p>Schluss mit unfairen Schnitten und Plattformen, die deine harte Arbeit ausnutzen. Bei VYBZON stehst DU im Mittelpunkt – mit branchenweit einmaligen Features für maximalen Verdienst!</p>
+          <h3>🚀 Schluss mit Ausbeutung durch alte Plattformen!</h3>
+          <p>Auf anderen Seiten schuftest du stundenlang und behältst am Ende nur einen Bruchteil. VYBZON bricht die Regeln: Hier verdienst du nachweislich <strong>mehr als auf allen bekannten Streaming-Plattformen</strong> – mit fairem Payout und maximaler Kontrolle für dich!</p>
         </div>
 
         <div class="info-feature-list">
           <div class="info-feat-item">
-            <strong>🎁 Tägliche Gratis-Coins für deine Community</strong>
-            Deine Zuschauer können sich jeden Tag völlig kostenlos Coins abholen und diese direkt in deinem Stream als Funken und Geschenke dalassen. Volle Interaktion ohne Barrieren!
+            <strong>🎁 Tägliche Gratis-Coins für maximale Zuschauer-Power</strong>
+            Deine Community muss nicht Schicksal spielen oder trocken bleiben: Bei VYBZON gibt es <strong>jeden Tag kostenlose Gratis-Coins</strong> für die User. Das Ergebnis? Sie hauen im Live-Stream viel mehr Funken und Geschenke für dich raus, weil sie täglich beschenkt werden!
           </div>
 
           <div class="info-feat-item">
-            <strong>🎛️ Volle Host-Kontrolle im Multi-Live</strong>
-            Du hast als Host das Sagen! Bestimme selbst in den Einstellungen, wie viel Prozent der Geschenke, die deine Gäste im Stream erhalten, automatisch an dich als Haupt-Host ausgeschüttet werden.
+            <strong>🎛️ Ultimative Host-Macht im Multi-Live</strong>
+            Du machst die Regeln im Stream! Als Host kannst du in den Einstellungen vollkommen flexibel regeln, wie viel Prozent von den Geschenken, die deine Gäste im Multi-Live bekommen, automatisch in deine eigene Kasse fließen. 
           </div>
 
           <div class="info-feat-item">
-            <strong>🛡️ Mod-Power & Belohnung (Bis zu 5 %)</strong>
-            Stärke dein Team! Du kannst flexibel einstellen, dass deine treuen Moderatoren bis zu 5 % am generierten Stream-Umsatz beteiligt werden. Motivierte Mods halten deinen Chat sauber und die Stimmung am Kochen!
+            <strong>🛡️ Mod-Belohnung (Bis zu 5 % Beteiligung)</strong>
+            Deine Moderatoren halten den Chat sauber und sorgen für Stimmung. Belohne sie dafür! Du kannst direkt einstellen, dass deine Mods <strong>bis zu 5 % vom Stream-Umsatz</strong> verdienen. So bleibt dein Team top-motiviert und treu an deiner Seite.
           </div>
 
           <div class="info-feat-item">
-            <strong>💎 Mega-Fairer Payout & Top-Umrechnung</strong>
-            Wir wissen, was Streamer leisten. Deshalb bieten wir dir eine der transparentesten und fairsten Umrechnungen auf dem Markt: 
+            <strong>💎 Sensationelle Umrechnung & ehrlicher Payout</strong>
+            Wie sieht der Deal für dich aus? Extrem transparent und extrem lukrativ:
             <br><br>
-            • <strong>Was du bekommst:</strong> Den absolut maximalen Erlös aus deinen Diamanten & Geschenken mit ultraschneller Auszahlung.<br>
-            • <strong>Was wir einbeziehen:</strong> Nur einen minimalen, fairen Plattform-Beitrag für Server-Hosting, High-End Live-Stream-Performance (wie Zeus & Gold-Drache) und globale Sicherheit. 
+            • <strong>Was du kriegst:</strong> Den fettesten und fairsten Anteil deiner Diamanten und Geschenke weit und breit. Keine versteckten Abzüge, dafür blitzschnelle Auszahlungen.<br>
+            • <strong>Was wir einbeziehen:</strong> Nur einen minimalen, unverzichtbaren Bruchteil für High-End Server, High-Speed Live-Streams und spektakuläre Effekte wie den goldenen Zeus[span_0](start_span)[span_0](end_span) und den Gold-Drachen[span_1](start_span)[span_1](end_span).
           </div>
 
           <div class="info-feat-item">
-            <strong>🎬 Shorts, Multi-Live & Epische Effekte</strong>
-            Nutze den Short-Video-Feed für virales Wachstum, streame mit bis zu 8 Gästen im 8er Multi-Live und lass gigantische Animationen wie den goldenen Zeus über den Bildschirm feuern[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span)!
+            <strong>🎬 Shorts, Multi-Live & Epische Club-Vibes</strong>
+            Erobere den Algorithmus mit dem Short-Video-Feed, rocke den 8er Multi-Live-Modus und lass die Community beben[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span)!
           </div>
         </div>
 
