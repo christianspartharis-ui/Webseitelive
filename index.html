@@ -22,6 +22,7 @@
       --acc-gradient: linear-gradient(135deg, #b8ff01, #64dd17);
       --hot: #ff0055;
       --cyan: #00f0ff;
+      --gold: #ffd700;
       --text: #ffffff;
       --muted: #cbd5e1;
     }
@@ -376,35 +377,38 @@
       margin-top: 10px;
     }
 
-    /* --- STABILER BILDER-SLIDER --- */
+    /* --- VERGRÖSSERTER BILDER-SLIDER (DEUTLICH GRÖSSERE SCREENSHOTS) --- */
     .slider-header {
-      font-size: 12px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1.5px; color: #f1f5f9; margin-bottom: 10px;
+      font-size: 12.5px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1.5px; color: #f1f5f9; margin-bottom: 12px;
     }
-    .slider-wrapper { position: relative; margin-bottom: 24px; display: flex; align-items: center; }
+    .slider-wrapper { position: relative; margin-bottom: 26px; display: flex; align-items: center; }
     .slider-track {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       overflow-x: auto;
       scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
       scrollbar-width: none;
       width: 100%;
-      padding: 4px 2px;
+      padding: 6px 8%;
     }
     .slider-track::-webkit-scrollbar { display: none; }
     .slide-item {
-      flex: 0 0 calc(50% - 6px);
+      /* 78% statt 50% macht jedes Vorschaubild deutlich größer & präsenter */
+      flex: 0 0 78%;
+      scroll-snap-align: center;
       background: #0b0e17;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.6);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
-      border-right: 1px solid rgba(184, 255, 1, 0.3);
-      border-bottom: 1px solid rgba(184, 255, 1, 0.3);
-      border-radius: 20px;
+      border-top: 2px solid rgba(255, 255, 255, 0.65);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-right: 1.5px solid rgba(184, 255, 1, 0.4);
+      border-bottom: 1.5px solid rgba(184, 255, 1, 0.4);
+      border-radius: 24px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
       aspect-ratio: 9 / 16;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.65), 0 0 22px rgba(184,255,1,0.12);
     }
     .slide-item img {
       width: 100%;
@@ -417,20 +421,20 @@
     .slide-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.92));
-      padding: 24px 8px 10px;
-      font-size: 12px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.95));
+      padding: 28px 12px 12px;
+      font-size: 13.5px;
       font-weight: 800;
       color: #fff;
     }
     .zoom-hint {
       position: absolute;
-      top: 10px; right: 10px;
-      background: rgba(10, 14, 24, 0.8);
-      border: 1px solid rgba(255,255,255,0.5);
+      top: 12px; right: 12px;
+      background: rgba(10, 14, 24, 0.85);
+      border: 1px solid rgba(255,255,255,0.55);
       color: #fff;
-      font-size: 12px;
-      width: 28px; height: 28px;
+      font-size: 13px;
+      width: 32px; height: 32px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       z-index: 2;
@@ -439,22 +443,23 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: rgba(15, 22, 38, 0.95);
       border: 1.5px solid #ffffff;
       color: #ffffff;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 5;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.7);
     }
-    .slider-arrow.left { left: -12px; }
-    .slider-arrow.right { right: -12px; }
+    .slider-arrow.left { left: -8px; }
+    .slider-arrow.right { right: -8px; }
 
     .lightbox {
       display: none;
@@ -614,6 +619,52 @@
     #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
     .error { background: rgba(255,0,85,0.22); border: 1.5px solid var(--hot); color: #ff80aa; }
+
+    /* --- 5.000 COINS MEGA-JACKPOT GLAS-BOX UNTER ALLEM --- */
+    .jackpot-5000-box {
+      margin-top: 20px;
+      padding: 18px 16px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(184, 255, 1, 0.14), rgba(255, 0, 85, 0.15));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.75);
+      border-left: 1.5px solid rgba(255, 215, 0, 0.65);
+      border-right: 1.5px solid rgba(184, 255, 1, 0.55);
+      border-bottom: 1.5px solid rgba(255, 215, 0, 0.55);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 28px rgba(255, 215, 0, 0.22), inset 0 1px 12px rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+    .jackpot-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #ffd700, #b8ff01);
+      color: #05060a;
+      font-size: 11.5px;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.45);
+    }
+    .jackpot-5000-box h3 {
+      font-size: 18px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .jackpot-5000-box h3 span {
+      color: var(--gold);
+    }
+    .jackpot-5000-box p {
+      font-size: 13px;
+      color: #f8fafc;
+      line-height: 1.5;
+    }
+    .jackpot-5000-box p strong {
+      color: var(--acc);
+      font-weight: 900;
+    }
 
     /* --- FREUNDE EINLADEN BOX (MIT 3-STUFEN-BONUS) --- */
     .invite-friend-box {
@@ -866,7 +917,7 @@
     </div>
 
     <div id="page-home" class="page-section active-page">
-      <div class="slider-header">📱 App-Vorschau (Antippen für Vollbild)</div>
+      <div class="slider-header">📱 App-Vorschau (Wischen & Antippen für Vollbild)</div>
       <div class="slider-wrapper">
         <button type="button" class="slider-arrow left" onclick="scrollSlider(-1)">‹</button>
         
@@ -956,7 +1007,7 @@
           <div class="vip-extra-info" id="vipExtraBox">
             <span class="vip-badge-title">👑 VIP Premium-Tester Chance</span>
             <p>
-              Mit deiner Bewerbung hast du die Chance, als exklusiver <strong>VIP Premium-Tester</strong> ausgewählt zu werden! Als aktiver Tester kannst du dir schon vor dem offiziellen Start <span class="coin-highlight">bis zu 1.500 Coins verdienen</span>.
+              Mit deiner Bewerbung hast du die Chance, als exklusiver <strong>VIP Premium-Tester</strong> ausgewählt zu werden! Als aktiver Tester kannst du dir schon vor dem offiziellen Start <span class="coin-highlight">bis zu 1.500 Coins verdienen</span> – und alle Gewinner der Plätze haben zusätzlich die Chance auf den <span class="coin-highlight">5.000 Coins Hauptgewinn</span>!
             </p>
             <span class="vip-disclaimer">
               ⚡ Hinweis: Die VIP-Plätze sind streng limitiert. Eine Auswahl ist nicht garantiert – aber mit deinem Haken bist du automatisch im Lostopf!
@@ -1000,6 +1051,15 @@
           📩 Meinen Link & VIP-Pass im E-Mail-Postfach sichern
         </button>
       </div>
+
+      <!-- NEU: 5.000 COINS MEGA-JACKPOT UNTER ALLEM -->
+      <div class="jackpot-5000-box">
+        <span class="jackpot-badge">🎰 Exklusives Extra-Gewinnspiel</span>
+        <h3>Chance auf <span>5.000 COINS</span> Hauptgewinn!</h3>
+        <p>
+          Unter allen Teilnehmern, die sich jetzt vorregistrieren und einen der begehrten Plätze gewinnen, verlosen wir zum App-Start zusätzlich die Chance, <strong>5.000 Gratis-Coins</strong> auf einen Schlag zu gewinnen!
+        </p>
+      </div>
     </div>
 
     <div id="page-aktuelles" class="page-section">
@@ -1013,8 +1073,8 @@
 
         <div class="info-feature-list">
           <div class="info-feat-item">
-            <strong>🎁 Bis zu 2.100 Gratis-Coins pro geworbenem Freund</strong>
-            Lade deine Freunde & Zuschauer über deinen persönlichen Link ein: Ihr erhaltet <strong>beide je 300 Coins</strong> zum Start, nochmal <strong>je 600 Coins ab Level 15</strong> und gigantische <strong>1.200 Extra-Coins</strong>, wenn ihr beide in den ersten 2 Wochen Level 20 knackt!
+            <strong>🎰 5.000 Coins Jackpot + Bis zu 2.100 Coins pro Freund</strong>
+            Alle, die einen Platz ergattern, haben die Chance auf den <strong>5.000 Coins Jackpot</strong>! Zusätzlich bringt dir jeder eingeladene Freund <strong>+300 Coins</strong> zum Start, <strong>+600 Coins ab Level 15</strong> und <strong>+1.200 Extra-Coins</strong>, wenn ihr beide in den ersten 2 Wochen Level 20 knackt!
           </div>
 
           <div class="info-feat-item">
@@ -1091,7 +1151,7 @@
       <div id="adminDataSection" style="display:none;">
         <h3>📊 Vorregistrierungs- & Level-Bonus-Tabelle</h3>
         <p style="font-size:12px; color:#cbd5e1; margin-bottom:6px;">
-          Gespeicherte Personen: <strong id="adminCount" style="color:var(--acc);">0</strong> (Tippe in der Tabelle auf Lvl 15 / Lvl 20, um den Bonus freizuschalten!)
+          Gespeicherte Personen: <strong id="adminCount" style="color:var(--acc);">0</strong> (Tippe in der Tabelle auf Lvl 15 / Lvl 20 / 5000er Gewinn, um Boni freizuschalten!)
         </p>
 
         <div class="admin-table-wrap">
@@ -1105,6 +1165,7 @@
                 <th>Start (+300)</th>
                 <th>Lvl 15 (+600)</th>
                 <th>Lvl 20 2Wo (+1200)</th>
+                <th>5000er Jackpot</th>
                 <th>Gesamt-Coins</th>
                 <th>Land</th>
                 <th>VIP</th>
@@ -1141,7 +1202,6 @@
     const GMAIL_ENDPOINT = 'https://formsubmit.co/ajax/christianspartharis@gmail.com';
     const WEB3_BACKUP_KEY = '4051f785-351a-47f3-aa79-31eb5ca79e0b';
     const GOOGLE_SHEET_WEBHOOK = '';
-    // Nutzt automatisch deinen neuen Namen Vybezon!
     const BASE_SITE_URL = (window.location.origin.includes('github.io'))
       ? window.location.origin + window.location.pathname
       : 'https://vybezon.github.io/Webseitelive/';
@@ -1196,15 +1256,15 @@
 
     function shareViaWhatsApp() {
       const link = document.getElementById('personalInviteLink').value;
-      const text = `🔥 Hey! Ich habe mich gerade bei *VYBZON* (dem neuen Short, Video & Live Club) vorregistriert!\n\n🎁 *Mega-Bonus für uns beide:*\n• Meldest du dich über meinen Link an, bekommen wir *beide sofort +300 Gratis-Coins* zum Start!\n• Erreichst du *Level 15*, bekommen wir *beide nochmal +600 Gratis-Coins*!\n• Schaffen wir es *beide in 2 Wochen auf Level 20*, bekommt jeder *nochmal +1.200 Gratis-Coins*!\n\n👉 Sichere dir hier schnell deinen VIP-Platz:\n${link}`;
+      const text = `🔥 Hey! Ich habe mich gerade bei *VYBZON* (dem neuen Short, Video & Live Club) vorregistriert!\n\n🎁 *Mega-Bonus für uns beide:*\n• Meldest du dich über meinen Link an, bekommen wir *beide sofort +300 Gratis-Coins* zum Start!\n• Erreichst du *Level 15*, bekommen wir *beide nochmal +600 Gratis-Coins*!\n• Schaffen wir es *beide in 2 Wochen auf Level 20*, bekommt jeder *nochmal +1.200 Gratis-Coins*!\n• 🎰 *Extra:* Alle Gewinner der Plätze haben die Chance auf *5.000 Gratis-Coins*!\n\n👉 Sichere dir hier schnell deinen VIP-Platz:\n${link}`;
       window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
     }
 
     async function shareInviteNative() {
       const link = document.getElementById('personalInviteLink').value;
       const shareData = {
-        title: 'VYBZON – Bis zu 2.100 Gratis-Coins sichern!',
-        text: '🔥 Komm über meinen persönlichen Link auf die VYBZON Warteliste! Wir bekommen beide +300 Coins zum Start, +600 Coins bei Level 15 und +1.200 Coins bei Level 20 in 2 Wochen:',
+        title: 'VYBZON – Bis zu 2.100 Coins + 5.000 Coins Jackpot-Chance!',
+        text: '🔥 Komm über meinen persönlichen Link auf die VYBZON Warteliste! Wir bekommen beide +300 Coins zum Start, +600 Coins bei Level 15, +1.200 Coins bei Level 20 in 2 Wochen + Chance auf 5.000 Coins:',
         url: link
       };
       if (navigator.share) {
@@ -1214,7 +1274,6 @@
       }
     }
 
-    // Erlaubt dem Nutzer, seinen VIP-Pass & Link im eigenen E-Mail-Programm zu sichern
     function savePassToOwnEmail() {
       const link = document.getElementById('personalInviteLink').value;
       const name = getSavedChatName();
@@ -1225,7 +1284,8 @@
         `🎁 Deine Freunde-Boni zum App-Start:\n` +
         `- Pro vorregistriertem Freund: +300 Coins für euch beide\n` +
         `- Freund erreicht Level 15: +600 Coins für euch beide\n` +
-        `- Beide in 2 Wochen auf Level 20: +1.200 Coins für jeden!`
+        `- Beide in 2 Wochen auf Level 20: +1.200 Coins für jeden!\n` +
+        `- Extra-Chance für alle Platz-Gewinner: 5.000 Coins Jackpot!`
       );
       window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
@@ -1412,22 +1472,22 @@
       switchTab('home', homeBtn);
     }
 
-    // 4. Bilder laden (Unterstützt deinen neuen Namen Vybezon!)
+    // 4. Bilder laden (Höhere Schärfe für die größeren Vorschaubilder!)
     function optimizeImageForScroll(imgEl, idx) {
       const tempImg = new Image();
       tempImg.crossOrigin = 'anonymous';
       tempImg.onload = function() {
         try {
           const canvas = document.createElement('canvas');
-          const targetW = 360;
-          const targetH = 640;
+          const targetW = 540;
+          const targetH = 960;
           canvas.width = targetW;
           canvas.height = targetH;
           const ctx = canvas.getContext('2d');
           const cropTop = Math.round(tempImg.height * 0.12);
           const cropHeight = tempImg.height - cropTop;
           ctx.drawImage(tempImg, 0, cropTop, tempImg.width, cropHeight, 0, 0, targetW, targetH);
-          const croppedDataUrl = canvas.toDataURL('image/jpeg', 0.88);
+          const croppedDataUrl = canvas.toDataURL('image/jpeg', 0.9);
           imgEl.src = croppedDataUrl;
           imgEl.style.transform = 'none';
           fullResUrls[idx] = croppedDataUrl;
@@ -1474,7 +1534,7 @@
 
     function scrollSlider(direction) {
       const track = document.getElementById('sliderTrack');
-      const scrollAmount = track.clientWidth * 0.55;
+      const scrollAmount = track.clientWidth * 0.78;
       track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     }
 
@@ -1520,7 +1580,7 @@
       }
     }
 
-    // 5. Handy-Tabellen-Manager mit Level-15 & Level-20 Bonus-Tracking (PIN 1983)
+    // 5. Handy-Tabellen-Manager inkl. Level-15, Level-20 & 5.000-Coins-Jackpot (PIN 1983)
     let tapCount = 0;
     let tapTimer = null;
 
@@ -1569,13 +1629,13 @@
       if (e.key === 'Enter') { e.preventDefault(); verifyAdminPin(); }
     });
 
-    // Berechnet die gesamten Bonus-Coins (300 Start + 600 Lvl 15 + 1200 Lvl 20 in 2 Wochen)
     function calcBonusCoins(entry) {
       let total = 0;
       const hasReferral = (entry.invitedBy && entry.invitedBy !== '-') || entry.startBonus300;
       if (hasReferral) total += 300;
       if (entry.lvl15Achieved) total += 600;
       if (entry.lvl20In2Weeks) total += 1200;
+      if (entry.jackpot5000) total += 5000;
       return total;
     }
 
@@ -1592,7 +1652,7 @@
       document.getElementById('adminCount').textContent = list.length;
       const tbody = document.getElementById('adminTableBody');
       if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="11" style="text-align:center; color:#94a3b8;">Noch keine Einträge in der Handy-Tabelle.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; color:#94a3b8;">Noch keine Einträge in der Handy-Tabelle.</td></tr>';
         return;
       }
       tbody.innerHTML = list.map((r, idx) => {
@@ -1617,6 +1677,11 @@
             <td>
               <button type="button" class="lvl-toggle-btn ${r.lvl20In2Weeks ? 'achieved' : ''}" onclick="toggleMilestone(${idx}, 'lvl20In2Weeks')">
                 ${r.lvl20In2Weeks ? '✅ Lvl 20 (+1200)' : 'Offen'}
+              </button>
+            </td>
+            <td>
+              <button type="button" class="lvl-toggle-btn ${r.jackpot5000 ? 'achieved' : ''}" onclick="toggleMilestone(${idx}, 'jackpot5000')">
+                ${r.jackpot5000 ? '🎰 +5000' : 'Verlosung'}
               </button>
             </td>
             <td style="color:var(--acc); font-weight:900;">💎 ${totalCoins} Coins</td>
@@ -1648,6 +1713,7 @@
         startBonus300: invBy !== '-',
         lvl15Achieved: false,
         lvl20In2Weeks: false,
+        jackpot5000: false,
         kommentar: 'Manuell eingetragen'
       });
       localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
@@ -1659,7 +1725,7 @@
 
     function buildCSVString() {
       const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
-      let csv = '\uFEFFNr;Datum;Vorname;E-Mail;Eingeladen von (Werber);Start-Bonus (+300 Coins);Lvl 15 erreicht (+600 Coins);Beide Lvl 20 in 2 Wo (+1200 Coins);Gesamt-Bonus Coins;VIP-Tester;Land;Kommentar\n';
+      let csv = '\uFEFFNr;Datum;Vorname;E-Mail;Eingeladen von (Werber);Start-Bonus (+300 Coins);Lvl 15 erreicht (+600 Coins);Beide Lvl 20 in 2 Wo (+1200 Coins);5000 Coins Jackpot;Gesamt-Bonus Coins;VIP-Tester;Land;Kommentar\n';
       list.forEach((r, idx) => {
         const clean = (val) => '"' + String(val || '').replace(/"/g, '""') + '"';
         const hasStart = (r.invitedBy && r.invitedBy !== '-') || r.startBonus300;
@@ -1673,6 +1739,7 @@
           clean(hasStart ? 'Ja (+300)' : 'Nein'),
           clean(r.lvl15Achieved ? 'Ja (+600)' : 'Offen'),
           clean(r.lvl20In2Weeks ? 'Ja (+1200)' : 'Offen'),
+          clean(r.jackpot5000 ? 'GEWONNEN (+5000)' : 'Im Lostopf'),
           clean(totalCoins + ' Coins'),
           clean(r.vip),
           clean(r.land),
@@ -1747,6 +1814,7 @@
       formData.set('Start_Bonus_300_Coins', hasStartBonus ? 'JA (+300 Coins für ' + vorname + ' & ' + invitedBy + ')' : 'Noch niemand (0 Coins)');
       formData.set('Bonus_Stufe_2_Lvl15', 'Offen (+600 Coins bei Level 15)');
       formData.set('Bonus_Stufe_3_Lvl20_2Wochen', 'Offen (+1200 Coins bei Level 20 in 2 Wochen)');
+      formData.set('Jackpot_5000_Coins', 'Im Lostopf (Chance auf 5.000 Coins)');
 
       localStorage.setItem('vybzon_user_name', vorname);
       updateChatBadge();
@@ -1762,6 +1830,7 @@
         startBonus300: hasStartBonus,
         lvl15Achieved: false,
         lvl20In2Weeks: false,
+        jackpot5000: false,
         kommentar: kommentar
       });
       localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
@@ -1797,7 +1866,7 @@
 
       status.style.display = 'block';
       status.className = 'success';
-      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Unten ist dein persönlicher Einladungslink für bis zu 2.100 Gratis-Coins pro Freund!';
+      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Du bist im 5.000-Coins-Lostopf & unten ist dein Einladungslink!';
       
       showInviteBoxForUser(vorname);
 
