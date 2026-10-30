@@ -11,13 +11,13 @@
   
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#04060c">
-  <link rel="manifest" href='data:application/manifest+json,{"name":"VYBZON Club","short_name":"VYBZON","start_url":".","display":"standalone","background_color":"#04060c","theme_color":"#b8ff01"}'>
+  <meta name="theme-color" content="#03050a">
+  <link rel="manifest" href='data:application/manifest+json,{"name":"VYBZON Club","short_name":"VYBZON","start_url":".","display":"standalone","background_color":"#03050a","theme_color":"#b8ff01"}'>
 
   <title>VYBZON – Short, Video & Live Club</title>
   <style>
     :root {
-      --bg: #04060c;
+      --bg: #03050a;
       --acc: #b8ff01;
       --acc-gradient: linear-gradient(135deg, #b8ff01, #76ff03);
       --hot: #ff0055;
@@ -29,10 +29,6 @@
     
     html, body {
       background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 12% 8%, rgba(184, 255, 1, 0.22) 0%, transparent 38%),
-        radial-gradient(circle at 88% 45%, rgba(0, 240, 255, 0.16) 0%, transparent 40%),
-        radial-gradient(circle at 82% 92%, rgba(255, 0, 85, 0.22) 0%, transparent 42%);
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
@@ -43,28 +39,92 @@
       justify-content: center;
       align-items: flex-start;
       padding: 16px;
+      position: relative;
+    }
+
+    /* --- EDLES HINTERGRUND-LICHT (SCHEINT DURCH DAS KRISTALLGLAS) --- */
+    .ambient-light-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background: #03050a;
+    }
+    .light-glow {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform;
+    }
+    .glow-lime {
+      width: 420px; height: 420px;
+      top: -60px; left: -90px;
+      background: radial-gradient(circle, rgba(184, 255, 1, 0.42) 0%, rgba(184, 255, 1, 0.12) 45%, transparent 72%);
+      animation: driftGlow1 10s ease-in-out infinite alternate;
+    }
+    .glow-pink {
+      width: 440px; height: 440px;
+      bottom: -80px; right: -90px;
+      background: radial-gradient(circle, rgba(255, 0, 85, 0.42) 0%, rgba(255, 0, 85, 0.12) 45%, transparent 72%);
+      animation: driftGlow2 12s ease-in-out infinite alternate;
+    }
+    .glow-cyan {
+      width: 360px; height: 360px;
+      top: 36%; left: 15%;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.32) 0%, rgba(0, 240, 255, 0.08) 45%, transparent 72%);
+      animation: driftGlow3 9s ease-in-out infinite alternate;
+    }
+
+    @keyframes driftGlow1 {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(90px, 140px, 0) scale(1.15); }
+    }
+    @keyframes driftGlow2 {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(-90px, -150px, 0) scale(1.18); }
+    }
+    @keyframes driftGlow3 {
+      0% { transform: translate3d(-30px, -40px, 0) scale(0.95); }
+      100% { transform: translate3d(70px, 90px, 0) scale(1.12); }
     }
     
-    /* --- RUCKELFREIER 3D-GLAS-LOOK --- */
+    /* --- ECHTER KRISTALL-GLASSMORPHISM LOOK --- */
     .card {
       position: relative;
-      background: linear-gradient(145deg, rgba(32, 42, 66, 0.9) 0%, rgba(11, 15, 26, 0.95) 100%);
+      z-index: 2;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(15, 22, 38, 0.48) 50%, rgba(10, 14, 26, 0.62) 100%);
+      backdrop-filter: blur(22px) saturate(190%);
+      -webkit-backdrop-filter: blur(22px) saturate(190%);
       max-width: 520px;
       width: 100%;
       padding: 30px 22px;
       border-radius: 32px;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
-      border-right: 1px solid rgba(255, 255, 255, 0.14);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-right: 1px solid rgba(255, 255, 255, 0.16);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.28);
+      box-shadow: 
+        0 25px 55px rgba(0, 0, 0, 0.8),
+        inset 0 1px 25px rgba(255, 255, 255, 0.15),
+        0 0 40px rgba(184, 255, 1, 0.12);
       text-align: center;
+      overflow: hidden;
     }
 
-    /* --- EINLADUNGS-BANNER (WENN JEMAND ÜBER EINEN FREUNDE-LINK KOMMT) --- */
+    /* Edler diagonaler Glas-Schimmer */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -40px; left: -40%;
+      width: 180%; height: 210px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.03) 60%, transparent 100%);
+      transform: rotate(-10deg);
+      pointer-events: none;
+    }
+
     .invited-banner {
       display: none;
-      background: linear-gradient(90deg, rgba(184, 255, 1, 0.2), rgba(0, 240, 255, 0.2));
+      background: linear-gradient(90deg, rgba(184, 255, 1, 0.22), rgba(0, 240, 255, 0.22));
       border: 1.5px solid var(--acc);
       color: #ffffff;
       padding: 10px 14px;
@@ -77,15 +137,15 @@
     .invited-banner.show { display: block; }
     .invited-banner strong { color: var(--acc); font-weight: 900; }
 
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; position: relative; }
     .live-pill {
       display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(255, 0, 85, 0.22);
-      border-top: 1px solid rgba(255, 255, 255, 0.45);
-      border-left: 1px solid rgba(255, 255, 255, 0.3);
-      border-right: 1px solid rgba(255, 0, 85, 0.4);
-      border-bottom: 1px solid rgba(255, 0, 85, 0.4);
-      color: #ff6699; padding: 6px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
+      background: rgba(255, 0, 85, 0.24);
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(255, 0, 85, 0.45);
+      border-bottom: 1px solid rgba(255, 0, 85, 0.45);
+      color: #ff80aa; padding: 6px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
     }
     .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 8px var(--hot); }
 
@@ -100,9 +160,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.12);
-      border-top: 1px solid rgba(255, 255, 255, 0.45);
-      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+      border-top: 1px solid rgba(255, 255, 255, 0.55);
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
       border-right: 1px solid rgba(184, 255, 1, 0.35);
       border-bottom: 1px solid rgba(184, 255, 1, 0.35);
       color: #ffffff;
@@ -110,41 +170,43 @@
       border-radius: 99px;
       font-size: 11.5px;
       font-weight: 800;
+      box-shadow: inset 0 1px 6px rgba(255,255,255,0.15);
     }
     .stat-pill strong { color: var(--acc); font-size: 12.5px; }
 
-    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.25); }
-    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.6); }
+    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.12); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.3); }
+    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.7); }
     
     .logo-box {
       width: 82px; height: 82px; margin: 0 auto 12px; border-radius: 24px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05));
-      border-top: 2px solid rgba(255,255,255,0.65);
+      background: linear-gradient(135deg, rgba(255,255,255,0.26), rgba(255,255,255,0.05));
+      border-top: 2px solid rgba(255,255,255,0.8);
       border-left: 2px solid var(--acc);
       border-right: 1.5px solid var(--acc);
       border-bottom: 1.5px solid var(--acc);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45), 0 0 25px rgba(184,255,1,0.35), inset 0 2px 12px rgba(255,255,255,0.25);
       display: flex; align-items: center; justify-content: center;
       font-size: 34px; font-weight: 900; color: var(--acc);
     }
-    h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
+    h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
     .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 10px; }
-    .desc { color: #e2e8f0; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
+    .desc { color: #f1f5f9; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
 
-    /* --- FUNKEN, CHAT & STREAMER-TEASER --- */
+    /* --- GLAS-PANEL FÜR FUNKEN, CHAT & STREAMER-TEASER --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 10px;
       margin-bottom: 22px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.05));
-      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.3);
-      border-right: 1px solid rgba(184, 255, 1, 0.3);
-      border-bottom: 1px solid rgba(184, 255, 1, 0.3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(184, 255, 1, 0.35);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.35);
       padding: 15px;
-      border-radius: 20px;
+      border-radius: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 12px rgba(255,255,255,0.15);
     }
     .fun-like-top {
       display: flex;
@@ -155,7 +217,7 @@
       gap: 8px;
     }
     .fun-like-btn {
-      background: rgba(184, 255, 1, 0.2);
+      background: rgba(184, 255, 1, 0.22);
       border: 1.5px solid var(--acc);
       color: #fff;
       padding: 7px 16px;
@@ -166,19 +228,21 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 0 15px rgba(184,255,1,0.25);
     }
     .fun-like-btn.liked {
       background: var(--acc);
       color: #05060a;
       font-weight: 900;
+      box-shadow: 0 0 22px var(--acc);
     }
     .chat-user-badge {
       font-size: 11.5px;
-      color: #cbd5e1;
-      background: rgba(0,0,0,0.4);
+      color: #f1f5f9;
+      background: rgba(5, 8, 16, 0.45);
       padding: 4px 10px;
       border-radius: 99px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
     }
     .chat-user-badge strong { color: var(--acc); }
 
@@ -191,8 +255,8 @@
       flex: 1;
       padding: 10px 14px !important;
       border-radius: 12px !important;
-      border: 1px solid rgba(255,255,255,0.3) !important;
-      background: rgba(5, 8, 15, 0.75) !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
+      background: rgba(6, 10, 20, 0.55) !important;
       color: #fff !important;
       font-size: 13px !important;
       outline: none;
@@ -219,8 +283,8 @@
       text-align: left;
     }
     .comment-item {
-      background: rgba(5, 8, 15, 0.65);
-      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(6, 10, 20, 0.5);
+      border: 1px solid rgba(255,255,255,0.2);
       padding: 8px 11px;
       border-radius: 10px;
       font-size: 12.5px;
@@ -228,7 +292,7 @@
       line-height: 1.35;
     }
     .comment-item.reg-msg {
-      background: linear-gradient(90deg, rgba(184, 255, 1, 0.18), rgba(255, 0, 85, 0.15));
+      background: linear-gradient(90deg, rgba(184, 255, 1, 0.22), rgba(255, 0, 85, 0.18));
       border: 1px solid var(--acc);
     }
     .comment-item strong { color: var(--acc); }
@@ -239,15 +303,15 @@
       font-weight: 600;
       text-align: left;
       line-height: 1.5;
-      border-top: 1px solid rgba(255,255,255,0.15);
+      border-top: 1px solid rgba(255,255,255,0.2);
       padding-top: 10px;
       width: 100%;
     }
     .streamer-teaser-text strong { color: var(--acc); font-weight: 800; }
     .teaser-highlight-badge {
       display: inline-block;
-      background: rgba(255, 0, 85, 0.28);
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 0, 85, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.45);
       color: #fff;
       font-size: 11px;
       font-weight: 800;
@@ -259,21 +323,22 @@
 
     .nav-tabs {
       display: flex;
-      background: rgba(255, 255, 255, 0.1);
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
-      border-left: 1px solid rgba(255, 255, 255, 0.25);
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 18px;
       padding: 6px;
       margin-bottom: 22px;
       gap: 6px;
+      box-shadow: inset 0 1px 10px rgba(255,255,255,0.1);
     }
     .nav-tab {
       flex: 1;
       background: transparent;
       border: none;
-      color: #e2e8f0;
+      color: #f1f5f9;
       padding: 11px 8px;
       font-size: 13px;
       font-weight: 800;
@@ -283,6 +348,7 @@
     .nav-tab.active {
       background: var(--acc-gradient);
       color: #05060a;
+      box-shadow: 0 0 18px rgba(184,255,1,0.4);
     }
 
     .page-section { display: none; }
@@ -290,11 +356,11 @@
 
     .info-page-box {
       text-align: left;
-      background: rgba(255,255,255,0.08);
-      border-top: 1.5px solid rgba(255,255,255,0.38);
-      border-left: 1px solid rgba(255,255,255,0.25);
-      border-right: 1px solid rgba(255,255,255,0.1);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+      border-top: 1.5px solid rgba(255,255,255,0.48);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
       border-radius: 22px;
       padding: 20px;
       margin-bottom: 20px;
@@ -308,8 +374,8 @@
       gap: 8px;
     }
     .creator-hero-banner {
-      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,0,85,0.14));
-      border: 1px solid rgba(184,255,1,0.4);
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,0,85,0.16));
+      border: 1.5px solid rgba(184,255,1,0.45);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
@@ -320,8 +386,11 @@
 
     .info-feature-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
     .info-feat-item {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 14px;
       border-radius: 16px;
       font-size: 13.5px;
@@ -331,8 +400,8 @@
     .info-feat-item strong { color: var(--acc); display: block; margin-bottom: 4px; font-size: 14.5px; }
     
     .back-home-btn {
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
       color: #fff;
       width: 100%;
       padding: 14px;
@@ -345,7 +414,7 @@
     /* --- STABILER BILDER-SLIDER --- */
     .slider-header {
       font-size: 12px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1.5px; color: #e2e8f0; margin-bottom: 10px;
+      letter-spacing: 1.5px; color: #f1f5f9; margin-bottom: 10px;
     }
     .slider-wrapper { position: relative; margin-bottom: 24px; display: flex; align-items: center; }
     .slider-track {
@@ -361,12 +430,16 @@
     .slide-item {
       flex: 0 0 calc(50% - 6px);
       background: #0b0e17;
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
       aspect-ratio: 9 / 16;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
     .slide-item img {
       width: 100%;
@@ -464,24 +537,29 @@
     .lb-arrow.left { left: 14px; }
     .lb-arrow.right { right: 14px; }
 
+    /* --- GLAS-FORMULAR --- */
     form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
     label.lbl { font-size: 13px; font-weight: 800; color: #ffffff; margin-bottom: -4px; display: block; }
-    input[type="text"], input[type="email"], input[type="password"], select {
-      width: 100%; padding: 16px 18px; border-radius: 16px;
-      border-top: 1.5px solid rgba(255,255,255,0.4);
-      border-left: 1px solid rgba(255,255,255,0.25);
-      border-right: 1px solid rgba(255,255,255,0.12);
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      background: rgba(10, 14, 24, 0.8);
+    input[type="text"], input[type="email"], input[type="password"], select, textarea {
+      width: 100%; padding: 15px 16px; border-radius: 16px;
+      border-top: 1.5px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.35);
+      border-right: 1px solid rgba(255,255,255,0.16);
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(8, 12, 22, 0.65));
       color: #fff; font-size: 16px; outline: none;
+      box-shadow: inset 0 1px 8px rgba(255,255,255,0.08);
     }
-    input::placeholder { color: rgba(255,255,255,0.6); }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.65); }
     select option { background: #0b0e17; color: #fff; }
-    input:focus, select:focus { border-color: var(--acc); }
+    input:focus, select:focus, textarea:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.3); }
 
     .vip-box {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.06));
-      border: 1.5px solid rgba(184, 255, 1, 0.4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(184, 255, 1, 0.08));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(184, 255, 1, 0.45);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.45);
       border-radius: 18px;
       padding: 16px;
     }
@@ -493,7 +571,7 @@
       margin-top: 14px;
       padding: 14px;
       border-radius: 14px;
-      background: rgba(10, 14, 24, 0.85);
+      background: rgba(8, 12, 22, 0.78);
       border: 1.5px solid var(--acc);
       color: #ffffff;
       font-size: 13.5px;
@@ -525,57 +603,40 @@
       border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
       cursor: pointer; margin-top: 6px; width: 100%;
       letter-spacing: 0.8px;
+      box-shadow: 0 0 30px rgba(184, 255, 1, 0.4);
     }
     
     #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
     .error { background: rgba(255,0,85,0.22); border: 1.5px solid var(--hot); color: #ff80aa; }
 
-    /* --- FREUNDE EINLADEN BOX (ERSCHEINT NACH REGISTRIERUNG) --- */
+    /* --- FREUNDE EINLADEN BOX --- */
     .invite-friend-box {
       display: none;
       margin-top: 18px;
       padding: 18px 16px;
       border-radius: 20px;
-      background: linear-gradient(135deg, rgba(184, 255, 1, 0.16), rgba(0, 240, 255, 0.12));
+      background: linear-gradient(135deg, rgba(184, 255, 1, 0.18), rgba(0, 240, 255, 0.14));
       border: 2px solid var(--acc);
       text-align: center;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     }
     .invite-friend-box.show { display: block; }
-    .invite-friend-box h3 {
-      color: var(--acc);
-      font-size: 17px;
-      font-weight: 900;
-      margin-bottom: 6px;
-    }
-    .invite-friend-box p {
-      font-size: 13px;
-      color: #f1f5f9;
-      line-height: 1.45;
-      margin-bottom: 12px;
-    }
-    .invite-link-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
+    .invite-friend-box h3 { color: var(--acc); font-size: 17px; font-weight: 900; margin-bottom: 6px; }
+    .invite-friend-box p { font-size: 13px; color: #f1f5f9; line-height: 1.45; margin-bottom: 12px; }
+    .invite-link-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .invite-link-input {
       flex: 1;
       padding: 11px 12px !important;
       border-radius: 12px !important;
-      border: 1px solid rgba(255,255,255,0.35) !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
       background: rgba(5, 8, 15, 0.85) !important;
       color: var(--acc) !important;
       font-size: 12.5px !important;
       font-weight: 700;
       text-align: center;
     }
-    .invite-btn-grid {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .invite-btn-grid { display: flex; gap: 8px; flex-wrap: wrap; }
     .invite-action-btn {
       flex: 1;
       min-width: 130px;
@@ -590,14 +651,8 @@
       justify-content: center;
       gap: 6px;
     }
-    .btn-whatsapp {
-      background: #25D366;
-      color: #05060a;
-    }
-    .btn-share {
-      background: var(--acc);
-      color: #05060a;
-    }
+    .btn-whatsapp { background: #25D366; color: #05060a; }
+    .btn-share { background: var(--acc); color: #05060a; }
     .btn-copy {
       background: rgba(255,255,255,0.16);
       color: #fff;
@@ -606,10 +661,12 @@
       margin-top: 8px;
     }
     
-    .footer { margin-top: 22px; font-size: 12px; color: #cbd5e1; opacity: 0.85; user-select: none; }
-    #secretTrigger { cursor: pointer; font-weight: 800; color: #fff; padding: 4px; }
+    .footer { margin-top: 22px; font-size: 12px; color: #e2e8f0; opacity: 0.9; user-select: none; line-height: 1.6; }
+    #secretTrigger { cursor: pointer; font-weight: 900; color: #fff; padding: 4px; }
+    .legal-links { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+    .legal-links span { cursor: pointer; text-decoration: underline; margin: 0 6px; }
 
-    /* --- GEHEIMES ADMIN-PANEL (PIN 1983) --- */
+    /* --- GEHEIMES ADMIN-PANEL & ZWEITE HANDY-TABELLE (PIN 1983) --- */
     .admin-modal {
       display: none;
       position: fixed;
@@ -625,30 +682,43 @@
       background: #101524;
       border: 2px solid var(--acc);
       border-radius: 24px;
-      max-width: 480px;
+      max-width: 500px;
       width: 100%;
-      padding: 24px 20px;
+      padding: 22px 18px;
       text-align: center;
-      max-height: 90vh;
+      max-height: 92vh;
       overflow-y: auto;
     }
-    .admin-box h3 { color: var(--acc); font-size: 20px; margin-bottom: 12px; }
+    .admin-box h3 { color: var(--acc); font-size: 19px; margin-bottom: 10px; }
+    .admin-section-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 12px;
+      text-align: left;
+    }
+    .admin-section-card h4 {
+      color: var(--acc);
+      font-size: 13.5px;
+      margin-bottom: 6px;
+    }
     .admin-table-wrap {
       overflow-x: auto;
-      margin: 14px 0;
+      margin: 10px 0;
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 12px;
       background: #080b12;
-      max-height: 240px;
+      max-height: 200px;
     }
     .admin-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      font-size: 11.5px;
       text-align: left;
     }
     .admin-table th, .admin-table td {
-      padding: 8px 10px;
+      padding: 7px 9px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       white-space: nowrap;
     }
@@ -657,13 +727,25 @@
       background: var(--acc);
       color: #05060a;
       border: none;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: 15px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
       font-weight: 900;
       width: 100%;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 6px;
+    }
+    .admin-btn-secondary {
+      background: rgba(0, 240, 255, 0.18);
+      color: #00f0ff;
+      border: 1px solid #00f0ff;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 800;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 6px;
     }
     .admin-close-btn {
       background: rgba(255,255,255,0.12);
@@ -675,14 +757,26 @@
       font-weight: 700;
       width: 100%;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
+    }
+    .mini-input {
+      padding: 10px 12px !important;
+      font-size: 13px !important;
+      border-radius: 10px !important;
+      margin-bottom: 6px;
     }
   </style>
 </head>
 <body>
 
+  <!-- EDLES HINTERGRUND-LICHT HINTER DEM KRISTALLGLAS -->
+  <div class="ambient-light-stage">
+    <div class="light-glow glow-lime"></div>
+    <div class="light-glow glow-pink"></div>
+    <div class="light-glow glow-cyan"></div>
+  </div>
+
   <div class="card">
-    <!-- BANNER WENN ÜBER EINLADUNGSLINK GEÖFFNET -->
     <div class="invited-banner" id="invitedBanner">
       🎁 Du wurdest persönlich von <strong id="inviterNameDisplay">Freund</strong> in den VYBZON Club eingeladen!
     </div>
@@ -829,7 +923,7 @@
 
       <div id="status"></div>
 
-      <!-- FREUNDE EINLADEN BOX (ÖFFNET SICH NACH DER REGISTRIERUNG) -->
+      <!-- FREUNDE EINLADEN BOX -->
       <div class="invite-friend-box" id="inviteFriendBox">
         <h3>🎁 Lade jetzt deine Freunde & Creator ein!</h3>
         <p>Teile deinen persönlichen Einladungslink mit deinen Freunden, Streamern oder deiner Community und hol sie mit in den VYBZON Club:</p>
@@ -915,6 +1009,10 @@
     <!-- 3X AUF "VYBZON" DRÜCKEN FÜR ADMIN-ZUGANG (PIN 1983) -->
     <div class="footer">
       © 2026 <span id="secretTrigger" onclick="handleSecretTap()">VYBZON</span> • Short, Video & Live Club
+      <div class="legal-links">
+        <span onclick="alert('Datenschutz-Hinweis: Deine eingetragenen Daten (Vorname, E-Mail, Land) werden ausschließlich zur Benachrichtigung über den VYBZON App-Start verwendet und niemals an Dritte verkauft. Du kannst jederzeit per E-Mail an christianspartharis@gmail.com die Löschung verlangen.')">Datenschutz</span> • 
+        <span onclick="alert('Kontakt & Projektverantwortung VYBZON Beta-Warteliste: Christian Spartharis, E-Mail: christianspartharis@gmail.com')">Impressum / Kontakt</span>
+      </div>
     </div>
   </div>
 
@@ -927,7 +1025,7 @@
     <button type="button" class="lb-arrow right" onclick="changeLightboxSlide(1, event)">›</button>
   </div>
 
-  <!-- GEHEIMES ADMIN-MODAL (ÖFFNET BEI 3X KLICK AUF VYBZON) -->
+  <!-- GEHEIMES ADMIN-MODAL & HANDY-TABELLEN-MANAGER (PIN 1983) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-box">
       <div id="pinSection">
@@ -940,9 +1038,9 @@
       </div>
 
       <div id="adminDataSection" style="display:none;">
-        <h3>📊 Vorregistrierungs-Liste</h3>
-        <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:8px;">
-          Gespeicherte Einträge: <strong id="adminCount" style="color:var(--acc);">0</strong>
+        <h3>📊 Deine Handy-Vorregistrierungs-Tabelle</h3>
+        <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:6px;">
+          Gespeicherte Personen in deiner Handy-Tabelle: <strong id="adminCount" style="color:var(--acc);">0</strong>
         </p>
 
         <div class="admin-table-wrap">
@@ -954,14 +1052,43 @@
                 <th>E-Mail</th>
                 <th>Land</th>
                 <th>VIP</th>
-                <th>Eingeladen von</th>
+                <th>Von</th>
               </tr>
             </thead>
             <tbody id="adminTableBody"></tbody>
           </table>
         </div>
 
-        <button type="button" class="admin-btn" onclick="downloadRegistrationsCSV()">📥 Tabelle herunterladen (.CSV / Excel)</button>
+        <button type="button" class="admin-btn" onclick="downloadRegistrationsCSV()">📥 Als Excel / CSV-Tabelle aufs Handy laden</button>
+
+        <!-- SEPARATE LÖSUNG 1: SCHNELL-EINTRAG AUS E-MAIL IN DIE HANDY-TABELLE -->
+        <div class="admin-section-card">
+          <h4>➕ Person schnell zur Handy-Tabelle hinzufügen</h4>
+          <p style="font-size:11.5px; color:#cbd5e1; margin-bottom:8px;">
+            Trage hier neue Anmeldungen aus deinen E-Mails ein (oder füge den E-Mail-Text ein), damit deine Handy-Tabelle immer komplett ist:
+          </p>
+          <input type="text" id="manualName" class="mini-input" placeholder="Vorname / Creator-Name">
+          <input type="email" id="manualEmail" class="mini-input" placeholder="E-Mail-Adresse">
+          <div style="display:flex; gap:6px;">
+            <input type="text" id="manualLand" class="mini-input" placeholder="Land (z. B. Deutschland)" style="flex:1;">
+            <select id="manualVip" class="mini-input" style="width:110px;">
+              <option value="Ja">VIP: Ja</option>
+              <option value="Nein">VIP: Nein</option>
+            </select>
+          </div>
+          <button type="button" class="admin-btn-secondary" onclick="addManualEntryToPhoneTable()">💾 In Handy-Tabelle speichern</button>
+        </div>
+
+        <!-- SEPARATE LÖSUNG 2: LIVE-VERBINDUNG ZU GOOGLE-TABELLEN APP / SHEETDB -->
+        <div class="admin-section-card">
+          <h4>☁️ Live-Sync mit deiner Handy-Tabellen-App (Optional)</h4>
+          <p style="font-size:11.5px; color:#cbd5e1; margin-bottom:6px;">
+            Wenn du auf <em>sheetdb.io</em> oder Google Script eine Tabellen-URL erstellst und hier einfügst, landet jede Registrierung weltweit sofort live in deiner Tabellen-App:
+          </p>
+          <input type="text" id="customSheetWebhook" class="mini-input" placeholder="https://sheetdb.io/api/v1/..." value="">
+          <button type="button" class="admin-btn-secondary" onclick="saveCustomWebhook()">🔗 Tabellen-Link dauerhaft speichern</button>
+        </div>
+
         <button type="button" class="admin-close-btn" onclick="closeAdminModal()">Schließen</button>
       </div>
     </div>
@@ -994,7 +1121,6 @@
     }
     checkIncomingInvite();
 
-    // Erstellt und zeigt den persönlichen Einladungslink nach der Registrierung
     function showInviteBoxForUser(userName) {
       if (!userName || userName === 'Gast') return;
       const box = document.getElementById('inviteFriendBox');
@@ -1022,7 +1148,6 @@
 
     function shareViaWhatsApp() {
       const link = document.getElementById('personalInviteLink').value;
-      const name = getSavedChatName();
       const text = `🔥 Hey! Ich habe mich gerade bei *VYBZON* (dem neuen Short, Video & Live Club) vorregistriert! Dort gibt es tägliche Gratis-Coins und mega Vorteile für Streamer & Zuschauer. Sichere dir hier über meinen persönlichen Link auch noch schnell deinen VIP-Platz:\n👉 ${link}`;
       window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
     }
@@ -1043,7 +1168,6 @@
       }
     }
 
-    // Merkt sich den registrierten Namen dauerhaft für den Chat!
     function getSavedChatName() {
       const typed = document.getElementById('vorname') ? document.getElementById('vorname').value.trim() : '';
       const stored = localStorage.getItem('vybzon_user_name') || '';
@@ -1063,7 +1187,6 @@
       updateChatBadge();
     }
 
-    // Falls der Nutzer schon registriert war, Einladungsbox direkt anzeigen
     const existingUser = localStorage.getItem('vybzon_user_name');
     if (existingUser && existingUser !== 'Gast') {
       showInviteBoxForUser(existingUser);
@@ -1291,209 +1414,4 @@
       }
     }
 
-    const captions = [
-      '🎬 Short Video Feed',
-      '⚡ Live-Stage & Zeus',
-      '🐉 Gold-Drache & Live',
-      '💎 Coins & Club-Menü'
-    ];
-    let currentSlide = 0;
-
-    function openLightbox(index) {
-      currentSlide = index;
-      updateLightbox();
-      document.getElementById('lightbox').classList.add('open');
-    }
-
-    function updateLightbox() {
-      const imgEl = document.getElementById('img-' + currentSlide);
-      document.getElementById('lightboxImg').src = fullResUrls[currentSlide] || imgEl.src;
-      document.getElementById('lightboxTitle').textContent = captions[currentSlide];
-    }
-
-    function changeLightboxSlide(step, event) {
-      event.stopPropagation();
-      currentSlide = (currentSlide + step + 4) % 4;
-      updateLightbox();
-    }
-
-    function closeLightbox(event) {
-      if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
-        document.getElementById('lightbox').classList.remove('open');
-      }
-    }
-
-    // 5. Geheimes Admin-Panel (3x Klick auf VYBZON unten + PIN 1983)
-    let tapCount = 0;
-    let tapTimer = null;
-
-    function handleSecretTap() {
-      tapCount++;
-      clearTimeout(tapTimer);
-      if (tapCount >= 3) {
-        tapCount = 0;
-        openAdminModal();
-      } else {
-        tapTimer = setTimeout(() => { tapCount = 0; }, 1200);
-      }
-    }
-
-    function openAdminModal() {
-      document.getElementById('adminModal').classList.add('open');
-      document.getElementById('pinSection').style.display = 'block';
-      document.getElementById('adminDataSection').style.display = 'none';
-      document.getElementById('pinError').style.display = 'none';
-      document.getElementById('adminPinInput').value = '';
-    }
-
-    function closeAdminModal() {
-      document.getElementById('adminModal').classList.remove('open');
-    }
-
-    function verifyAdminPin() {
-      const pin = document.getElementById('adminPinInput').value.trim();
-      if (pin === '1983') {
-        document.getElementById('pinSection').style.display = 'none';
-        document.getElementById('adminDataSection').style.display = 'block';
-        renderAdminTable();
-      } else {
-        document.getElementById('pinError').style.display = 'block';
-      }
-    }
-
-    function renderAdminTable() {
-      const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
-      document.getElementById('adminCount').textContent = list.length;
-      const tbody = document.getElementById('adminTableBody');
-      if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8;">Noch keine Einträge gespeichert.</td></tr>';
-        return;
-      }
-      tbody.innerHTML = list.map(r => `
-        <tr>
-          <td>${r.datum}</td>
-          <td><strong>${r.vorname}</strong></td>
-          <td>${r.email}</td>
-          <td>${r.land}</td>
-          <td>${r.vip}</td>
-          <td>${r.invitedBy || '-'}</td>
-        </tr>
-      `).join('');
-    }
-
-    function downloadRegistrationsCSV() {
-      const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
-      if (list.length === 0) {
-        alert('Es sind noch keine Vorregistrierungen in der Liste gespeichert.');
-        return;
-      }
-      let csv = '\uFEFFDatum;Vorname;E-Mail;Land;VIP-Tester;Eingeladen von;Kommentar\n';
-      list.forEach(r => {
-        const clean = (val) => '"' + String(val || '').replace(/"/g, '""') + '"';
-        csv += [
-          clean(r.datum),
-          clean(r.vorname),
-          clean(r.email),
-          clean(r.land),
-          clean(r.vip),
-          clean(r.invitedBy || '-'),
-          clean(r.kommentar)
-        ].join(';') + '\n';
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'VYBZON_Vorregistrierungen.csv';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-
-    // 6. Formular absenden + persönlichen Einladungslink generieren
-    const form = document.getElementById('waitlist-form');
-    const status = document.getElementById('status');
-    const btn = document.getElementById('submit-btn');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      btn.disabled = true;
-      btn.textContent = 'Wird eingetragen...';
-      status.style.display = 'none';
-
-      const isVip = document.getElementById('vipCheck').checked;
-      const formData = new FormData(form);
-      if (!isVip) {
-        formData.set('VIP_Tester', 'Nein');
-      }
-      const vorname = formData.get('Vorname').trim();
-      const email = formData.get('Email');
-      const land = formData.get('Land');
-      const kommentar = formData.get('Kommentar') || document.getElementById('commentInput').value.trim();
-      const invitedBy = localStorage.getItem('vybzon_invited_by') || '-';
-      formData.set('Eingeladen_von', invitedBy);
-
-      // Namen dauerhaft für Chat & Einladungslink speichern
-      localStorage.setItem('vybzon_user_name', vorname);
-      updateChatBadge();
-
-      // In Admin-Tabelle speichern
-      const regList = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
-      regList.unshift({
-        datum: new Date().toLocaleString('de-DE'),
-        vorname: vorname,
-        email: email,
-        land: land,
-        vip: isVip ? 'Ja' : 'Nein',
-        invitedBy: invitedBy,
-        kommentar: kommentar
-      });
-      localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
-
-      // Namen sofort oben im Chat anzeigen
-      announceRegistrationInChat(vorname, isVip, kommentar);
-
-      let sentOk = false;
-
-      try {
-        const res = await fetch(GMAIL_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: formData
-        });
-        if (res.ok) sentOk = true;
-      } catch (err) {}
-
-      if (!sentOk) {
-        try {
-          formData.append('access_key', WEB3_BACKUP_KEY);
-          const resBackup = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-          });
-          const dataBackup = await resBackup.json();
-          if (dataBackup.success) sentOk = true;
-        } catch (err) {}
-      }
-
-      status.style.display = 'block';
-      status.className = 'success';
-      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Unten findest du jetzt deinen persönlichen Einladungslink für deine Freunde.';
-      
-      // Persönlichen Einladungslink einblenden!
-      showInviteBoxForUser(vorname);
-
-      form.reset();
-      document.getElementById('lastCommentField').value = '';
-      document.getElementById('commentInput').value = '';
-      toggleVipInfo();
-      updateChatBadge();
-      await incrementRegCounter();
-
-      btn.disabled = false;
-      btn.textContent = '⚡ Jetzt VIP-Platz sichern';
-    });
-  </script>
-</body>
-</html>
+    const captions
