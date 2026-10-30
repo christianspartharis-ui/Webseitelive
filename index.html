@@ -61,6 +61,22 @@
       text-align: center;
     }
 
+    /* --- EINLADUNGS-BANNER (WENN JEMAND ÜBER EINEN FREUNDE-LINK KOMMT) --- */
+    .invited-banner {
+      display: none;
+      background: linear-gradient(90deg, rgba(184, 255, 1, 0.2), rgba(0, 240, 255, 0.2));
+      border: 1.5px solid var(--acc);
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      box-shadow: 0 0 20px rgba(184, 255, 1, 0.2);
+    }
+    .invited-banner.show { display: block; }
+    .invited-banner strong { color: var(--acc); font-weight: 900; }
+
     .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
     .live-pill {
       display: inline-flex; align-items: center; gap: 7px;
@@ -120,7 +136,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 22px;
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.05));
       border-top: 1.5px solid rgba(255, 255, 255, 0.45);
@@ -129,6 +145,14 @@
       border-bottom: 1px solid rgba(184, 255, 1, 0.3);
       padding: 15px;
       border-radius: 20px;
+    }
+    .fun-like-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 8px;
     }
     .fun-like-btn {
       background: rgba(184, 255, 1, 0.2);
@@ -148,6 +172,15 @@
       color: #05060a;
       font-weight: 900;
     }
+    .chat-user-badge {
+      font-size: 11.5px;
+      color: #cbd5e1;
+      background: rgba(0,0,0,0.4);
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .chat-user-badge strong { color: var(--acc); }
 
     .comment-bar {
       display: flex;
@@ -309,7 +342,7 @@
       margin-top: 10px;
     }
 
-    /* --- STABILER BILDER-SLIDER (KEIN VERSCHWINDEN MEHR) --- */
+    /* --- STABILER BILDER-SLIDER --- */
     .slider-header {
       font-size: 12px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 1.5px; color: #e2e8f0; margin-bottom: 10px;
@@ -497,6 +530,81 @@
     #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
     .error { background: rgba(255,0,85,0.22); border: 1.5px solid var(--hot); color: #ff80aa; }
+
+    /* --- FREUNDE EINLADEN BOX (ERSCHEINT NACH REGISTRIERUNG) --- */
+    .invite-friend-box {
+      display: none;
+      margin-top: 18px;
+      padding: 18px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(184, 255, 1, 0.16), rgba(0, 240, 255, 0.12));
+      border: 2px solid var(--acc);
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+    .invite-friend-box.show { display: block; }
+    .invite-friend-box h3 {
+      color: var(--acc);
+      font-size: 17px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+    .invite-friend-box p {
+      font-size: 13px;
+      color: #f1f5f9;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .invite-link-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .invite-link-input {
+      flex: 1;
+      padding: 11px 12px !important;
+      border-radius: 12px !important;
+      border: 1px solid rgba(255,255,255,0.35) !important;
+      background: rgba(5, 8, 15, 0.85) !important;
+      color: var(--acc) !important;
+      font-size: 12.5px !important;
+      font-weight: 700;
+      text-align: center;
+    }
+    .invite-btn-grid {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .invite-action-btn {
+      flex: 1;
+      min-width: 130px;
+      padding: 12px 10px;
+      border-radius: 12px;
+      border: none;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: #05060a;
+    }
+    .btn-share {
+      background: var(--acc);
+      color: #05060a;
+    }
+    .btn-copy {
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      width: 100%;
+      margin-top: 8px;
+    }
     
     .footer { margin-top: 22px; font-size: 12px; color: #cbd5e1; opacity: 0.85; user-select: none; }
     #secretTrigger { cursor: pointer; font-weight: 800; color: #fff; padding: 4px; }
@@ -574,6 +682,11 @@
 <body>
 
   <div class="card">
+    <!-- BANNER WENN ÜBER EINLADUNGSLINK GEÖFFNET -->
+    <div class="invited-banner" id="invitedBanner">
+      🎁 Du wurdest persönlich von <strong id="inviterNameDisplay">Freund</strong> in den VYBZON Club eingeladen!
+    </div>
+
     <div class="top-bar">
       <div class="live-pill"><span class="live-dot"></span> BALD IM PLAY STORE</div>
       <div class="moods">
@@ -598,11 +711,16 @@
     <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
 
     <div class="fun-like-container">
-      <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
-        <span class="spark-icon" id="sparkIcon">⚡</span> 
-        <span>Funken geben</span> 
-        (<span id="likeCount">0</span>)
-      </button>
+      <div class="fun-like-top">
+        <button type="button" class="fun-like-btn" id="funLikeBtn" onclick="toggleLike()">
+          <span class="spark-icon" id="sparkIcon">⚡</span> 
+          <span>Funken geben</span> 
+          (<span id="likeCount">0</span>)
+        </button>
+        <div class="chat-user-badge">
+          Du schreibst als: <strong id="activeChatUser">Gast</strong>
+        </div>
+      </div>
 
       <div class="comment-bar">
         <input type="text" id="commentInput" class="comment-input" placeholder="Schreib einen Kommentar zur App..." maxlength="120">
@@ -658,9 +776,10 @@
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="Kommentar" id="lastCommentField" value="">
+        <input type="hidden" name="Eingeladen_von" id="invitedByField" value="-">
 
         <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
-        <input type="text" id="vorname" name="Vorname" placeholder="z. B. Max" required>
+        <input type="text" id="vorname" name="Vorname" placeholder="z. B. Max" required oninput="syncTypedName(this.value)">
 
         <label class="lbl" for="email">Deine Google-Play E-Mail</label>
         <input type="email" id="email" name="Email" placeholder="deine.mail@gmail.com" required>
@@ -709,6 +828,28 @@
       </form>
 
       <div id="status"></div>
+
+      <!-- FREUNDE EINLADEN BOX (ÖFFNET SICH NACH DER REGISTRIERUNG) -->
+      <div class="invite-friend-box" id="inviteFriendBox">
+        <h3>🎁 Lade jetzt deine Freunde & Creator ein!</h3>
+        <p>Teile deinen persönlichen Einladungslink mit deinen Freunden, Streamern oder deiner Community und hol sie mit in den VYBZON Club:</p>
+        
+        <div class="invite-link-row">
+          <input type="text" id="personalInviteLink" class="invite-link-input" readonly value="">
+        </div>
+
+        <div class="invite-btn-grid">
+          <button type="button" class="invite-action-btn btn-whatsapp" onclick="shareViaWhatsApp()">
+            📲 WhatsApp
+          </button>
+          <button type="button" class="invite-action-btn btn-share" onclick="shareInviteNative()">
+            🚀 Link teilen
+          </button>
+        </div>
+        <button type="button" class="invite-action-btn btn-copy" id="copyInviteBtn" onclick="copyInviteLink()">
+          📋 Einladungslink kopieren
+        </button>
+      </div>
     </div>
 
     <div id="page-aktuelles" class="page-section">
@@ -789,7 +930,6 @@
   <!-- GEHEIMES ADMIN-MODAL (ÖFFNET BEI 3X KLICK AUF VYBZON) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-box">
-      <!-- Schritt 1: PIN-Abfrage -->
       <div id="pinSection">
         <h3>🔐 VYBZON Admin-Login</h3>
         <p style="font-size:13px; color:#cbd5e1; margin-bottom:14px;">Bitte gib deinen Admin-PIN ein:</p>
@@ -799,7 +939,6 @@
         <button type="button" class="admin-close-btn" onclick="closeAdminModal()">Abbrechen</button>
       </div>
 
-      <!-- Schritt 2: Tabellen-Download & Übersicht -->
       <div id="adminDataSection" style="display:none;">
         <h3>📊 Vorregistrierungs-Liste</h3>
         <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:8px;">
@@ -815,6 +954,7 @@
                 <th>E-Mail</th>
                 <th>Land</th>
                 <th>VIP</th>
+                <th>Eingeladen von</th>
               </tr>
             </thead>
             <tbody id="adminTableBody"></tbody>
@@ -830,7 +970,104 @@
   <script>
     const GMAIL_ENDPOINT = 'https://formsubmit.co/ajax/christianspartharis@gmail.com';
     const WEB3_BACKUP_KEY = '4051f785-351a-47f3-aa79-31eb5ca79e0b';
+    const BASE_SITE_URL = 'https://christianspartharis-ui.github.io/Webseitelive/';
     const fullResUrls = [];
+
+    // Prüft beim Start, ob der Besucher über einen Einladungslink (?invite=Name) gekommen ist
+    function checkIncomingInvite() {
+      const params = new URLSearchParams(window.location.search);
+      const inviter = params.get('invite');
+      if (inviter && inviter.trim() !== '') {
+        const cleanInviter = inviter.trim().replace(/</g, '');
+        localStorage.setItem('vybzon_invited_by', cleanInviter);
+        document.getElementById('inviterNameDisplay').textContent = cleanInviter;
+        document.getElementById('invitedBanner').classList.add('show');
+        document.getElementById('invitedByField').value = cleanInviter;
+      } else {
+        const savedInviter = localStorage.getItem('vybzon_invited_by');
+        if (savedInviter) {
+          document.getElementById('inviterNameDisplay').textContent = savedInviter;
+          document.getElementById('invitedBanner').classList.add('show');
+          document.getElementById('invitedByField').value = savedInviter;
+        }
+      }
+    }
+    checkIncomingInvite();
+
+    // Erstellt und zeigt den persönlichen Einladungslink nach der Registrierung
+    function showInviteBoxForUser(userName) {
+      if (!userName || userName === 'Gast') return;
+      const box = document.getElementById('inviteFriendBox');
+      const linkInput = document.getElementById('personalInviteLink');
+      const inviteUrl = BASE_SITE_URL + '?invite=' + encodeURIComponent(userName.trim());
+      linkInput.value = inviteUrl;
+      box.classList.add('show');
+    }
+
+    function copyInviteLink() {
+      const linkInput = document.getElementById('personalInviteLink');
+      const copyBtn = document.getElementById('copyInviteBtn');
+      linkInput.select();
+      linkInput.setSelectionRange(0, 99999);
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(linkInput.value);
+      } else {
+        document.execCommand('copy');
+      }
+      copyBtn.textContent = '✅ Link kopiert! Jetzt an Freunde senden';
+      setTimeout(() => {
+        copyBtn.textContent = '📋 Einladungslink kopieren';
+      }, 2500);
+    }
+
+    function shareViaWhatsApp() {
+      const link = document.getElementById('personalInviteLink').value;
+      const name = getSavedChatName();
+      const text = `🔥 Hey! Ich habe mich gerade bei *VYBZON* (dem neuen Short, Video & Live Club) vorregistriert! Dort gibt es tägliche Gratis-Coins und mega Vorteile für Streamer & Zuschauer. Sichere dir hier über meinen persönlichen Link auch noch schnell deinen VIP-Platz:\n👉 ${link}`;
+      window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    }
+
+    async function shareInviteNative() {
+      const link = document.getElementById('personalInviteLink').value;
+      const shareData = {
+        title: 'VYBZON – Short, Video & Live Club',
+        text: '🔥 Ich bin schon auf der VYBZON Warteliste! Komm über meinen persönlichen Einladungslink mit in den Club und sichere dir deinen VIP-Platz:',
+        url: link
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {}
+      } else {
+        copyInviteLink();
+      }
+    }
+
+    // Merkt sich den registrierten Namen dauerhaft für den Chat!
+    function getSavedChatName() {
+      const typed = document.getElementById('vorname') ? document.getElementById('vorname').value.trim() : '';
+      const stored = localStorage.getItem('vybzon_user_name') || '';
+      return typed || stored || 'Gast';
+    }
+
+    function updateChatBadge() {
+      const badge = document.getElementById('activeChatUser');
+      if (badge) badge.textContent = getSavedChatName();
+    }
+
+    function syncTypedName(val) {
+      const clean = val.trim().replace(/</g, '&lt;');
+      if (clean) {
+        localStorage.setItem('vybzon_user_name', clean);
+      }
+      updateChatBadge();
+    }
+
+    // Falls der Nutzer schon registriert war, Einladungsbox direkt anzeigen
+    const existingUser = localStorage.getItem('vybzon_user_name');
+    if (existingUser && existingUser !== 'Gast') {
+      showInviteBoxForUser(existingUser);
+    }
 
     // 1. Live Besucher- & Vorregistrierungs-Zähler
     async function initCounters() {
@@ -910,29 +1147,32 @@
       localStorage.setItem('vybzon_likes_count', count);
     }
 
-    // 3. Chat & Kommentare (zeigt auch neue Registrierungen mit Namen!)
+    // 3. Chat & Kommentare
     function renderComments() {
       const list = document.getElementById('commentList');
       const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
+      const currentName = localStorage.getItem('vybzon_user_name') || 'Gast';
+
       list.innerHTML = comments.map(c => {
         if (typeof c === 'object') {
           if (c.type === 'reg') {
             return `<div class="comment-item reg-msg">🎉 <strong>${c.name}</strong> ${c.text}</div>`;
           }
-          return `<div class="comment-item"><strong>⚡ ${c.name}:</strong> ${c.text}</div>`;
+          const displayName = (c.name === 'Gast' && currentName !== 'Gast') ? currentName : c.name;
+          return `<div class="comment-item"><strong>⚡ ${displayName}:</strong> ${c.text}</div>`;
         }
-        return `<div class="comment-item"><strong>⚡ Gast:</strong> ${c}</div>`;
+        return `<div class="comment-item"><strong>⚡ ${currentName}:</strong> ${c}</div>`;
       }).join('');
+      updateChatBadge();
     }
 
     function addComment() {
       const input = document.getElementById('commentInput');
-      const nameInput = document.getElementById('vorname');
       const text = input.value.trim();
       if (!text) return;
 
       const cleanText = text.replace(/</g, '&lt;');
-      const senderName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim().replace(/</g, '&lt;') : 'Gast';
+      const senderName = getSavedChatName().replace(/</g, '&lt;');
 
       document.getElementById('lastCommentField').value = cleanText;
 
@@ -943,14 +1183,21 @@
       renderComments();
     }
 
-    // Fügt den Namen eines registrierten Benutzers direkt oben in den Chat ein
     function announceRegistrationInChat(name, isVip, commentText) {
-      const cleanName = (name || 'Creator').replace(/</g, '&lt;');
+      const cleanName = (name || 'Creator').trim().replace(/</g, '&lt;');
+      localStorage.setItem('vybzon_user_name', cleanName);
+
+      const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]').map(c => {
+        if (typeof c === 'object' && c.name === 'Gast') {
+          c.name = cleanName;
+        }
+        return c;
+      });
+
       let msg = isVip ? 'hat sich gerade als 🔥 VIP-Tester vorregistriert!' : 'hat sich gerade für VYBZON vorregistriert!';
       if (commentText && commentText.trim() !== '') {
         msg += ` („${commentText.trim().replace(/</g, '&lt;')}“)`;
       }
-      const comments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
       comments.unshift({ name: cleanName, text: msg, type: 'reg' });
       localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 40)));
       renderComments();
@@ -980,7 +1227,7 @@
       switchTab('home', homeBtn);
     }
 
-    // 4. Bilder laden & als leichte Vorschau im Speicher halten (verhindert kurzes Verschwinden beim Scrollen!)
+    // 4. Bilder für ruckelfreies Scrollen optimieren
     function optimizeImageForScroll(imgEl, idx) {
       const tempImg = new Image();
       tempImg.crossOrigin = 'anonymous';
@@ -1119,7 +1366,7 @@
       document.getElementById('adminCount').textContent = list.length;
       const tbody = document.getElementById('adminTableBody');
       if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8;">Noch keine Einträge gespeichert.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8;">Noch keine Einträge gespeichert.</td></tr>';
         return;
       }
       tbody.innerHTML = list.map(r => `
@@ -1129,6 +1376,7 @@
           <td>${r.email}</td>
           <td>${r.land}</td>
           <td>${r.vip}</td>
+          <td>${r.invitedBy || '-'}</td>
         </tr>
       `).join('');
     }
@@ -1139,8 +1387,7 @@
         alert('Es sind noch keine Vorregistrierungen in der Liste gespeichert.');
         return;
       }
-      // CSV mit Semikolon & UTF-8 BOM (öffnet sich sofort sauber in Excel & Google Tabellen)
-      let csv = '\uFEFFDatum;Vorname;E-Mail;Land;VIP-Tester;Kommentar\n';
+      let csv = '\uFEFFDatum;Vorname;E-Mail;Land;VIP-Tester;Eingeladen von;Kommentar\n';
       list.forEach(r => {
         const clean = (val) => '"' + String(val || '').replace(/"/g, '""') + '"';
         csv += [
@@ -1149,13 +1396,14 @@
           clean(r.email),
           clean(r.land),
           clean(r.vip),
+          clean(r.invitedBy || '-'),
           clean(r.kommentar)
         ].join(';') + '\n';
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
-      const a = document.createObjectURL ? document.createElement('a') : null;
+      const a = document.createElement('a');
       a.href = url;
       a.download = 'VYBZON_Vorregistrierungen.csv';
       document.body.appendChild(a);
@@ -1163,7 +1411,7 @@
       document.body.removeChild(a);
     }
 
-    // 6. Formular absenden + Name im Chat anzeigen + für Admin-Download speichern
+    // 6. Formular absenden + persönlichen Einladungslink generieren
     const form = document.getElementById('waitlist-form');
     const status = document.getElementById('status');
     const btn = document.getElementById('submit-btn');
@@ -1179,10 +1427,16 @@
       if (!isVip) {
         formData.set('VIP_Tester', 'Nein');
       }
-      const vorname = formData.get('Vorname');
+      const vorname = formData.get('Vorname').trim();
       const email = formData.get('Email');
       const land = formData.get('Land');
       const kommentar = formData.get('Kommentar') || document.getElementById('commentInput').value.trim();
+      const invitedBy = localStorage.getItem('vybzon_invited_by') || '-';
+      formData.set('Eingeladen_von', invitedBy);
+
+      // Namen dauerhaft für Chat & Einladungslink speichern
+      localStorage.setItem('vybzon_user_name', vorname);
+      updateChatBadge();
 
       // In Admin-Tabelle speichern
       const regList = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
@@ -1192,6 +1446,7 @@
         email: email,
         land: land,
         vip: isVip ? 'Ja' : 'Nein',
+        invitedBy: invitedBy,
         kommentar: kommentar
       });
       localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
@@ -1201,7 +1456,6 @@
 
       let sentOk = false;
 
-      // Unbegrenzt direkt an dein Gmail-Postfach senden
       try {
         const res = await fetch(GMAIL_ENDPOINT, {
           method: 'POST',
@@ -1211,7 +1465,6 @@
         if (res.ok) sentOk = true;
       } catch (err) {}
 
-      // Web3Forms als zusätzliches Backup
       if (!sentOk) {
         try {
           formData.append('access_key', WEB3_BACKUP_KEY);
@@ -1226,11 +1479,16 @@
 
       status.style.display = 'block';
       status.className = 'success';
-      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Dein Name steht jetzt oben im Live-Chat & auf der Warteliste.';
+      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Unten findest du jetzt deinen persönlichen Einladungslink für deine Freunde.';
+      
+      // Persönlichen Einladungslink einblenden!
+      showInviteBoxForUser(vorname);
+
       form.reset();
       document.getElementById('lastCommentField').value = '';
       document.getElementById('commentInput').value = '';
       toggleVipInfo();
+      updateChatBadge();
       await incrementRegCounter();
 
       btn.disabled = false;
