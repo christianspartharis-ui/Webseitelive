@@ -11,15 +11,15 @@
   
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#04060c">
-  <link rel="manifest" href='data:application/manifest+json,{"name":"VYBZON Club","short_name":"VYBZON","start_url":".","display":"standalone","background_color":"#04060c","theme_color":"#b8ff01"}'>
+  <meta name="theme-color" content="#03050a">
+  <link rel="manifest" href='data:application/manifest+json,{"name":"VYBZON Club","short_name":"VYBZON","start_url":".","display":"standalone","background_color":"#03050a","theme_color":"#b8ff01"}'>
 
   <title>VYBZON – Short, Video & Live Club</title>
   <style>
     :root {
-      --bg: #04060c;
+      --bg: #03050a;
       --acc: #b8ff01;
-      --acc-gradient: linear-gradient(135deg, #b8ff01, #76ff03);
+      --acc-gradient: linear-gradient(135deg, #b8ff01, #64dd17);
       --hot: #ff0055;
       --cyan: #00f0ff;
       --text: #ffffff;
@@ -29,10 +29,6 @@
     
     html, body {
       background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 12% 8%, rgba(184, 255, 1, 0.22) 0%, transparent 38%),
-        radial-gradient(circle at 88% 45%, rgba(0, 240, 255, 0.16) 0%, transparent 40%),
-        radial-gradient(circle at 82% 92%, rgba(255, 0, 85, 0.22) 0%, transparent 42%);
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
@@ -43,50 +39,76 @@
       justify-content: center;
       align-items: flex-start;
       padding: 16px;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 10% 12%, rgba(184, 255, 1, 0.34) 0%, rgba(184, 255, 1, 0.05) 32%, transparent 55%),
+        radial-gradient(circle at 92% 38%, rgba(0, 240, 255, 0.28) 0%, rgba(0, 240, 255, 0.04) 30%, transparent 55%),
+        radial-gradient(circle at 85% 88%, rgba(255, 0, 85, 0.34) 0%, rgba(255, 0, 85, 0.05) 32%, transparent 55%),
+        radial-gradient(circle at 18% 78%, rgba(184, 255, 1, 0.18) 0%, transparent 45%);
+      background-attachment: fixed;
     }
     
-    /* --- RUCKELFREIER 3D-GLAS-LOOK --- */
+    /* --- CRYSTAL-GLASSMORPHISM LOOK --- */
     .card {
       position: relative;
-      background: linear-gradient(145deg, rgba(32, 42, 66, 0.9) 0%, rgba(11, 15, 26, 0.95) 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(20, 28, 48, 0.52) 45%, rgba(8, 12, 22, 0.68) 100%);
+      backdrop-filter: blur(18px) saturate(190%);
+      -webkit-backdrop-filter: blur(18px) saturate(190%);
       max-width: 520px;
       width: 100%;
       padding: 30px 22px;
       border-radius: 32px;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.35);
-      border-right: 1px solid rgba(255, 255, 255, 0.14);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.7);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-right: 1px solid rgba(184, 255, 1, 0.28);
+      border-bottom: 1px solid rgba(255, 0, 85, 0.28);
+      box-shadow: 
+        0 25px 55px rgba(0, 0, 0, 0.85),
+        inset 0 2px 25px rgba(255, 255, 255, 0.18),
+        0 0 40px rgba(184, 255, 1, 0.16),
+        0 0 60px rgba(255, 0, 85, 0.1);
       text-align: center;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -60px; left: -40%;
+      width: 180%; height: 210px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 55%, transparent 100%);
+      transform: rotate(-10deg);
+      pointer-events: none;
     }
 
     .invited-banner {
       display: none;
-      background: linear-gradient(90deg, rgba(184, 255, 1, 0.2), rgba(0, 240, 255, 0.2));
+      background: linear-gradient(90deg, rgba(184, 255, 1, 0.24), rgba(0, 240, 255, 0.24));
       border: 1.5px solid var(--acc);
       color: #ffffff;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 16px;
       font-size: 13px;
       font-weight: 700;
       margin-bottom: 16px;
-      box-shadow: 0 0 20px rgba(184, 255, 1, 0.2);
+      box-shadow: 0 0 20px rgba(184, 255, 1, 0.25);
+      line-height: 1.45;
     }
     .invited-banner.show { display: block; }
     .invited-banner strong { color: var(--acc); font-weight: 900; }
 
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; position: relative; }
     .live-pill {
       display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(255, 0, 85, 0.22);
-      border-top: 1px solid rgba(255, 255, 255, 0.45);
-      border-left: 1px solid rgba(255, 255, 255, 0.3);
-      border-right: 1px solid rgba(255, 0, 85, 0.4);
-      border-bottom: 1px solid rgba(255, 0, 85, 0.4);
-      color: #ff6699; padding: 6px 12px; border-radius: 99px; font-size: 11px; font-weight: 800;
+      background: linear-gradient(135deg, rgba(255, 0, 85, 0.3), rgba(255, 0, 85, 0.12));
+      border-top: 1px solid rgba(255, 255, 255, 0.6);
+      border-left: 1px solid rgba(255, 255, 255, 0.4);
+      border-right: 1px solid rgba(255, 0, 85, 0.5);
+      border-bottom: 1px solid rgba(255, 0, 85, 0.5);
+      color: #ff80ab; padding: 6px 13px; border-radius: 99px; font-size: 11px; font-weight: 800;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.25);
     }
-    .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 8px var(--hot); }
+    .live-dot { width: 8px; height: 8px; background: var(--hot); border-radius: 50%; box-shadow: 0 0 10px var(--hot); }
 
     .stats-row {
       display: flex;
@@ -94,59 +116,62 @@
       gap: 8px;
       flex-wrap: wrap;
       margin-bottom: 16px;
+      position: relative;
     }
     .stat-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.12);
-      border-top: 1px solid rgba(255, 255, 255, 0.45);
-      border-left: 1px solid rgba(255, 255, 255, 0.3);
-      border-right: 1px solid rgba(184, 255, 1, 0.35);
-      border-bottom: 1px solid rgba(184, 255, 1, 0.35);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
+      border-top: 1px solid rgba(255, 255, 255, 0.6);
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(184, 255, 1, 0.4);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.4);
       color: #ffffff;
-      padding: 6px 12px;
+      padding: 6px 13px;
       border-radius: 99px;
       font-size: 11.5px;
       font-weight: 800;
+      box-shadow: inset 0 1px 6px rgba(255,255,255,0.2);
     }
     .stat-pill strong { color: var(--acc); font-size: 12.5px; }
 
-    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.25); }
-    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.6); }
+    .moods { display: flex; gap: 8px; background: rgba(255,255,255,0.14); padding: 5px 8px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.35); }
+    .mood-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,0.7); }
     
     .logo-box {
       width: 82px; height: 82px; margin: 0 auto 12px; border-radius: 24px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05));
-      border-top: 2px solid rgba(255,255,255,0.65);
+      background: linear-gradient(135deg, rgba(255,255,255,0.28), rgba(255,255,255,0.05));
+      border-top: 2px solid rgba(255,255,255,0.8);
       border-left: 2px solid var(--acc);
       border-right: 1.5px solid var(--acc);
       border-bottom: 1.5px solid var(--acc);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 28px rgba(184,255,1,0.35), inset 0 2px 12px rgba(255,255,255,0.3);
       display: flex; align-items: center; justify-content: center;
       font-size: 34px; font-weight: 900; color: var(--acc);
       cursor: pointer;
       user-select: none;
       touch-action: manipulation;
     }
-    h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; }
+    h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 15px rgba(0,0,0,0.6); }
     .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 10px; }
-    .desc { color: #e2e8f0; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
+    .desc { color: #f1f5f9; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
 
-    /* --- FUNKEN, CHAT & STREAMER-TEASER --- */
+    /* --- GLAS-CONTAINER FÜR FUNKEN & CHAT --- */
     .fun-like-container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 10px;
       margin-bottom: 22px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.05));
-      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
-      border-left: 1.5px solid rgba(255, 255, 255, 0.3);
-      border-right: 1px solid rgba(184, 255, 1, 0.3);
-      border-bottom: 1px solid rgba(184, 255, 1, 0.3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(184, 255, 1, 0.06));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-right: 1px solid rgba(184, 255, 1, 0.38);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.38);
       padding: 15px;
-      border-radius: 20px;
+      border-radius: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35), inset 0 1px 12px rgba(255,255,255,0.18);
     }
     .fun-like-top {
       display: flex;
@@ -157,7 +182,7 @@
       gap: 8px;
     }
     .fun-like-btn {
-      background: rgba(184, 255, 1, 0.2);
+      background: rgba(184, 255, 1, 0.22);
       border: 1.5px solid var(--acc);
       color: #fff;
       padding: 7px 16px;
@@ -168,19 +193,21 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 0 15px rgba(184,255,1,0.28);
     }
     .fun-like-btn.liked {
       background: var(--acc);
       color: #05060a;
       font-weight: 900;
+      box-shadow: 0 0 25px var(--acc);
     }
     .chat-user-badge {
       font-size: 11.5px;
-      color: #cbd5e1;
-      background: rgba(0,0,0,0.4);
+      color: #f1f5f9;
+      background: rgba(5, 8, 16, 0.55);
       padding: 4px 10px;
       border-radius: 99px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
     }
     .chat-user-badge strong { color: var(--acc); }
 
@@ -193,8 +220,8 @@
       flex: 1;
       padding: 10px 14px !important;
       border-radius: 12px !important;
-      border: 1px solid rgba(255,255,255,0.3) !important;
-      background: rgba(5, 8, 15, 0.75) !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
+      background: rgba(6, 10, 20, 0.65) !important;
       color: #fff !important;
       font-size: 13px !important;
       outline: none;
@@ -221,8 +248,8 @@
       text-align: left;
     }
     .comment-item {
-      background: rgba(5, 8, 15, 0.65);
-      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(6, 10, 20, 0.6);
+      border: 1px solid rgba(255,255,255,0.2);
       padding: 8px 11px;
       border-radius: 10px;
       font-size: 12.5px;
@@ -230,7 +257,7 @@
       line-height: 1.35;
     }
     .comment-item.reg-msg {
-      background: linear-gradient(90deg, rgba(184, 255, 1, 0.18), rgba(255, 0, 85, 0.15));
+      background: linear-gradient(90deg, rgba(184, 255, 1, 0.22), rgba(255, 0, 85, 0.18));
       border: 1px solid var(--acc);
     }
     .comment-item strong { color: var(--acc); }
@@ -241,15 +268,15 @@
       font-weight: 600;
       text-align: left;
       line-height: 1.5;
-      border-top: 1px solid rgba(255,255,255,0.15);
+      border-top: 1px solid rgba(255,255,255,0.22);
       padding-top: 10px;
       width: 100%;
     }
     .streamer-teaser-text strong { color: var(--acc); font-weight: 800; }
     .teaser-highlight-badge {
       display: inline-block;
-      background: rgba(255, 0, 85, 0.28);
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 0, 85, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.45);
       color: #fff;
       font-size: 11px;
       font-weight: 800;
@@ -261,21 +288,22 @@
 
     .nav-tabs {
       display: flex;
-      background: rgba(255, 255, 255, 0.1);
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
-      border-left: 1px solid rgba(255, 255, 255, 0.25);
-      border-right: 1px solid rgba(255, 255, 255, 0.12);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 18px;
       padding: 6px;
       margin-bottom: 22px;
       gap: 6px;
+      box-shadow: inset 0 1px 10px rgba(255,255,255,0.12);
     }
     .nav-tab {
       flex: 1;
       background: transparent;
       border: none;
-      color: #e2e8f0;
+      color: #f1f5f9;
       padding: 11px 8px;
       font-size: 13px;
       font-weight: 800;
@@ -285,6 +313,7 @@
     .nav-tab.active {
       background: var(--acc-gradient);
       color: #05060a;
+      box-shadow: 0 0 18px rgba(184,255,1,0.45);
     }
 
     .page-section { display: none; }
@@ -292,11 +321,11 @@
 
     .info-page-box {
       text-align: left;
-      background: rgba(255,255,255,0.08);
-      border-top: 1.5px solid rgba(255,255,255,0.38);
-      border-left: 1px solid rgba(255,255,255,0.25);
-      border-right: 1px solid rgba(255,255,255,0.1);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+      border-top: 1.5px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.35);
+      border-right: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
       border-radius: 22px;
       padding: 20px;
       margin-bottom: 20px;
@@ -310,8 +339,8 @@
       gap: 8px;
     }
     .creator-hero-banner {
-      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,0,85,0.14));
-      border: 1px solid rgba(184,255,1,0.4);
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,0,85,0.16));
+      border: 1.5px solid rgba(184,255,1,0.5);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
@@ -322,8 +351,11 @@
 
     .info-feature-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
     .info-feat-item {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 14px;
       border-radius: 16px;
       font-size: 13.5px;
@@ -333,8 +365,8 @@
     .info-feat-item strong { color: var(--acc); display: block; margin-bottom: 4px; font-size: 14.5px; }
     
     .back-home-btn {
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
       color: #fff;
       width: 100%;
       padding: 14px;
@@ -344,10 +376,10 @@
       margin-top: 10px;
     }
 
-    /* --- STABILER BILDER-SLIDER (SCHNEIDET DIE GITHUB-ZEILE OBEN AUTOMATISCH AB) --- */
+    /* --- STABILER BILDER-SLIDER --- */
     .slider-header {
       font-size: 12px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1.5px; color: #e2e8f0; margin-bottom: 10px;
+      letter-spacing: 1.5px; color: #f1f5f9; margin-bottom: 10px;
     }
     .slider-wrapper { position: relative; margin-bottom: 24px; display: flex; align-items: center; }
     .slider-track {
@@ -363,12 +395,16 @@
     .slide-item {
       flex: 0 0 calc(50% - 6px);
       background: #0b0e17;
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-right: 1px solid rgba(184, 255, 1, 0.3);
+      border-bottom: 1px solid rgba(184, 255, 1, 0.3);
       border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       position: relative;
       aspect-ratio: 9 / 16;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     }
     .slide-item img {
       width: 100%;
@@ -406,7 +442,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(15, 20, 35, 0.95);
+      background: rgba(15, 22, 38, 0.95);
       border: 1.5px solid #ffffff;
       color: #ffffff;
       font-size: 22px;
@@ -469,26 +505,68 @@
     .lb-arrow.left { left: 14px; }
     .lb-arrow.right { right: 14px; }
 
+    /* --- 3-STUFEN FREUNDE-WERBEN VORSCHAU --- */
+    .referral-preview-card {
+      background: linear-gradient(135deg, rgba(184, 255, 1, 0.14), rgba(0, 240, 255, 0.1));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-right: 1.5px solid rgba(184, 255, 1, 0.45);
+      border-bottom: 1.5px solid rgba(184, 255, 1, 0.45);
+      border-radius: 20px;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: left;
+      box-shadow: inset 0 1px 10px rgba(255,255,255,0.12);
+    }
+    .referral-preview-card h3 {
+      font-size: 14.5px;
+      color: var(--acc);
+      font-weight: 900;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .reward-tier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 12.5px;
+      color: #f1f5f9;
+      line-height: 1.4;
+    }
+    .reward-tier-item {
+      background: rgba(6, 10, 20, 0.6);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 8px 11px;
+      border-radius: 12px;
+    }
+    .reward-tier-item strong { color: var(--acc); font-weight: 900; }
+
+    /* --- GLAS-FORMULARFELDER --- */
     form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
     label.lbl { font-size: 13px; font-weight: 800; color: #ffffff; margin-bottom: -4px; display: block; }
     input[type="text"], input[type="email"], input[type="password"], input[type="tel"], select {
       width: 100%; padding: 16px 18px; border-radius: 16px;
-      border-top: 1.5px solid rgba(255,255,255,0.4);
-      border-left: 1px solid rgba(255,255,255,0.25);
-      border-right: 1px solid rgba(255,255,255,0.12);
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      background: rgba(10, 14, 24, 0.8);
+      border-top: 1.5px solid rgba(255,255,255,0.55);
+      border-left: 1px solid rgba(255,255,255,0.35);
+      border-right: 1px solid rgba(255,255,255,0.16);
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(10, 15, 28, 0.65));
       color: #fff; font-size: 16px; outline: none;
+      box-shadow: inset 0 1px 8px rgba(255,255,255,0.1);
     }
-    input::placeholder { color: rgba(255,255,255,0.6); }
+    input::placeholder { color: rgba(255,255,255,0.65); }
     select option { background: #0b0e17; color: #fff; }
-    input:focus, select:focus { border-color: var(--acc); }
+    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.3); }
 
     .vip-box {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(184, 255, 1, 0.06));
-      border: 1.5px solid rgba(184, 255, 1, 0.4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(184, 255, 1, 0.08));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+      border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-right: 1.5px solid rgba(184, 255, 1, 0.45);
+      border-bottom: 1.5px solid rgba(184, 255, 1, 0.45);
       border-radius: 18px;
       padding: 16px;
+      box-shadow: inset 0 1px 10px rgba(255,255,255,0.15);
     }
     .chk { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #f8fafc; cursor: pointer; line-height: 1.4; }
     .chk input { margin-top: 2px; width: 20px; height: 20px; accent-color: var(--acc); flex-shrink: 0; }
@@ -498,7 +576,7 @@
       margin-top: 14px;
       padding: 14px;
       border-radius: 14px;
-      background: rgba(10, 14, 24, 0.85);
+      background: rgba(8, 12, 22, 0.82);
       border: 1.5px solid var(--acc);
       color: #ffffff;
       font-size: 13.5px;
@@ -530,57 +608,40 @@
       border-radius: 16px; font-size: 17px; font-weight: 900; text-transform: uppercase;
       cursor: pointer; margin-top: 6px; width: 100%;
       letter-spacing: 0.8px;
+      box-shadow: 0 0 30px rgba(184, 255, 1, 0.45);
     }
     
     #status { margin-top: 16px; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; display: none; text-align: center; }
     .success { background: rgba(184,255,1,0.22); border: 1.5px solid var(--acc); color: var(--acc); }
     .error { background: rgba(255,0,85,0.22); border: 1.5px solid var(--hot); color: #ff80aa; }
 
-    /* --- FREUNDE EINLADEN BOX --- */
+    /* --- FREUNDE EINLADEN BOX (MIT 3-STUFEN-BONUS) --- */
     .invite-friend-box {
       display: none;
       margin-top: 18px;
       padding: 18px 16px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(184, 255, 1, 0.16), rgba(0, 240, 255, 0.12));
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(184, 255, 1, 0.2), rgba(0, 240, 255, 0.15));
       border: 2px solid var(--acc);
       text-align: center;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
     }
     .invite-friend-box.show { display: block; }
-    .invite-friend-box h3 {
-      color: var(--acc);
-      font-size: 17px;
-      font-weight: 900;
-      margin-bottom: 6px;
-    }
-    .invite-friend-box p {
-      font-size: 13px;
-      color: #f1f5f9;
-      line-height: 1.45;
-      margin-bottom: 12px;
-    }
-    .invite-link-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
+    .invite-friend-box h3 { color: var(--acc); font-size: 17px; font-weight: 900; margin-bottom: 6px; }
+    .invite-friend-box p { font-size: 13px; color: #f1f5f9; line-height: 1.45; margin-bottom: 12px; }
+    .invite-link-row { display: flex; gap: 8px; margin-bottom: 10px; }
     .invite-link-input {
       flex: 1;
       padding: 11px 12px !important;
       border-radius: 12px !important;
-      border: 1px solid rgba(255,255,255,0.35) !important;
-      background: rgba(5, 8, 15, 0.85) !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
+      background: rgba(5, 8, 15, 0.9) !important;
       color: var(--acc) !important;
       font-size: 12.5px !important;
-      font-weight: 700;
+      font-weight: 800;
       text-align: center;
     }
-    .invite-btn-grid {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .invite-btn-grid { display: flex; gap: 8px; flex-wrap: wrap; }
     .invite-action-btn {
       flex: 1;
       min-width: 130px;
@@ -598,14 +659,20 @@
     .btn-whatsapp { background: #25D366; color: #05060a; }
     .btn-share { background: var(--acc); color: #05060a; }
     .btn-copy {
-      background: rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.18);
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.35);
+      width: 100%;
+      margin-top: 8px;
+    }
+    .btn-save-mail {
+      background: rgba(0, 240, 255, 0.2);
+      color: #00f0ff;
+      border: 1px solid rgba(0, 240, 255, 0.45);
       width: 100%;
       margin-top: 8px;
     }
     
-    /* --- VERBESSERTER 3X-KLICK FOOTER BUTTON --- */
     .footer-btn {
       margin-top: 22px;
       padding: 12px 16px;
@@ -620,69 +687,107 @@
       cursor: pointer;
       width: 100%;
       border-radius: 12px;
-      transition: color 0.15s, background 0.15s;
     }
     .footer-btn strong { color: #ffffff; font-weight: 900; }
-    .footer-btn.tap-flash {
-      color: var(--acc);
-      background: rgba(184, 255, 1, 0.12);
-    }
+    .footer-btn.tap-flash { color: var(--acc); background: rgba(184, 255, 1, 0.15); }
 
-    /* --- GEHEIMES ADMIN-PANEL (PIN 1983) --- */
+    /* --- HANDY-TABELLEN-MANAGER MODAL (PIN 1983) --- */
     .admin-modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(4, 6, 12, 0.95);
+      background: rgba(4, 6, 12, 0.96);
       z-index: 10000;
       justify-content: center;
       align-items: center;
-      padding: 16px;
+      padding: 12px;
     }
     .admin-modal.open { display: flex; }
     .admin-box {
       background: #101524;
       border: 2px solid var(--acc);
       border-radius: 24px;
-      max-width: 480px;
+      max-width: 520px;
       width: 100%;
-      padding: 24px 20px;
+      padding: 20px 16px;
       text-align: center;
-      max-height: 90vh;
+      max-height: 92vh;
       overflow-y: auto;
     }
-    .admin-box h3 { color: var(--acc); font-size: 20px; margin-bottom: 12px; }
+    .admin-box h3 { color: var(--acc); font-size: 18px; margin-bottom: 8px; }
     .admin-table-wrap {
       overflow-x: auto;
-      margin: 14px 0;
-      border: 1px solid rgba(255,255,255,0.15);
+      margin: 10px 0;
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
       background: #080b12;
-      max-height: 240px;
+      max-height: 230px;
     }
     .admin-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      font-size: 11px;
       text-align: left;
     }
     .admin-table th, .admin-table td {
-      padding: 8px 10px;
+      padding: 8px 8px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       white-space: nowrap;
     }
-    .admin-table th { background: rgba(184,255,1,0.15); color: var(--acc); }
+    .admin-table th { background: rgba(184,255,1,0.18); color: var(--acc); position: sticky; top: 0; }
+    
+    .lvl-toggle-btn {
+      background: rgba(255,255,255,0.1);
+      color: #cbd5e1;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .lvl-toggle-btn.achieved {
+      background: rgba(184, 255, 1, 0.25);
+      color: var(--acc);
+      border-color: var(--acc);
+    }
+
+    .quick-add-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .quick-add-box h4 { color: #fff; font-size: 12.5px; margin-bottom: 8px; }
+    .quick-add-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .quick-input {
+      padding: 9px 10px !important;
+      font-size: 12px !important;
+      border-radius: 10px !important;
+    }
+
     .admin-btn {
       background: var(--acc);
       color: #05060a;
       border: none;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: 15px;
+      padding: 13px;
+      border-radius: 13px;
+      font-size: 13.5px;
       font-weight: 900;
       width: 100%;
       cursor: pointer;
       margin-top: 8px;
+    }
+    .admin-btn.secondary {
+      background: #00f0ff;
+      color: #05060a;
     }
     .admin-close-btn {
       background: rgba(255,255,255,0.12);
@@ -701,8 +806,9 @@
 <body>
 
   <div class="card">
+    <!-- BANNER WENN JEMAND ÜBER EINEN FREUNDE-LINK KOMMT -->
     <div class="invited-banner" id="invitedBanner">
-      🎁 Du wurdest persönlich von <strong id="inviterNameDisplay">Freund</strong> in den VYBZON Club eingeladen!
+      🎁 Du wurdest von <strong id="inviterNameDisplay">Freund</strong> eingeladen! Registriere dich jetzt vor und sichert euch <strong>beide sofort +300 Gratis-Coins</strong> zum Start (plus bis zu <strong>1.800 Extra-Coins</strong> ab Level 15 & 20)!
     </div>
 
     <div class="top-bar">
@@ -723,7 +829,7 @@
       </div>
     </div>
 
-    <!-- AUCH HIER OBEN KANNST DU 3X DRAUFTIPPEN FÜR ADMIN-LOGIN -->
+    <!-- 3X DRAUFTIPPEN FÜR HANDY-TABELLE (PIN 1983) -->
     <div class="logo-box" onclick="handleSecretTap()">VZ</div>
     <h1>VYBZON</h1>
     <div class="subtitle">Short, Video & Live Club</div>
@@ -790,12 +896,32 @@
         <button type="button" class="slider-arrow right" onclick="scrollSlider(1)">›</button>
       </div>
 
+      <!-- 3-STUFEN FREUNDE-BONUS ERKLÄRUNG VOR DER ANMELDUNG -->
+      <div class="referral-preview-card">
+        <h3>🎁 Freunde-Werben-Programm (Bis zu 2.100 Coins!)</h3>
+        <p style="font-size:12px; color:#cbd5e1; margin-bottom:8px;">
+          Direkt nach deiner Vorregistrierung erhältst du hier deinen persönlichen Einladungslink:
+        </p>
+        <div class="reward-tier-list">
+          <div class="reward-tier-item">
+            🥇 <strong>Stufe 1 (+300 Coins):</strong> Für jeden Freund, der sich über deinen Link vorregistriert, bekommt ihr <strong>beide je 300 Gratis-Coins</strong> zum App-Start!
+          </div>
+          <div class="reward-tier-item">
+            🥈 <strong>Stufe 2 (+600 Coins):</strong> Erreicht dein eingeladener Freund in der App <strong>Level 15</strong>, bekommt ihr <strong>beide nochmal je 600 Gratis-Coins</strong>!
+          </div>
+          <div class="reward-tier-item">
+            🏆 <strong>Stufe 3 (+1.200 Coins):</strong> Schafft ihr es <strong>beide innerhalb von 2 Wochen</strong> nach App-Start auf <strong>Level 20</strong>, bekommt jeder von euch <strong>nochmal 1.200 Coins gratis</strong>!
+          </div>
+        </div>
+      </div>
+
       <form id="waitlist-form">
         <input type="hidden" name="_subject" value="🚀 Neue VYBZON Vorregistrierung!">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="Kommentar" id="lastCommentField" value="">
         <input type="hidden" name="Eingeladen_von" id="invitedByField" value="-">
+        <input type="hidden" name="Start_Bonus_300_Coins" id="startBonusField" value="Wartet auf Einladung">
 
         <label class="lbl" for="vorname">Dein Vorname / Creator-Name</label>
         <input type="text" id="vorname" name="Vorname" placeholder="z. B. Max" required oninput="syncTypedName(this.value)">
@@ -843,15 +969,17 @@
           <span>Ich stimme zu, dass mein Name, Land und meine E-Mail für den App-Start gespeichert werden.</span>
         </label>
 
-        <button type="submit" class="submit-btn" id="submit-btn">⚡ Jetzt VIP-Platz sichern</button>
+        <button type="submit" class="submit-btn" id="submit-btn">⚡ Jetzt VIP-Platz & Einladungslink sichern</button>
       </form>
 
       <div id="status"></div>
 
-      <!-- FREUNDE EINLADEN BOX -->
+      <!-- FREUNDE EINLADEN BOX (ERSCHEINT SOFORT NACH DER REGISTRIERUNG) -->
       <div class="invite-friend-box" id="inviteFriendBox">
-        <h3>🎁 Lade jetzt deine Freunde & Creator ein!</h3>
-        <p>Teile deinen persönlichen Einladungslink mit deinen Freunden, Streamern oder deiner Community und hol sie mit in den VYBZON Club:</p>
+        <h3>🎁 Dein persönlicher Einladungslink ist aktiv!</h3>
+        <p>
+          Schicke diesen Link an deine Freunde! Sobald sich ein Freund darüber vorregistriert, bekommt ihr <strong>beide +300 Coins zum Start</strong>, bei <strong>Level 15 nochmal +600 Coins</strong> und wenn ihr beide in 2 Wochen <strong>Level 20 erreicht, nochmal +1.200 Gratis-Coins</strong>!
+        </p>
         
         <div class="invite-link-row">
           <input type="text" id="personalInviteLink" class="invite-link-input" readonly value="">
@@ -859,14 +987,17 @@
 
         <div class="invite-btn-grid">
           <button type="button" class="invite-action-btn btn-whatsapp" onclick="shareViaWhatsApp()">
-            📲 WhatsApp
+            📲 Per WhatsApp einladen
           </button>
           <button type="button" class="invite-action-btn btn-share" onclick="shareInviteNative()">
-            🚀 Link teilen
+            🚀 Überall teilen
           </button>
         </div>
         <button type="button" class="invite-action-btn btn-copy" id="copyInviteBtn" onclick="copyInviteLink()">
           📋 Einladungslink kopieren
+        </button>
+        <button type="button" class="invite-action-btn btn-save-mail" onclick="savePassToOwnEmail()">
+          📩 Meinen Link & VIP-Pass im E-Mail-Postfach sichern
         </button>
       </div>
     </div>
@@ -882,7 +1013,12 @@
 
         <div class="info-feature-list">
           <div class="info-feat-item">
-            <strong>🎁 Tägliche Gratis-Coins für deine Community</strong>
+            <strong>🎁 Bis zu 2.100 Gratis-Coins pro geworbenem Freund</strong>
+            Lade deine Freunde & Zuschauer über deinen persönlichen Link ein: Ihr erhaltet <strong>beide je 300 Coins</strong> zum Start, nochmal <strong>je 600 Coins ab Level 15</strong> und gigantische <strong>1.200 Extra-Coins</strong>, wenn ihr beide in den ersten 2 Wochen Level 20 knackt!
+          </div>
+
+          <div class="info-feat-item">
+            <strong>🎯 Tägliche Gratis-Coins für deine Community</strong>
             Deine Zuschauer werden täglich mit kostenlosen Gratis-Coins beschenkt! Das bedeutet für dich im Stream: Sie haben immer genügend Funken und Geschenke in der Tasche, um deine Live-Shows zu unterstützen und den Chat explodieren zu lassen.
           </div>
 
@@ -902,11 +1038,6 @@
             <br><br>
             • <strong>Was du bekommst:</strong> Den absolut fettesten und fairsten Erlös aus deinen Diamanten und Geschenken. Keine Abzocke, sondern pures Einkommen.<br>
             • <strong>Was wir einbeziehen:</strong> Nur einen winzigen, fairen Plattform-Beitrag für hochmoderne Server, ultraschnelle Live-Streams und weltweite Top-Performance (inklusive epischen Animationen wie dem goldenen Zeus und dem Gold-Drachen).
-          </div>
-
-          <div class="info-feat-item">
-            <strong>🎬 Shorts, Multi-Live & Community-Power</strong>
-            Starte voll durch mit dem Short-Video-Feed, streame mit bis zu 8 Gästen gleichzeitig und rocke die Charts!
           </div>
         </div>
 
@@ -931,7 +1062,6 @@
       </div>
     </div>
 
-    <!-- GROSSER TOUCH-BUTTON FÜR 3X TIPPEN (ÖFFNET ADMIN-MENÜ MIT PIN 1983) -->
     <button type="button" class="footer-btn" id="secretFooterBtn" onclick="handleSecretTap()">
       © 2026 <strong>VYBZON</strong> • Short, Video & Live Club
     </button>
@@ -946,41 +1076,62 @@
     <button type="button" class="lb-arrow right" onclick="changeLightboxSlide(1, event)">›</button>
   </div>
 
-  <!-- GEHEIMES ADMIN-MODAL (ÖFFNET BEI 3X TIPPEN AUF VYBZON ODER LOGO) -->
+  <!-- GEHEIMES HANDY-TABELLEN & ADMIN-MODAL (PIN 1983) -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-box">
       <div id="pinSection">
-        <h3>🔐 VYBZON Admin-Login</h3>
-        <p style="font-size:13px; color:#cbd5e1; margin-bottom:14px;">Bitte gib deinen Admin-PIN ein:</p>
+        <h3>🔐 VYBZON Handy-Tabelle</h3>
+        <p style="font-size:13px; color:#cbd5e1; margin-bottom:14px;">Bitte gib deinen Admin-PIN (1983) ein:</p>
         <input type="tel" id="adminPinInput" placeholder="PIN eingeben..." maxlength="8" style="text-align:center; font-size:22px; letter-spacing:6px; margin-bottom:10px;">
         <div id="pinError" style="color:#ff4d88; font-size:13px; display:none; margin-bottom:8px;">❌ Falscher PIN!</div>
-        <button type="button" class="admin-btn" onclick="verifyAdminPin()">🔓 Entsperren</button>
+        <button type="button" class="admin-btn" onclick="verifyAdminPin()">🔓 Tabelle öffnen</button>
         <button type="button" class="admin-close-btn" onclick="closeAdminModal()">Abbrechen</button>
       </div>
 
       <div id="adminDataSection" style="display:none;">
-        <h3>📊 Vorregistrierungs-Liste</h3>
-        <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:8px;">
-          Gespeicherte Einträge: <strong id="adminCount" style="color:var(--acc);">0</strong>
+        <h3>📊 Vorregistrierungs- & Level-Bonus-Tabelle</h3>
+        <p style="font-size:12px; color:#cbd5e1; margin-bottom:6px;">
+          Gespeicherte Personen: <strong id="adminCount" style="color:var(--acc);">0</strong> (Tippe in der Tabelle auf Lvl 15 / Lvl 20, um den Bonus freizuschalten!)
         </p>
 
         <div class="admin-table-wrap">
           <table class="admin-table">
             <thead>
               <tr>
-                <th>Datum</th>
+                <th>Nr.</th>
                 <th>Name</th>
                 <th>E-Mail</th>
+                <th>Geworben von</th>
+                <th>Start (+300)</th>
+                <th>Lvl 15 (+600)</th>
+                <th>Lvl 20 2Wo (+1200)</th>
+                <th>Gesamt-Coins</th>
                 <th>Land</th>
                 <th>VIP</th>
-                <th>Eingeladen von</th>
+                <th>Datum</th>
               </tr>
             </thead>
             <tbody id="adminTableBody"></tbody>
           </table>
         </div>
 
-        <button type="button" class="admin-btn" onclick="downloadRegistrationsCSV()">📥 Tabelle herunterladen (.CSV / Excel)</button>
+        <!-- Manuell zur Handy-Tabelle hinzufügen -->
+        <div class="quick-add-box">
+          <h4>➕ Neue Person zur Handy-Tabelle hinzufügen:</h4>
+          <div class="quick-add-grid">
+            <input type="text" id="qaName" class="quick-input" placeholder="Name (z.B. Max)">
+            <input type="email" id="qaEmail" class="quick-input" placeholder="E-Mail-Adresse">
+            <input type="text" id="qaInvitedBy" class="quick-input" placeholder="Geworben von (optional)">
+            <select id="qaVip" class="quick-input">
+              <option value="Ja">🔥 VIP: Ja</option>
+              <option value="Nein">VIP: Nein</option>
+            </select>
+          </div>
+          <button type="button" class="admin-btn" style="margin-top:2px; padding:10px;" onclick="manualAddEntry()">➕ In Handy-Tabelle speichern</button>
+        </div>
+
+        <button type="button" class="admin-btn" onclick="downloadRegistrationsCSV()">📥 Als Excel/CSV-Datei auf Handy speichern</button>
+        <button type="button" class="admin-btn secondary" onclick="shareCSVFileToPhoneApp()">📲 Direkt an Google Tabellen / Excel App senden</button>
         <button type="button" class="admin-close-btn" onclick="closeAdminModal()">Schließen</button>
       </div>
     </div>
@@ -989,8 +1140,11 @@
   <script>
     const GMAIL_ENDPOINT = 'https://formsubmit.co/ajax/christianspartharis@gmail.com';
     const WEB3_BACKUP_KEY = '4051f785-351a-47f3-aa79-31eb5ca79e0b';
-    // Nutzt automatisch deine aktuelle Domain (auch wenn du deinen GitHub-Namen änderst!)
-    const BASE_SITE_URL = window.location.origin + window.location.pathname;
+    const GOOGLE_SHEET_WEBHOOK = '';
+    // Nutzt automatisch deinen neuen Namen Vybezon!
+    const BASE_SITE_URL = (window.location.origin.includes('github.io'))
+      ? window.location.origin + window.location.pathname
+      : 'https://vybezon.github.io/Webseitelive/';
     const fullResUrls = [];
 
     function checkIncomingInvite() {
@@ -1002,12 +1156,14 @@
         document.getElementById('inviterNameDisplay').textContent = cleanInviter;
         document.getElementById('invitedBanner').classList.add('show');
         document.getElementById('invitedByField').value = cleanInviter;
+        document.getElementById('startBonusField').value = 'Ja (+300 Coins für ' + cleanInviter + ' & neuen User)';
       } else {
         const savedInviter = localStorage.getItem('vybzon_invited_by');
         if (savedInviter) {
           document.getElementById('inviterNameDisplay').textContent = savedInviter;
           document.getElementById('invitedBanner').classList.add('show');
           document.getElementById('invitedByField').value = savedInviter;
+          document.getElementById('startBonusField').value = 'Ja (+300 Coins für ' + savedInviter + ' & neuen User)';
         }
       }
     }
@@ -1040,24 +1196,38 @@
 
     function shareViaWhatsApp() {
       const link = document.getElementById('personalInviteLink').value;
-      const text = `🔥 Hey! Ich habe mich gerade bei *VYBZON* (dem neuen Short, Video & Live Club) vorregistriert! Dort gibt es tägliche Gratis-Coins und mega Vorteile für Streamer & Zuschauer. Sichere dir hier über meinen persönlichen Link auch noch schnell deinen VIP-Platz:\n👉 ${link}`;
+      const text = `🔥 Hey! Ich habe mich gerade bei *VYBZON* (dem neuen Short, Video & Live Club) vorregistriert!\n\n🎁 *Mega-Bonus für uns beide:*\n• Meldest du dich über meinen Link an, bekommen wir *beide sofort +300 Gratis-Coins* zum Start!\n• Erreichst du *Level 15*, bekommen wir *beide nochmal +600 Gratis-Coins*!\n• Schaffen wir es *beide in 2 Wochen auf Level 20*, bekommt jeder *nochmal +1.200 Gratis-Coins*!\n\n👉 Sichere dir hier schnell deinen VIP-Platz:\n${link}`;
       window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
     }
 
     async function shareInviteNative() {
       const link = document.getElementById('personalInviteLink').value;
       const shareData = {
-        title: 'VYBZON – Short, Video & Live Club',
-        text: '🔥 Ich bin schon auf der VYBZON Warteliste! Komm über meinen persönlichen Einladungslink mit in den Club und sichere dir deinen VIP-Platz:',
+        title: 'VYBZON – Bis zu 2.100 Gratis-Coins sichern!',
+        text: '🔥 Komm über meinen persönlichen Link auf die VYBZON Warteliste! Wir bekommen beide +300 Coins zum Start, +600 Coins bei Level 15 und +1.200 Coins bei Level 20 in 2 Wochen:',
         url: link
       };
       if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {}
+        try { await navigator.share(shareData); } catch (err) {}
       } else {
         copyInviteLink();
       }
+    }
+
+    // Erlaubt dem Nutzer, seinen VIP-Pass & Link im eigenen E-Mail-Programm zu sichern
+    function savePassToOwnEmail() {
+      const link = document.getElementById('personalInviteLink').value;
+      const name = getSavedChatName();
+      const subject = encodeURIComponent('Mein VYBZON VIP-Pass & persönlicher Einladungslink');
+      const body = encodeURIComponent(
+        `Hallo ${name}!\n\nHier ist deine Erinnerung für deine VYBZON-Vorregistrierung:\n\n` +
+        `🔗 Dein persönlicher Einladungslink für Freunde:\n${link}\n\n` +
+        `🎁 Deine Freunde-Boni zum App-Start:\n` +
+        `- Pro vorregistriertem Freund: +300 Coins für euch beide\n` +
+        `- Freund erreicht Level 15: +600 Coins für euch beide\n` +
+        `- Beide in 2 Wochen auf Level 20: +1.200 Coins für jeden!`
+      );
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
 
     function getSavedChatName() {
@@ -1242,7 +1412,7 @@
       switchTab('home', homeBtn);
     }
 
-    // 4. Bilder laden & den oberen Browser-Rand der Screenshots unsichtbar wegschneiden
+    // 4. Bilder laden (Unterstützt deinen neuen Namen Vybezon!)
     function optimizeImageForScroll(imgEl, idx) {
       const tempImg = new Image();
       tempImg.crossOrigin = 'anonymous';
@@ -1254,7 +1424,6 @@
           canvas.width = targetW;
           canvas.height = targetH;
           const ctx = canvas.getContext('2d');
-          // Schneidet die oberen 12% (wo die GitHub-URL im Screenshot steht) automatisch ab
           const cropTop = Math.round(tempImg.height * 0.12);
           const cropHeight = tempImg.height - cropTop;
           ctx.drawImage(tempImg, 0, cropTop, tempImg.width, cropHeight, 0, 0, targetW, targetH);
@@ -1270,25 +1439,32 @@
     }
 
     async function autoLoadGitHubImages() {
-      try {
-        const res = await fetch('https://api.github.com/repos/christianspartharis-ui/Webseitelive/contents/');
-        if (!res.ok) return;
-        const files = await res.json();
-        const prefixes = [
-          'Screenshot_20261028_135459',
-          'Screenshot_20261028_135531',
-          'Screenshot_20261028_135548',
-          'Screenshot_20261028_135624'
-        ];
-        prefixes.forEach((prefix, idx) => {
-          const match = files.find(f => f.name.startsWith(prefix));
-          if (match) {
-            fullResUrls[idx] = match.download_url;
-            const imgEl = document.getElementById('img-' + idx);
-            optimizeImageForScroll(imgEl, idx);
-          }
-        });
-      } catch (e) {}
+      const repos = [
+        'https://api.github.com/repos/Vybezon/Webseitelive/contents/',
+        'https://api.github.com/repos/christianspartharis-ui/Webseitelive/contents/'
+      ];
+      for (const url of repos) {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          const files = await res.json();
+          const prefixes = [
+            'Screenshot_20261028_135459',
+            'Screenshot_20261028_135531',
+            'Screenshot_20261028_135548',
+            'Screenshot_20261028_135624'
+          ];
+          prefixes.forEach((prefix, idx) => {
+            const match = files.find(f => f.name.startsWith(prefix));
+            if (match) {
+              fullResUrls[idx] = match.download_url;
+              const imgEl = document.getElementById('img-' + idx);
+              optimizeImageForScroll(imgEl, idx);
+            }
+          });
+          break;
+        } catch (e) {}
+      }
     }
     autoLoadGitHubImages();
 
@@ -1344,7 +1520,7 @@
       }
     }
 
-    // 5. Zuverlässiger 3x-Tippen-Erkenner (Unten auf VYBZON oder oben auf das VZ-Logo)
+    // 5. Handy-Tabellen-Manager mit Level-15 & Level-20 Bonus-Tracking (PIN 1983)
     let tapCount = 0;
     let tapTimer = null;
 
@@ -1393,24 +1569,117 @@
       if (e.key === 'Enter') { e.preventDefault(); verifyAdminPin(); }
     });
 
+    // Berechnet die gesamten Bonus-Coins (300 Start + 600 Lvl 15 + 1200 Lvl 20 in 2 Wochen)
+    function calcBonusCoins(entry) {
+      let total = 0;
+      const hasReferral = (entry.invitedBy && entry.invitedBy !== '-') || entry.startBonus300;
+      if (hasReferral) total += 300;
+      if (entry.lvl15Achieved) total += 600;
+      if (entry.lvl20In2Weeks) total += 1200;
+      return total;
+    }
+
+    function toggleMilestone(index, field) {
+      const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      if (!list[index]) return;
+      list[index][field] = !list[index][field];
+      localStorage.setItem('vybzon_registrations_db', JSON.stringify(list));
+      renderAdminTable();
+    }
+
     function renderAdminTable() {
       const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
       document.getElementById('adminCount').textContent = list.length;
       const tbody = document.getElementById('adminTableBody');
       if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8;">Noch keine Einträge gespeichert.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="11" style="text-align:center; color:#94a3b8;">Noch keine Einträge in der Handy-Tabelle.</td></tr>';
         return;
       }
-      tbody.innerHTML = list.map(r => `
-        <tr>
-          <td>${r.datum}</td>
-          <td><strong>${r.vorname}</strong></td>
-          <td>${r.email}</td>
-          <td>${r.land}</td>
-          <td>${r.vip}</td>
-          <td>${r.invitedBy || '-'}</td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = list.map((r, idx) => {
+        const hasStart = (r.invitedBy && r.invitedBy !== '-') || r.startBonus300;
+        const totalCoins = calcBonusCoins(r);
+        return `
+          <tr>
+            <td>${list.length - idx}</td>
+            <td><strong>${r.vorname}</strong></td>
+            <td>${r.email}</td>
+            <td style="color:var(--acc); font-weight:800;">${r.invitedBy || '-'}</td>
+            <td>
+              <button type="button" class="lvl-toggle-btn ${hasStart ? 'achieved' : ''}" onclick="toggleMilestone(${idx}, 'startBonus300')">
+                ${hasStart ? '✅ +300' : 'Nein'}
+              </button>
+            </td>
+            <td>
+              <button type="button" class="lvl-toggle-btn ${r.lvl15Achieved ? 'achieved' : ''}" onclick="toggleMilestone(${idx}, 'lvl15Achieved')">
+                ${r.lvl15Achieved ? '✅ Lvl 15 (+600)' : 'Offen'}
+              </button>
+            </td>
+            <td>
+              <button type="button" class="lvl-toggle-btn ${r.lvl20In2Weeks ? 'achieved' : ''}" onclick="toggleMilestone(${idx}, 'lvl20In2Weeks')">
+                ${r.lvl20In2Weeks ? '✅ Lvl 20 (+1200)' : 'Offen'}
+              </button>
+            </td>
+            <td style="color:var(--acc); font-weight:900;">💎 ${totalCoins} Coins</td>
+            <td>${r.land}</td>
+            <td>${r.vip}</td>
+            <td>${r.datum}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function manualAddEntry() {
+      const name = document.getElementById('qaName').value.trim();
+      const email = document.getElementById('qaEmail').value.trim();
+      const invBy = document.getElementById('qaInvitedBy').value.trim() || '-';
+      const vip = document.getElementById('qaVip').value;
+      if (!name || !email) {
+        alert('Bitte Name und E-Mail eingeben.');
+        return;
+      }
+      const regList = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      regList.unshift({
+        datum: new Date().toLocaleString('de-DE'),
+        vorname: name,
+        email: email,
+        land: 'Deutschland',
+        vip: vip,
+        invitedBy: invBy,
+        startBonus300: invBy !== '-',
+        lvl15Achieved: false,
+        lvl20In2Weeks: false,
+        kommentar: 'Manuell eingetragen'
+      });
+      localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
+      document.getElementById('qaName').value = '';
+      document.getElementById('qaEmail').value = '';
+      document.getElementById('qaInvitedBy').value = '';
+      renderAdminTable();
+    }
+
+    function buildCSVString() {
+      const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      let csv = '\uFEFFNr;Datum;Vorname;E-Mail;Eingeladen von (Werber);Start-Bonus (+300 Coins);Lvl 15 erreicht (+600 Coins);Beide Lvl 20 in 2 Wo (+1200 Coins);Gesamt-Bonus Coins;VIP-Tester;Land;Kommentar\n';
+      list.forEach((r, idx) => {
+        const clean = (val) => '"' + String(val || '').replace(/"/g, '""') + '"';
+        const hasStart = (r.invitedBy && r.invitedBy !== '-') || r.startBonus300;
+        const totalCoins = calcBonusCoins(r);
+        csv += [
+          list.length - idx,
+          clean(r.datum),
+          clean(r.vorname),
+          clean(r.email),
+          clean(r.invitedBy || '-'),
+          clean(hasStart ? 'Ja (+300)' : 'Nein'),
+          clean(r.lvl15Achieved ? 'Ja (+600)' : 'Offen'),
+          clean(r.lvl20In2Weeks ? 'Ja (+1200)' : 'Offen'),
+          clean(totalCoins + ' Coins'),
+          clean(r.vip),
+          clean(r.land),
+          clean(r.kommentar)
+        ].join(';') + '\n';
+      });
+      return csv;
     }
 
     function downloadRegistrationsCSV() {
@@ -1419,31 +1688,39 @@
         alert('Es sind noch keine Vorregistrierungen in der Liste gespeichert.');
         return;
       }
-      let csv = '\uFEFFDatum;Vorname;E-Mail;Land;VIP-Tester;Eingeladen von;Kommentar\n';
-      list.forEach(r => {
-        const clean = (val) => '"' + String(val || '').replace(/"/g, '""') + '"';
-        csv += [
-          clean(r.datum),
-          clean(r.vorname),
-          clean(r.email),
-          clean(r.land),
-          clean(r.vip),
-          clean(r.invitedBy || '-'),
-          clean(r.kommentar)
-        ].join(';') + '\n';
-      });
-
+      const csv = buildCSVString();
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'VYBZON_Vorregistrierungen.csv';
+      a.download = 'VYBZON_Freunde_Bonus_Tabelle.csv';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
     }
 
-    // 6. Formular absenden + persönlichen Einladungslink generieren
+    async function shareCSVFileToPhoneApp() {
+      const list = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      if (list.length === 0) {
+        alert('Es sind noch keine Einträge vorhanden.');
+        return;
+      }
+      const csv = buildCSVString();
+      const file = new File([csv], 'VYBZON_Freunde_Bonus_Tabelle.csv', { type: 'text/csv' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            title: 'VYBZON Vorregistrierungs- & Bonus-Tabelle',
+            text: 'Aktuelle VYBZON Tabelle inkl. Werber & Level-Boni:',
+            files: [file]
+          });
+          return;
+        } catch (e) {}
+      }
+      downloadRegistrationsCSV();
+    }
+
+    // 6. Formular absenden
     const form = document.getElementById('waitlist-form');
     const status = document.getElementById('status');
     const btn = document.getElementById('submit-btn');
@@ -1464,7 +1741,12 @@
       const land = formData.get('Land');
       const kommentar = formData.get('Kommentar') || document.getElementById('commentInput').value.trim();
       const invitedBy = localStorage.getItem('vybzon_invited_by') || '-';
+      const hasStartBonus = invitedBy !== '-';
+
       formData.set('Eingeladen_von', invitedBy);
+      formData.set('Start_Bonus_300_Coins', hasStartBonus ? 'JA (+300 Coins für ' + vorname + ' & ' + invitedBy + ')' : 'Noch niemand (0 Coins)');
+      formData.set('Bonus_Stufe_2_Lvl15', 'Offen (+600 Coins bei Level 15)');
+      formData.set('Bonus_Stufe_3_Lvl20_2Wochen', 'Offen (+1200 Coins bei Level 20 in 2 Wochen)');
 
       localStorage.setItem('vybzon_user_name', vorname);
       updateChatBadge();
@@ -1477,6 +1759,9 @@
         land: land,
         vip: isVip ? 'Ja' : 'Nein',
         invitedBy: invitedBy,
+        startBonus300: hasStartBonus,
+        lvl15Achieved: false,
+        lvl20In2Weeks: false,
         kommentar: kommentar
       });
       localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
@@ -1484,6 +1769,10 @@
       announceRegistrationInChat(vorname, isVip, kommentar);
 
       let sentOk = false;
+
+      if (GOOGLE_SHEET_WEBHOOK) {
+        try { await fetch(GOOGLE_SHEET_WEBHOOK, { method: 'POST', body: formData }); } catch (err) {}
+      }
 
       try {
         const res = await fetch(GMAIL_ENDPOINT, {
@@ -1508,7 +1797,7 @@
 
       status.style.display = 'block';
       status.className = 'success';
-      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Unten findest du jetzt deinen persönlichen Einladungslink für deine Freunde.';
+      status.textContent = '🎉 Willkommen im Club, ' + vorname + '! Unten ist dein persönlicher Einladungslink für bis zu 2.100 Gratis-Coins pro Freund!';
       
       showInviteBoxForUser(vorname);
 
@@ -1520,7 +1809,7 @@
       await incrementRegCounter();
 
       btn.disabled = false;
-      btn.textContent = '⚡ Jetzt VIP-Platz sichern';
+      btn.textContent = '⚡ Jetzt VIP-Platz & Einladungslink sichern';
     });
   </script>
 </body>
