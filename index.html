@@ -155,8 +155,49 @@
       touch-action: manipulation;
     }
     h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 15px rgba(0,0,0,0.6); }
-    .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 10px; }
-    .desc { color: #f1f5f9; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
+    .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 14px; }
+
+    /* --- NEUE ALPHA-BEGRÜSSUNGS-BOX UNTER DEM VYBZON-TITEL --- */
+    .alpha-welcome-box {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(184, 255, 1, 0.08), rgba(255, 0, 85, 0.1));
+      border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+      border-left: 1.5px solid rgba(184, 255, 1, 0.55);
+      border-right: 1px solid rgba(255, 255, 255, 0.25);
+      border-bottom: 1.5px solid rgba(255, 0, 85, 0.45);
+      border-radius: 22px;
+      padding: 16px 16px;
+      margin-bottom: 18px;
+      text-align: left;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 12px rgba(255, 255, 255, 0.15);
+    }
+    .alpha-welcome-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--acc);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .alpha-welcome-text {
+      font-size: 13.5px;
+      color: #f8fafc;
+      line-height: 1.55;
+    }
+    .alpha-welcome-text strong {
+      color: var(--acc);
+      font-weight: 800;
+    }
+    .alpha-motto {
+      display: block;
+      margin: 10px 0;
+      padding: 9px 12px;
+      background: rgba(5, 8, 16, 0.65);
+      border-left: 3px solid var(--acc);
+      border-radius: 10px;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 13.5px;
+      letter-spacing: 0.3px;
+    }
 
     /* --- GLAS-CONTAINER FÜR FUNKEN & CHAT --- */
     .fun-like-container {
@@ -202,6 +243,18 @@
       font-weight: 900;
       box-shadow: 0 0 25px var(--acc);
     }
+    .liked-by-list {
+      font-size: 11.5px;
+      color: #e2e8f0;
+      text-align: left;
+      width: 100%;
+      padding: 4px 8px;
+      background: rgba(5, 8, 16, 0.45);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .liked-by-list strong { color: var(--acc); }
+
     .chat-user-badge {
       font-size: 11.5px;
       color: #f1f5f9;
@@ -377,7 +430,7 @@
       margin-top: 10px;
     }
 
-    /* --- VERGRÖSSERTER BILDER-SLIDER (DEUTLICH GRÖSSERE SCREENSHOTS) --- */
+    /* --- VERGRÖSSERTER BILDER-SLIDER --- */
     .slider-header {
       font-size: 12.5px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 1.5px; color: #f1f5f9; margin-bottom: 12px;
@@ -395,7 +448,6 @@
     }
     .slider-track::-webkit-scrollbar { display: none; }
     .slide-item {
-      /* 78% statt 50% macht jedes Vorschaubild deutlich größer & präsenter */
       flex: 0 0 78%;
       scroll-snap-align: center;
       background: #0b0e17;
@@ -549,7 +601,7 @@
     /* --- GLAS-FORMULARFELDER --- */
     form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
     label.lbl { font-size: 13px; font-weight: 800; color: #ffffff; margin-bottom: -4px; display: block; }
-    input[type="text"], input[type="email"], input[type="password"], input[type="tel"], select {
+    input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea, select {
       width: 100%; padding: 16px 18px; border-radius: 16px;
       border-top: 1.5px solid rgba(255,255,255,0.55);
       border-left: 1px solid rgba(255,255,255,0.35);
@@ -559,9 +611,9 @@
       color: #fff; font-size: 16px; outline: none;
       box-shadow: inset 0 1px 8px rgba(255,255,255,0.1);
     }
-    input::placeholder { color: rgba(255,255,255,0.65); }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.65); }
     select option { background: #0b0e17; color: #fff; }
-    input:focus, select:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.3); }
+    input:focus, select:focus, textarea:focus { border-color: var(--acc); box-shadow: 0 0 15px rgba(184,255,1,0.3); }
 
     .vip-box {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(184, 255, 1, 0.08));
@@ -653,20 +705,11 @@
       margin-bottom: 6px;
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
-    .jackpot-5000-box h3 span {
-      color: var(--gold);
-    }
-    .jackpot-5000-box p {
-      font-size: 13px;
-      color: #f8fafc;
-      line-height: 1.5;
-    }
-    .jackpot-5000-box p strong {
-      color: var(--acc);
-      font-weight: 900;
-    }
+    .jackpot-5000-box h3 span { color: var(--gold); }
+    .jackpot-5000-box p { font-size: 13px; color: #f8fafc; line-height: 1.5; }
+    .jackpot-5000-box p strong { color: var(--acc); font-weight: 900; }
 
-    /* --- FREUNDE EINLADEN BOX (MIT 3-STUFEN-BONUS) --- */
+    /* --- FREUNDE EINLADEN BOX --- */
     .invite-friend-box {
       display: none;
       margin-top: 18px;
@@ -772,7 +815,7 @@
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
       background: #080b12;
-      max-height: 230px;
+      max-height: 240px;
     }
     .admin-table {
       width: 100%;
@@ -857,7 +900,6 @@
 <body>
 
   <div class="card">
-    <!-- BANNER WENN JEMAND ÜBER EINEN FREUNDE-LINK KOMMT -->
     <div class="invited-banner" id="invitedBanner">
       🎁 Du wurdest von <strong id="inviterNameDisplay">Freund</strong> eingeladen! Registriere dich jetzt vor und sichert euch <strong>beide sofort +300 Gratis-Coins</strong> zum Start (plus bis zu <strong>1.800 Extra-Coins</strong> ab Level 15 & 20)!
     </div>
@@ -884,7 +926,18 @@
     <div class="logo-box" onclick="handleSecretTap()">VZ</div>
     <h1>VYBZON</h1>
     <div class="subtitle">Short, Video & Live Club</div>
-    <p class="desc">Sichere dir jetzt deinen Platz auf der offiziellen Warteliste und starte als Erster in den Club!</p>
+
+    <!-- NEUER ALPHA-BEGRÜSSUNGSTEXT DIREKT UNTER DEM VYBZON-TITEL -->
+    <div class="alpha-welcome-box">
+      <div class="alpha-welcome-title">🔥 Herzlich willkommen bei VYBZON – schön, dass ihr da seid!</div>
+      <div class="alpha-welcome-text">
+        Hand aufs Herz: Habt ihr auch die Schnauze voll von den anderen Plattformen, auf denen die ganz großen Streamer alles abräumen und euch die Zuschauer wegnehmen? Ihr gebt Vollgas, wollt mehr Leute erreichen und endlich echten Stream-Erfolg haben – aber kommt einfach nicht vorbei, weil euch dort niemand eine faire Chance lässt?
+        <br><br>
+        <strong>Dann seid ihr bei VYBZON genau richtig!</strong>
+        <span class="alpha-motto">🦁 Denkt wie ein Alpha, handelt wie ein Alpha: Tunnelblick an und geradeaus!</span>
+        Genau so werdet ihr es schaffen. Beweist es allen da draußen, dass ihr es genauso nach ganz oben schaffen könnt! Fangt hier neu an, holt euch von Tag 1 an den Support, den ihr verdient, und startet jetzt richtig durch! 🚀
+      </div>
+    </div>
 
     <div class="fun-like-container">
       <div class="fun-like-top">
@@ -896,6 +949,11 @@
         <div class="chat-user-badge">
           Du schreibst als: <strong id="activeChatUser">Gast</strong>
         </div>
+      </div>
+
+      <!-- ZEIGT FÜR ALLE SICHTBAR AN, WER GELIKT HAT -->
+      <div class="liked-by-list" id="likedByDisplay" style="display:none;">
+        ⚡ Funken gegeben von: <strong id="likedByNames"></strong>
       </div>
 
       <div class="comment-bar">
@@ -1025,7 +1083,7 @@
 
       <div id="status"></div>
 
-      <!-- FREUNDE EINLADEN BOX (ERSCHEINT SOFORT NACH DER REGISTRIERUNG) -->
+      <!-- FREUNDE EINLADEN BOX -->
       <div class="invite-friend-box" id="inviteFriendBox">
         <h3>🎁 Dein persönlicher Einladungslink ist aktiv!</h3>
         <p>
@@ -1052,7 +1110,7 @@
         </button>
       </div>
 
-      <!-- NEU: 5.000 COINS MEGA-JACKPOT UNTER ALLEM -->
+      <!-- 5.000 COINS MEGA-JACKPOT UNTER ALLEM -->
       <div class="jackpot-5000-box">
         <span class="jackpot-badge">🎰 Exklusives Extra-Gewinnspiel</span>
         <h3>Chance auf <span>5.000 COINS</span> Hauptgewinn!</h3>
@@ -1149,9 +1207,9 @@
       </div>
 
       <div id="adminDataSection" style="display:none;">
-        <h3>📊 Vorregistrierungs- & Level-Bonus-Tabelle</h3>
+        <h3>📊 Live Cloud-Vorregistrierungstabelle</h3>
         <p style="font-size:12px; color:#cbd5e1; margin-bottom:6px;">
-          Gespeicherte Personen: <strong id="adminCount" style="color:var(--acc);">0</strong> (Tippe in der Tabelle auf Lvl 15 / Lvl 20 / 5000er Gewinn, um Boni freizuschalten!)
+          Gespeicherte Personen (weltweit synchronisiert): <strong id="adminCount" style="color:var(--acc);">0</strong>
         </p>
 
         <div class="admin-table-wrap">
@@ -1176,9 +1234,12 @@
           </table>
         </div>
 
-        <!-- Manuell zur Handy-Tabelle hinzufügen -->
         <div class="quick-add-box">
-          <h4>➕ Neue Person zur Handy-Tabelle hinzufügen:</h4>
+          <h4>⚡ Schnell-Import (falls du eine ältere E-Mail reinkopieren willst):</h4>
+          <textarea id="emailPasteBox" class="quick-input" rows="2" placeholder="Text aus E-Mail hier einfügen..." style="margin-bottom:6px; width:100%;"></textarea>
+          <button type="button" class="admin-btn secondary" style="margin-top:0; margin-bottom:10px; padding:9px;" onclick="importFromPastedEmail()">⚡ Aus E-Mail-Text erkennen & in Cloud speichern</button>
+
+          <h4>➕ Oder Person manuell nachtragen:</h4>
           <div class="quick-add-grid">
             <input type="text" id="qaName" class="quick-input" placeholder="Name (z.B. Max)">
             <input type="email" id="qaEmail" class="quick-input" placeholder="E-Mail-Adresse">
@@ -1188,7 +1249,7 @@
               <option value="Nein">VIP: Nein</option>
             </select>
           </div>
-          <button type="button" class="admin-btn" style="margin-top:2px; padding:10px;" onclick="manualAddEntry()">➕ In Handy-Tabelle speichern</button>
+          <button type="button" class="admin-btn" style="margin-top:2px; padding:10px;" onclick="manualAddEntry()">➕ In Cloud-Tabelle speichern</button>
         </div>
 
         <button type="button" class="admin-btn" onclick="downloadRegistrationsCSV()">📥 Als Excel/CSV-Datei auf Handy speichern</button>
@@ -1199,13 +1260,131 @@
   </div>
 
   <script>
+    // DEIN AKTIVER LIVE-CLOUD-SPEICHER (SYNCHRONISIERT ALLE HANDYS WELTWEIT):
+    const CLOUD_SYNC_URL = 'https://api.npoint.io/210d795d1ddd17ab880f'; 
+
     const GMAIL_ENDPOINT = 'https://formsubmit.co/ajax/christianspartharis@gmail.com';
     const WEB3_BACKUP_KEY = '4051f785-351a-47f3-aa79-31eb5ca79e0b';
-    const GOOGLE_SHEET_WEBHOOK = '';
     const BASE_SITE_URL = (window.location.origin.includes('github.io'))
       ? window.location.origin + window.location.pathname
       : 'https://vybezon.github.io/Webseitelive/';
     const fullResUrls = [];
+
+    // --- VOLLAUTOMATISCHE CLOUD-SYNCHRONISATION (NPOINT.IO) ---
+    function renderLikedByList(namesArray) {
+      const box = document.getElementById('likedByDisplay');
+      const namesEl = document.getElementById('likedByNames');
+      if (Array.isArray(namesArray) && namesArray.length > 0) {
+        box.style.display = 'block';
+        namesEl.textContent = namesArray.slice(0, 15).join(', ');
+      } else {
+        box.style.display = 'none';
+      }
+    }
+
+    async function syncFromCloud() {
+      if (!CLOUD_SYNC_URL) return;
+      try {
+        const res = await fetch(CLOUD_SYNC_URL + '?t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+
+        const localRegs = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+        const cloudRegs = (data && Array.isArray(data.registrations)) ? data.registrations : [];
+
+        // Falls auf deinem Handy schon manuelle Einträge sind, mit der Cloud zusammenführen
+        if (localRegs.length > 0 && cloudRegs.length === 0) {
+          await pushToCloud();
+          return;
+        }
+
+        if (cloudRegs.length > 0 || localRegs.length > 0) {
+          const mergedMap = new Map();
+          [...cloudRegs, ...localRegs].forEach(item => {
+            if (item && (item.email || item.vorname)) {
+              const key = ((item.email || '') + '_' + (item.vorname || '')).toLowerCase().trim();
+              if (!mergedMap.has(key)) mergedMap.set(key, item);
+            }
+          });
+          const mergedRegs = Array.from(mergedMap.values());
+          localStorage.setItem('vybzon_registrations_db', JSON.stringify(mergedRegs));
+          const regEl = document.getElementById('regCount');
+          if (regEl) {
+            const currentCount = parseInt(regEl.textContent || '0');
+            regEl.textContent = Math.max(currentCount, mergedRegs.length);
+          }
+        }
+
+        if (data && Array.isArray(data.comments)) {
+          localStorage.setItem('vybzon_comments', JSON.stringify(data.comments));
+          renderComments();
+        }
+
+        if (data && typeof data.likes === 'number') {
+          localStorage.setItem('vybzon_likes_count', data.likes);
+          document.getElementById('likeCount').textContent = data.likes;
+        }
+
+        if (data && Array.isArray(data.likedBy)) {
+          localStorage.setItem('vybzon_liked_by', JSON.stringify(data.likedBy));
+          renderLikedByList(data.likedBy);
+        }
+      } catch (e) {}
+    }
+
+    async function pushToCloud() {
+      if (!CLOUD_SYNC_URL) return;
+      try {
+        let currentCloud = { registrations: [], comments: [], likes: 0, likedBy: [] };
+        try {
+          const res = await fetch(CLOUD_SYNC_URL + '?t=' + Date.now());
+          if (res.ok) {
+            const d = await res.json();
+            if (d && typeof d === 'object') currentCloud = d;
+          }
+        } catch (e) {}
+
+        const localRegs = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+        const cloudRegs = Array.isArray(currentCloud.registrations) ? currentCloud.registrations : [];
+        const mergedMap = new Map();
+        [...localRegs, ...cloudRegs].forEach(item => {
+          if (item && (item.email || item.vorname)) {
+            const key = ((item.email || '') + '_' + (item.vorname || '')).toLowerCase().trim();
+            if (!mergedMap.has(key)) mergedMap.set(key, item);
+          }
+        });
+        const mergedRegs = Array.from(mergedMap.values());
+        localStorage.setItem('vybzon_registrations_db', JSON.stringify(mergedRegs));
+
+        const localComments = JSON.parse(localStorage.getItem('vybzon_comments') || '[]');
+        const cloudComments = Array.isArray(currentCloud.comments) ? currentCloud.comments : [];
+        const mergedComments = localComments.length >= cloudComments.length ? localComments : cloudComments;
+
+        const localLikes = parseInt(localStorage.getItem('vybzon_likes_count') || '0');
+        const localLikedBy = JSON.parse(localStorage.getItem('vybzon_liked_by') || '[]');
+        const cloudLikedBy = Array.isArray(currentCloud.likedBy) ? currentCloud.likedBy : [];
+        const mergedLikedBy = Array.from(new Set([...localLikedBy, ...cloudLikedBy]));
+
+        const payload = {
+          registrations: mergedRegs,
+          comments: mergedComments.slice(0, 45),
+          likes: Math.max(localLikes, currentCloud.likes || 0, mergedLikedBy.length),
+          likedBy: mergedLikedBy
+        };
+
+        await fetch(CLOUD_SYNC_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        renderLikedByList(mergedLikedBy);
+      } catch (e) {}
+    }
+
+    syncFromCloud();
+    // Aktualisiert alle 15 Sekunden im Hintergrund neue Kommentare, Likes & Vorregistrierungen
+    setInterval(syncFromCloud, 15000);
 
     function checkIncomingInvite() {
       const params = new URLSearchParams(window.location.search);
@@ -1339,13 +1518,16 @@
         if (resR.ok) {
           const dataR = await resR.json();
           if (dataR && typeof dataR.count === 'number') {
-            regEl.textContent = dataR.count;
-            localStorage.setItem('vybzon_regs', dataR.count);
+            const dbLen = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]').length;
+            const finalCount = Math.max(dataR.count, dbLen);
+            regEl.textContent = finalCount;
+            localStorage.setItem('vybzon_regs', finalCount);
             return;
           }
         }
       } catch (e) {}
-      regEl.textContent = localStorage.getItem('vybzon_regs') || '0';
+      const dbLen = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]').length;
+      regEl.textContent = Math.max(parseInt(localStorage.getItem('vybzon_regs') || '0'), dbLen);
     }
     initCounters();
 
@@ -1356,8 +1538,10 @@
         if (res.ok) {
           const data = await res.json();
           if (data && typeof data.count === 'number') {
-            regEl.textContent = data.count;
-            localStorage.setItem('vybzon_regs', data.count);
+            const dbLen = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]').length;
+            const finalCount = Math.max(data.count, dbLen);
+            regEl.textContent = finalCount;
+            localStorage.setItem('vybzon_regs', finalCount);
             return;
           }
         }
@@ -1367,29 +1551,40 @@
       localStorage.setItem('vybzon_regs', current);
     }
 
-    // 2. Funken-Like Logik
+    // 2. Funken-Like Logik inkl. Namensanzeige ("Wer hat gelikt")
     let hasLiked = localStorage.getItem('vybzon_liked') === 'true';
     let savedLikes = parseInt(localStorage.getItem('vybzon_likes_count') || '0');
+    let savedLikedBy = JSON.parse(localStorage.getItem('vybzon_liked_by') || '[]');
     document.getElementById('likeCount').textContent = savedLikes;
     if (hasLiked) document.getElementById('funLikeBtn').classList.add('liked');
+    renderLikedByList(savedLikedBy);
 
     function toggleLike() {
       const btn = document.getElementById('funLikeBtn');
       const countEl = document.getElementById('likeCount');
       let count = parseInt(countEl.textContent);
+      let likedBy = JSON.parse(localStorage.getItem('vybzon_liked_by') || '[]');
+      const myName = getSavedChatName();
 
       if (!hasLiked) {
         hasLiked = true;
         btn.classList.add('liked');
         count = count + 1;
+        if (myName && !likedBy.includes(myName)) {
+          likedBy.unshift(myName);
+        }
       } else {
         hasLiked = false;
         btn.classList.remove('liked');
         count = Math.max(0, count - 1);
+        likedBy = likedBy.filter(n => n !== myName);
       }
       countEl.textContent = count;
       localStorage.setItem('vybzon_liked', hasLiked);
       localStorage.setItem('vybzon_likes_count', count);
+      localStorage.setItem('vybzon_liked_by', JSON.stringify(likedBy));
+      renderLikedByList(likedBy);
+      pushToCloud();
     }
 
     // 3. Chat & Kommentare
@@ -1426,6 +1621,7 @@
       localStorage.setItem('vybzon_comments', JSON.stringify(comments.slice(0, 40)));
       input.value = '';
       renderComments();
+      pushToCloud();
     }
 
     function announceRegistrationInChat(name, isVip, commentText) {
@@ -1472,7 +1668,7 @@
       switchTab('home', homeBtn);
     }
 
-    // 4. Bilder laden (Höhere Schärfe für die größeren Vorschaubilder!)
+    // 4. Bilder laden
     function optimizeImageForScroll(imgEl, idx) {
       const tempImg = new Image();
       tempImg.crossOrigin = 'anonymous';
@@ -1580,7 +1776,7 @@
       }
     }
 
-    // 5. Handy-Tabellen-Manager inkl. Level-15, Level-20 & 5.000-Coins-Jackpot (PIN 1983)
+    // 5. Handy-Tabellen-Manager inkl. Live-Cloud-Abruf (PIN 1983)
     let tapCount = 0;
     let tapTimer = null;
 
@@ -1614,11 +1810,12 @@
       document.getElementById('adminModal').classList.remove('open');
     }
 
-    function verifyAdminPin() {
+    async function verifyAdminPin() {
       const pin = document.getElementById('adminPinInput').value.trim();
       if (pin === '1983') {
         document.getElementById('pinSection').style.display = 'none';
         document.getElementById('adminDataSection').style.display = 'block';
+        await syncFromCloud();
         renderAdminTable();
       } else {
         document.getElementById('pinError').style.display = 'block';
@@ -1645,6 +1842,7 @@
       list[index][field] = !list[index][field];
       localStorage.setItem('vybzon_registrations_db', JSON.stringify(list));
       renderAdminTable();
+      pushToCloud();
     }
 
     function renderAdminTable() {
@@ -1652,7 +1850,7 @@
       document.getElementById('adminCount').textContent = list.length;
       const tbody = document.getElementById('adminTableBody');
       if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; color:#94a3b8;">Noch keine Einträge in der Handy-Tabelle.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; color:#94a3b8;">Noch keine Einträge in der Cloud-Tabelle.</td></tr>';
         return;
       }
       tbody.innerHTML = list.map((r, idx) => {
@@ -1693,6 +1891,44 @@
       }).join('');
     }
 
+    function importFromPastedEmail() {
+      const raw = document.getElementById('emailPasteBox').value.trim();
+      if (!raw) {
+        alert('Bitte kopiere zuerst den Text aus der E-Mail in das Feld.');
+        return;
+      }
+      const emailMatch = raw.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const nameMatch = raw.match(/(?:Vorname|Name)\s*[:\n\t]\s*([^\n\r]+)/i);
+      const landMatch = raw.match(/Land\s*[:\n\t]\s*([^\n\r]+)/i);
+      const vipMatch = raw.match(/VIP_Tester\s*[:\n\t]\s*(Ja|Nein)/i);
+      const invMatch = raw.match(/Eingeladen_von\s*[:\n\t]\s*([^\n\r]+)/i);
+
+      const extractedName = nameMatch ? nameMatch[1].trim() : 'Creator';
+      const extractedEmail = emailMatch ? emailMatch[0].trim() : '-';
+      const extractedLand = landMatch ? landMatch[1].trim() : 'Deutschland';
+      const extractedVip = vipMatch ? vipMatch[1].trim() : 'Ja';
+      const extractedInv = invMatch ? invMatch[1].trim() : '-';
+
+      const regList = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
+      regList.unshift({
+        datum: new Date().toLocaleString('de-DE'),
+        vorname: extractedName,
+        email: extractedEmail,
+        land: extractedLand,
+        vip: extractedVip,
+        invitedBy: extractedInv,
+        startBonus300: extractedInv !== '-',
+        lvl15Achieved: false,
+        lvl20In2Weeks: false,
+        jackpot5000: false,
+        kommentar: 'Per E-Mail-Import'
+      });
+      localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
+      document.getElementById('emailPasteBox').value = '';
+      renderAdminTable();
+      pushToCloud();
+    }
+
     function manualAddEntry() {
       const name = document.getElementById('qaName').value.trim();
       const email = document.getElementById('qaEmail').value.trim();
@@ -1721,6 +1957,7 @@
       document.getElementById('qaEmail').value = '';
       document.getElementById('qaInvitedBy').value = '';
       renderAdminTable();
+      pushToCloud();
     }
 
     function buildCSVString() {
@@ -1787,7 +2024,7 @@
       downloadRegistrationsCSV();
     }
 
-    // 6. Formular absenden
+    // 6. Formular absenden + Automatische Cloud-Synchronisation
     const form = document.getElementById('waitlist-form');
     const status = document.getElementById('status');
     const btn = document.getElementById('submit-btn');
@@ -1836,12 +2073,9 @@
       localStorage.setItem('vybzon_registrations_db', JSON.stringify(regList));
 
       announceRegistrationInChat(vorname, isVip, kommentar);
+      await pushToCloud();
 
       let sentOk = false;
-
-      if (GOOGLE_SHEET_WEBHOOK) {
-        try { await fetch(GOOGLE_SHEET_WEBHOOK, { method: 'POST', body: formData }); } catch (err) {}
-      }
 
       try {
         const res = await fetch(GMAIL_ENDPOINT, {
