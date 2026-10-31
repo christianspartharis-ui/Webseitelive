@@ -157,32 +157,77 @@
     h1 { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 15px rgba(0,0,0,0.6); }
     .subtitle { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: var(--acc); margin-bottom: 14px; }
 
-    /* --- NEUE ALPHA-BEGRÜSSUNGS-BOX UNTER DEM VYBZON-TITEL --- */
+    /* --- PLATZSPARENDE AUSKLAPP-BOX (AKKORDEON) FÜR DEN ALPHA-TEXT --- */
     .alpha-welcome-box {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(184, 255, 1, 0.08), rgba(255, 0, 85, 0.1));
       border-top: 1.5px solid rgba(255, 255, 255, 0.65);
       border-left: 1.5px solid rgba(184, 255, 1, 0.55);
       border-right: 1px solid rgba(255, 255, 255, 0.25);
       border-bottom: 1.5px solid rgba(255, 0, 85, 0.45);
-      border-radius: 22px;
-      padding: 16px 16px;
-      margin-bottom: 18px;
+      border-radius: 20px;
+      padding: 13px 16px;
+      margin-bottom: 16px;
       text-align: left;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 12px rgba(255, 255, 255, 0.15);
+      transition: all 0.25s ease;
+    }
+    .alpha-welcome-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
     }
     .alpha-welcome-title {
-      font-size: 15px;
+      font-size: 13.5px;
       font-weight: 900;
       color: var(--acc);
-      margin-bottom: 8px;
       line-height: 1.35;
     }
-    .alpha-welcome-text {
+    .alpha-welcome-subhint {
+      display: block;
+      font-size: 11px;
+      color: #e2e8f0;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .alpha-arrow-badge {
+      background: rgba(184, 255, 1, 0.2);
+      border: 1px solid var(--acc);
+      color: var(--acc);
+      font-size: 11px;
+      font-weight: 900;
+      padding: 5px 10px;
+      border-radius: 99px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .alpha-welcome-box.open .alpha-arrow-badge {
+      background: var(--acc);
+      color: #05060a;
+    }
+    .alpha-welcome-content {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
       font-size: 13.5px;
       color: #f8fafc;
       line-height: 1.55;
     }
-    .alpha-welcome-text strong {
+    .alpha-welcome-box.open .alpha-welcome-content {
+      display: block;
+      animation: fadeSlideDown 0.25s ease;
+    }
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .alpha-welcome-content strong {
       color: var(--acc);
       font-weight: 800;
     }
@@ -927,10 +972,17 @@
     <h1>VYBZON</h1>
     <div class="subtitle">Short, Video & Live Club</div>
 
-    <!-- NEUER ALPHA-BEGRÜSSUNGSTEXT DIREKT UNTER DEM VYBZON-TITEL -->
-    <div class="alpha-welcome-box">
-      <div class="alpha-welcome-title">🔥 Herzlich willkommen bei VYBZON – schön, dass ihr da seid!</div>
-      <div class="alpha-welcome-text">
+    <!-- PLATZSPARENDE AUSKLAPP-BOX (AKKORDEON) FÜR DEN ALPHA-TEXT -->
+    <div class="alpha-welcome-box" id="alphaWelcomeBox">
+      <div class="alpha-welcome-header" onclick="toggleAlphaWelcome()">
+        <div>
+          <div class="alpha-welcome-title">🔥 Herzlich willkommen bei VYBZON!</div>
+          <span class="alpha-welcome-subhint" id="alphaSubHint">🦁 Warum du als Streamer & Creator hier richtig bist (Antippen)</span>
+        </div>
+        <span class="alpha-arrow-badge" id="alphaArrowBtn">Lesen ▼</span>
+      </div>
+
+      <div class="alpha-welcome-content">
         Hand aufs Herz: Habt ihr auch die Schnauze voll von den anderen Plattformen, auf denen die ganz großen Streamer alles abräumen und euch die Zuschauer wegnehmen? Ihr gebt Vollgas, wollt mehr Leute erreichen und endlich echten Stream-Erfolg haben – aber kommt einfach nicht vorbei, weil euch dort niemand eine faire Chance lässt?
         <br><br>
         <strong>Dann seid ihr bei VYBZON genau richtig!</strong>
@@ -1270,6 +1322,14 @@
       : 'https://vybezon.github.io/Webseitelive/';
     const fullResUrls = [];
 
+    // Klappt den Alpha-Begrüßungstext platzsparend auf und zu
+    function toggleAlphaWelcome() {
+      const box = document.getElementById('alphaWelcomeBox');
+      const btn = document.getElementById('alphaArrowBtn');
+      const isOpen = box.classList.toggle('open');
+      btn.textContent = isOpen ? 'Schließen ▲' : 'Lesen ▼';
+    }
+
     // --- VOLLAUTOMATISCHE CLOUD-SYNCHRONISATION (NPOINT.IO) ---
     function renderLikedByList(namesArray) {
       const box = document.getElementById('likedByDisplay');
@@ -1292,7 +1352,6 @@
         const localRegs = JSON.parse(localStorage.getItem('vybzon_registrations_db') || '[]');
         const cloudRegs = (data && Array.isArray(data.registrations)) ? data.registrations : [];
 
-        // Falls auf deinem Handy schon manuelle Einträge sind, mit der Cloud zusammenführen
         if (localRegs.length > 0 && cloudRegs.length === 0) {
           await pushToCloud();
           return;
@@ -1383,7 +1442,6 @@
     }
 
     syncFromCloud();
-    // Aktualisiert alle 15 Sekunden im Hintergrund neue Kommentare, Likes & Vorregistrierungen
     setInterval(syncFromCloud, 15000);
 
     function checkIncomingInvite() {
